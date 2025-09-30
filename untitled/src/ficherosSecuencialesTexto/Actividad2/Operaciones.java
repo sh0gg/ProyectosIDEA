@@ -1,4 +1,4 @@
-package readersAndWriters.Actividad2;
+package ficherosSecuencialesTexto.Actividad2;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,12 +13,16 @@ public final class Operaciones {
 // Evita instanciación
     }
 
-    /** Devuelve true si el archivo existe y es un fichero normal. */
+    /**
+     * Devuelve true si el archivo existe y es un fichero normal.
+     */
     public static boolean existe(Path path) {
         return path != null && Files.isRegularFile(path);
     }
 
-    /** Devuelve el tamaño del archivo en bytes (0 si no existe o no es fichero). */
+    /**
+     * Devuelve el tamaño del archivo en bytes (0 si no existe o no es fichero).
+     */
     public static long tamano(Path path) {
         try {
             return existe(path) ? Files.size(path) : 0;
@@ -29,8 +33,9 @@ public final class Operaciones {
 
     /**
      * Cuenta líneas de un archivo. Si el archivo está vacío devuelve 0.
+     *
      * @throws FileNotFoundException si el archivo no existe.
-     * @throws IOException si ocurre un error de E/S al leer.
+     * @throws IOException           si ocurre un error de E/S al leer.
      */
     public static int contarLineas(Path path) throws IOException {
         if (!existe(path)) {
@@ -51,7 +56,9 @@ public final class Operaciones {
         return contador;
     }
 
-    /** Devuelve el nombre de archivo (sin ruta) de forma segura. */
+    /**
+     * Devuelve el nombre de archivo (sin ruta) de forma segura.
+     */
     public static String nombreArchivo(Path path) {
         return path == null ? "" : String.valueOf(path.getFileName());
     }

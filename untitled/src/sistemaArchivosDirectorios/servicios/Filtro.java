@@ -1,4 +1,4 @@
-package gestionFicheros.servicios;
+package sistemaArchivosDirectorios.servicios;
 
 import java.io.File;
 import java.io.FilenameFilter;

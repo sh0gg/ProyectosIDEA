@@ -1,4 +1,4 @@
-package readersAndWriters;
+package ficherosSecuencialesTexto;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

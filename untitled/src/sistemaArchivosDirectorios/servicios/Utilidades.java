@@ -1,7 +1,7 @@
-package gestionFicheros.servicios;
+package sistemaArchivosDirectorios.servicios;
 
-import gestionFicheros.excepciones.DirectorioNoExisteException;
-import gestionFicheros.excepciones.NoEsDirectorioException;
+import sistemaArchivosDirectorios.excepciones.DirectorioNoExisteException;
+import sistemaArchivosDirectorios.excepciones.NoEsDirectorioException;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package readersAndWriters.Actividad2;
+package ficherosSecuencialesTexto.Actividad2;
 
 /*
 Escribe un método que cuente el número de líneas de cada fichero que se especifique en la línea de
