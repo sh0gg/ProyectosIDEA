@@ -1,23 +1,16 @@
 package sistemaArchivosDirectorios.servicios;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import java.nio.file.Path;
 
-public class Filtro implements FilenameFilter {
+public class Filtro {
 
-    private final String ext;
-
-    public Filtro(String ext) {
-        String e = ext.startsWith(".")
-                ? ext.substring(1)
-                : ext;
-        this.ext = e.toLowerCase();
+    public static boolean tieneExtension(Path p, String extension) {
+        String nombre = p.getFileName().toString();
+        return nombre.toLowerCase().endsWith(extension.toLowerCase());
     }
 
-    @Override
-    public boolean accept(File dir, String name) {
-        return name.toLowerCase().endsWith(ext);
+    public static boolean contieneSubcadena(Path p, String subcadena) {
+        String nombre = p.getFileName().toString().toLowerCase();
+        return nombre.contains(subcadena.toLowerCase());
     }
-
-
 }
