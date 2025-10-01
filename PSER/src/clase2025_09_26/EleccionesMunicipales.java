@@ -1,45 +1,51 @@
 package clase2025_09_26;
 
-/*
-Simúlese una votación en las elecciones de un municipio de CENSO~10.000 personas,
-donde un Votante (hilo) piensa su voto durante un tiempo aleatorio no mayor a medio segundo y
-luego vota (aleatoriamente) a uno de los NUM_PARTIDOS~5 partidos que se presentan.
-
-Visualice al final los votos de cada partido y el total, comprobando que no hubo
-"abstenciones" (~ se han contabilizado bien todos los votos).
-
-Visualice el ganador (mejor, sin ordenar previamente el array ;).
-
-De no haberlo, visualice qué partidos han empatado.
- */
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class EleccionesMunicipales extends Thread {
 
-    static Random r() {
-        return new Random();
+    public static final int NUM_VOTANTES = 10000;
+    public static final String[] PARTIDO = {
+            "Partido populoso",
+            "Partido socialmente obrero",
+            "Box", "Lo conseguiremos",
+            "Frente Judaico Popular o Frente Popular de Judea"
+    };
+    public static int[] votos = new int[PARTIDO.length];
+
+    // Urnas por partido
+    public static final Object[] URNAS = new Object[PARTIDO.length];
+
+    static {
+        for (int i = 0; i < URNAS.length; i++) {
+            URNAS[i] = new Object();
+        }
     }
 
-    public static final int NUM_VOTANTES = 10000;
-    public static final String[] PARTIDO = {"Partido populoso", "Partido socialmente obrero", "Box", "Lo conseguiremos", "Frente Judaico Popular/Frente Popular de Judea"};
-    public static int[] votos = new int[5];
+    private final int voto;
+
+    public EleccionesMunicipales() {
+        this.voto = new Random().nextInt(PARTIDO.length);
+    }
 
     @Override
     public void run() {
         try {
-            Thread.sleep(r().nextInt(500));
-            Votar.votar();
+            Thread.sleep(new Random().nextInt(500));
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        }
+
+        synchronized (URNAS[voto]) {
+            votos[voto]++;
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
 
         EleccionesMunicipales[] em = new EleccionesMunicipales[NUM_VOTANTES];
-        int ganador = 0;
-        int ganadorVotos = 0;
 
         for (int i = 0; i < NUM_VOTANTES; i++) {
             em[i] = new EleccionesMunicipales();
@@ -51,27 +57,37 @@ public class EleccionesMunicipales extends Thread {
         }
 
         int votosTotales = 0;
-        for (int voto : votos) {
-            votosTotales += voto;
-        }
+        int maxVotos = 0;
+        for (int v : votos) votosTotales += v;
 
         System.out.println("Elecciones Municipales");
+
+        List<Integer> partidosGanadores = new ArrayList<>();
+
         for (int i = 0; i < PARTIDO.length; i++) {
-            System.out.println(" - " + PARTIDO[i] + ": " + votos[i] + " votos (" + (votos[i] / votosTotales) * 100 + "%)");
-            if (votos[i] > ganadorVotos) {
-                ganadorVotos = votos[i];
-                ganador = i;
+            float porcentaje = (((float) votos[i] / votosTotales) * 100);
+            System.out.printf(" - %s: %d votos (%.2f%%)\n", PARTIDO[i], votos[i], porcentaje);
+            if (votos[i] > maxVotos) {
+                maxVotos = votos[i];
+                partidosGanadores.clear();
+                partidosGanadores.add(i);
+            }
+            if (votos[i] == maxVotos) {
+                partidosGanadores.add(i);
             }
         }
 
         System.out.println("Votos totales: " + votosTotales);
-        System.out.println("Ha ganado " + PARTIDO[ganador] + " con " + votos[ganador] + " votos");
+
+        if (partidosGanadores.size() > 1) {
+            System.out.println("Hay empate entre los partidos:");
+            for (int i : partidosGanadores) {
+                System.out.println(" - " + PARTIDO[i]);
+            }
+        } else {
+            System.out.println("El ganador es: " + PARTIDO[partidosGanadores.getFirst()]);
+        }
+
 
     }
-
-    // TRES PROBLEMAS:
-
-    // NO SE CALCULA EL PORCENTAJE -> NO ENTIENDO NADA
-    // FALTAN VOTOS -> SE CHOCAN O NO DA TIEMPO A QUE VOTEN? SOLUCION: CLASE EXTERNA CON EL METODO VOTAR!!!!
-    // CALCULAR EL votos[i] MÁS ALTO Y SACAR GANADOR!! DONE!!
 }
