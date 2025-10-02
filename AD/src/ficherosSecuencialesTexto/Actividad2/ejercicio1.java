@@ -18,30 +18,35 @@ public class ejercicio1 {
     public static void main(String[] args) {
 
         args = new String[]{
-                "src/readersAndWriters/Actividad2/file0.txt",
-                "src/readersAndWriters/Actividad2/file1.txt",
-                "src/readersAndWriters/Actividad2/file2.txt",
-                "src/readersAndWriters/Actividad2/file3.txt",
-                "src/readersAndWriters/Actividad2/file4.txt"
+                "src/ficherosSecuencialesTexto/Actividad2/file0.txt",
+                "src/ficherosSecuencialesTexto/Actividad2/file1.txt",
+                "src/ficherosSecuencialesTexto/Actividad2/file2.txt",
+                "src/ficherosSecuencialesTexto/Actividad2/file3.txt",
+                "src/ficherosSecuencialesTexto/Actividad2/file4.txt",
         };
 
         for (String arg : args) {
             Path path = Paths.get(arg);
 
             if (!Operaciones.existe(path)) {
+                // Si el archivo no existe, escribir en el archivo de salida
+                Operaciones.escribirResultado("No se encontró el archivo: " + Operaciones.nombreArchivo(path));
                 System.out.println("No se encontró el archivo: " + Operaciones.nombreArchivo(path));
                 continue;
             }
 
             try {
                 int numLin = Operaciones.contarLineas(path);
-                System.out.println("El archivo " + Operaciones.nombreArchivo(path)
-                        + " tiene " + numLin + " lineas.");
+
+                Operaciones.escribirResultado("El archivo " + Operaciones.nombreArchivo(path) + " tiene " + numLin + " lineas.");
+                System.out.println("El archivo " + Operaciones.nombreArchivo(path) + " tiene " + numLin + " lineas.");
             } catch (FileNotFoundException e) {
+                Operaciones.escribirResultado("No se encontró el archivo: " + Operaciones.nombreArchivo(path));
                 System.out.println("No se encontró el archivo: " + Operaciones.nombreArchivo(path));
             } catch (IOException e) {
+                Operaciones.escribirResultado("Error leyendo el archivo: " + Operaciones.nombreArchivo(path));
                 System.out.println("Error leyendo el archivo: " + Operaciones.nombreArchivo(path));
             }
-        }
+            }
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DINT/DINT.iml" filepath="$PROJECT_DIR$/DINT/DINT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PSER/PSER.iml" filepath="$PROJECT_DIR$/PSER/PSER.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/clase2526.iml" filepath="$PROJECT_DIR$/.idea/clase2526.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AD/untitled.iml" filepath="$PROJECT_DIR$/AD/untitled.iml" />
+    </modules>
+  </component>
+</project>

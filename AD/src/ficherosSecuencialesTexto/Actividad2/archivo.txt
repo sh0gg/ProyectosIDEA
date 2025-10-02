@@ -1,0 +1,4 @@
+Esta es una línea con la palabra
+Otra línea que tiene palabra
+Línea sin la palabra
+La palabra aparece en esta línea más de una vez, palabra es la palabra

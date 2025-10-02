@@ -1,0 +1,5 @@
+No se encontró el archivo: file0.txt
+No se encontró el archivo: file1.txt
+No se encontró el archivo: file2.txt
+No se encontró el archivo: file3.txt
+No se encontró el archivo: file4.txt
