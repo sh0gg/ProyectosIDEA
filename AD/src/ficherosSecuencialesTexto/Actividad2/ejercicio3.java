@@ -7,9 +7,9 @@ public class ejercicio3 {
     public static void main(String[] args) {
 
         args = new String[] {
-                "src/ficherosSecuencialesTexto/Actividad2/archivo.txt",
+                "archivo.txt",
                 "palabra",
-                "src/ficherosSecuencialesTexto/Actividad2/fichero_salida.txt"
+                "fichero_salida.txt"
         };
 
         String archivoEntradaPath = args[0];

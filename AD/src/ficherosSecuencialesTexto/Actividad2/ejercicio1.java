@@ -17,12 +17,12 @@ import java.nio.file.Paths;
 public class ejercicio1 {
     public static void main(String[] args) {
 
-        args = new String[]{
-                "src/ficherosSecuencialesTexto/Actividad2/file0.txt",
-                "src/ficherosSecuencialesTexto/Actividad2/file1.txt",
-                "src/ficherosSecuencialesTexto/Actividad2/file2.txt",
-                "src/ficherosSecuencialesTexto/Actividad2/file3.txt",
-                "src/ficherosSecuencialesTexto/Actividad2/file4.txt",
+        args = new String[]  {
+                "file0.txt",
+                "file1.txt",
+                "file2.txt",
+                "file3.txt",
+                "file4.txt"
         };
 
         for (String arg : args) {

@@ -1,5 +1,5 @@
 Línea: Esta es una línea con la palabra -> palabra aparece 1 veces.
 Línea: Otra línea que tiene palabra -> palabra aparece 1 veces.
-Línea: Línea sin la palabra -> palabra aparece 0 veces.
-Línea: La palabra aparece en esta línea más de una vez, palabra es la palabra -> palabra aparece 2 veces.
-Total de la palabra 'palabra' en el archivo: 4
+Línea: Línea sin la palabra -> palabra aparece 1 veces.
+Línea: La palabra aparece en esta línea más de una vez, palabra es la palabra -> palabra aparece 3 veces.
+Total de la palabra 'palabra' en el archivo: 6

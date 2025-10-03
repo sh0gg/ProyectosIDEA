@@ -1,0 +1,5 @@
+El archivo file0.txt tiene 0 lineas.
+El archivo file1.txt tiene 5 lineas.
+El archivo file2.txt tiene 3 lineas.
+El archivo file3.txt tiene 10 lineas.
+No se encontró el archivo: file4.txt

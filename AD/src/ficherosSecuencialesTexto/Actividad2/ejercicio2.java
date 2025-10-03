@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 public class ejercicio2 {
     public static void main(String[] args) {
-        Path archivoEntrada = Paths.get("src/ficherosSecuencialesTexto/Actividad2/alumnos.txt");
+        Path archivoEntrada = Paths.get("alumnos.txt");
 
         try {
             Operaciones.procesarArchivo(archivoEntrada);

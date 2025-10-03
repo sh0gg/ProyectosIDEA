@@ -55,36 +55,48 @@ public class Operaciones {
     // ejercicio 2
 
     public static void crearDirectorio(String curso, String numero, String alumno) {
-        Path pathCurso = Paths.get("src/ficherosSecuencialesTexto/Actividad2/" + curso);
-        Path pathNumero = Paths.get(pathCurso.toString(), numero);
-        Path pathAlumno = Paths.get(pathNumero.toString(), alumno);
+        Path base = Paths.get("ALUMNOS");
+        Path dirCurso = base.resolve(curso);
+        Path dirAlumno = dirCurso.resolve(numero + "-" + alumno);
 
         try {
-            Files.createDirectories(pathAlumno);
-            escribirLog("Directorio creado: " + pathAlumno);
+            Files.createDirectories(dirAlumno);
+            escribirLog(alumno + " ----> se creo correctamente el directorio");
         } catch (IOException e) {
-            escribirLog("Error al crear el directorio: " + pathAlumno);
+            escribirLog(alumno + " ----> ERROR creando el directorio: " + dirAlumno.toString());
         }
     }
 
     public static void escribirLog(String mensaje) {
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("src/ficherosSecuencialesTexto/Actividad2/ficherolog.txt"), StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+        Path log = Paths.get("ALUMNOS", "ficherolog.txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(
+                log, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
             writer.write(mensaje);
             writer.newLine();
         } catch (IOException e) {
-            System.out.println("Error al escribir en el archivo de log.");
+            System.out.println("Error al escribir en el archivo de log: " + log.toString());
         }
     }
 
     public static void procesarArchivo(Path archivo) throws IOException {
+        Files.createDirectories(Paths.get("ALUMNOS"));
+
         try (BufferedReader reader = Files.newBufferedReader(archivo)) {
             String linea;
             while ((linea = reader.readLine()) != null) {
+                linea = linea.trim();
+                if (linea.isEmpty()) {
+                    continue;
+                }
                 String[] partes = linea.split("/");
-                if (partes.length == 3) {
-                    crearDirectorio(partes[0], partes[1], partes[2]);
+
+                if (partes.length == 3 && partes[1].trim().matches("\\d+")){
+                    String curso = partes[0].trim();
+                    String numero = partes[1].trim();
+                    String alumno = partes[2].trim();
+                    crearDirectorio(curso, numero, alumno);
                 } else {
-                    System.out.println("Formato incorrecto en la línea: " + linea);
+                    escribirLog("Error al procesar el archivo de alumno.");
                 }
             }
         }
