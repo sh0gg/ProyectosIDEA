@@ -23,7 +23,7 @@ public class Oficina {
     private final ArrayList<Persona> genteEnOficina = new ArrayList<>(NUM_TRABAJADORES + 1);
     private final Buffer buffer = new Buffer();
 
-    public Oficina(){
+    public Oficina() throws InterruptedException {
 
         // CREADOR DE TRABAJDORES (COMENTADO PQ QUIERO USAR NOMBRES)
         for (int i = 0; i <= NUM_TRABAJADORES-1; i++) {
@@ -52,6 +52,7 @@ public class Oficina {
         // Para que entren aleatoriamente a la oficina
         java.util.Collections.shuffle(genteEnOficina);
         for (Persona persona : genteEnOficina) {
+            Thread.sleep(50);
             persona.start();
         }
 
@@ -89,7 +90,7 @@ public class Oficina {
     }
 
     // casi que no hay main pq el "programa" está en el constructor de oficina
-    public static void  main(String[] args) {
+    public static void  main(String[] args) throws InterruptedException {
         Oficina oficina = new Oficina();
     }
 }
