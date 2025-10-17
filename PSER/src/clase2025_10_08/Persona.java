@@ -1,20 +1,25 @@
 package clase2025_10_08;
 
-public class Persona extends Thread {
-    private final Oficina oficina;
+public abstract class Persona extends Thread {
     protected final Oficina.Buffer buffer;
 
-    public Persona(Oficina oficina, Oficina.Buffer buffer) {
-        this.oficina = oficina;
+    public Persona(Oficina.Buffer buffer) {
         this.buffer = buffer;
+    }
+
+    public abstract void entraOficina();
+
+    @Override
+    public void run() {
+        entraOficina();
     }
 
 
     public static class Trabajador extends Persona {
         private final String nombre;
 
-        public Trabajador(Oficina oficina, Oficina.Buffer buffer, String nombre) {
-            super(oficina, buffer);
+        public Trabajador(Oficina.Buffer buffer, String nombre) {
+            super(buffer);
             this.nombre = nombre;
         }
 
@@ -23,20 +28,20 @@ public class Persona extends Thread {
         }
 
         @Override
-        public void run() {
-            buffer.entraOficina(this);
+        public void entraOficina() {
+            buffer.entraOficinaTrabajador(this);
         }
-
     }
 
+
     public static class Jefe extends Persona {
-        public Jefe(Oficina oficina, Oficina.Buffer buffer) {
-            super(oficina, buffer);
+        public Jefe(Oficina.Buffer buffer) {
+            super(buffer);
         }
 
         @Override
-        public void run() {
-            buffer.entraOficina(this);
+        public void entraOficina() {
+            buffer.entraOficinaJefe(this);
         }
     }
 }

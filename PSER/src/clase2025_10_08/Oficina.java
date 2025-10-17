@@ -27,7 +27,7 @@ public class Oficina {
 
         // CREADOR DE TRABAJDORES (COMENTADO PQ QUIERO USAR NOMBRES)
         for (int i = 0; i <= NUM_TRABAJADORES-1; i++) {
-            Persona.Trabajador trabajador = new Persona.Trabajador(this, buffer, NOMBRES[i]);
+            Persona.Trabajador trabajador = new Persona.Trabajador(buffer, NOMBRES[i]);
             genteEnOficina.add(trabajador);
 
             try {
@@ -37,16 +37,16 @@ public class Oficina {
             }
         }
 
-/*
+        /*
         DEBUG: espera para entrar el jefe
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-*/
+        */
 
-        Persona.Jefe jefe = new Persona.Jefe(this, buffer);
+        Persona.Jefe jefe = new Persona.Jefe(buffer);
         genteEnOficina.add(jefe);
 
         // Para que entren aleatoriamente a la oficina
@@ -61,36 +61,29 @@ public class Oficina {
     public static class Buffer {
         private boolean entraElJefe;
 
-        public synchronized void entraOficina(Persona persona) {
+        public synchronized void entraOficinaJefe(Persona.Jefe jefe) {
+            entraElJefe = true;
+            System.out.println("¡EL JEFE... HA LLEGADO!");
+            notifyAll();
+        }
 
-            // Se comprueba quien entra
-            if (persona instanceof Persona.Jefe) {
-                // si es el jefe, se avisa
-                entraElJefe = true;
-                System.out.println("¡EL JEFE... HA LLEGADO!");
-                notifyAll();
-            } else if (persona instanceof Persona.Trabajador t) {
-                // si es un trabajador
-                if (!entraElJefe) {
-                    // y el jefe aun no llegó, se echa a sobar
-                    System.out.println(t.getNombre() + " ha llegado. zzzZZZzzzzZZZ");
-                    try {
-                        // y espera a que entre
-                        wait();
-                        System.out.println("*" + t.getNombre() + ", desperezándose* ... Bueeenos días jefe, aquí estoy trabajando :3");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    // si el jefe ya ha entrado, saluda y se pone a lo suyo
-                    System.out.println(t.getNombre() + " ha llegado (tarde). ¡Hola jefe, me pongo a trabajar...!");
+        public synchronized void entraOficinaTrabajador(Persona.Trabajador t) {
+            if (!entraElJefe) {
+                System.out.println(t.getNombre() + " ha llegado. zzzZZZzzzzZZZ");
+                try {
+                    wait();
+                    System.out.println("*" + t.getNombre() + ", desperezándose* ... Bueeenos días jefe, aquí estoy trabajando :3");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+            } else {
+                System.out.println(t.getNombre() + " ha llegado (tarde). ¡Hola jefe, me pongo a trabajar...!");
             }
         }
     }
 
     // casi que no hay main pq el "programa" está en el constructor de oficina
-    public static void  main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         Oficina oficina = new Oficina();
     }
 }
