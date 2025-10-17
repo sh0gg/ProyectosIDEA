@@ -9,10 +9,12 @@ public class LlamanTimbre {
     static Thread yo = new Thread(() -> {
 
         while (contadorPaciencia > 0) {
-            System.out.println("Estoy trabajando. Mi paciencia está al: " + contadorPaciencia);
+            System.out.println("Estoy trabajando.");
 
             if (Thread.currentThread().isInterrupted() && (contadorPaciencia > 0)) {
+                System.out.println("Mi paciencia está al: " + contadorPaciencia);
                 contadorPaciencia--;
+                break;
             }
 
             if (Thread.currentThread().isInterrupted() && (contadorPaciencia <= 0)) {
@@ -22,13 +24,14 @@ public class LlamanTimbre {
         }
     });
 
-    static Thread timbre = new Thread(() -> {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+     static Thread timbre = new Thread(() -> {
+
         while (!isAnswered) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("¡Han llamado a la puerta!");
             yo.interrupt();
         }

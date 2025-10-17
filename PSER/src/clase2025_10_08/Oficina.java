@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class Oficina {
 
-    private final int NUM_TRABAJADORES = 5;
     private final String[] NOMBRES = {"Pacheco", "Rigoberto", "Severino", "Hermenegilda", "Pancracia"};
+    private final int NUM_TRABAJADORES = NOMBRES.length;
     private final ArrayList<Persona> genteEnOficina = new ArrayList<>(NUM_TRABAJADORES + 1);
     private final Buffer buffer = new Buffer();
 
