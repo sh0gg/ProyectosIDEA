@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8d0d53cc-ccd5-4695-aa7a-3d2da43e4273" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/7. Xestión de compoñentes avanzados Jlist.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DINT.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/Calculadora/Calculadora.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/CalculadoraPlugin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/TresEnRaya/TresEnRaya$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/TresEnRaya/TresEnRaya$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/TresEnRaya/TresEnRaya$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/TresEnRaya/TresEnRaya$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/TresEnRaya/TresEnRaya.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/Util.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/davidBesadaRamilo_Calculadora.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Calculadora/Calculadora.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CalculadoraPlugin.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CalculadoraPlugin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tarefa6DavidBesada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TresEnRaya/TresEnRaya.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/davidBesadaRamilo_Calculadora.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/BorderLayout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/CombinarLayout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/Contextual.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/Desplegable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/EjemploControlJList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/EjemploControlJList2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/FlowLayout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/GridBagLayout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/JCheckBox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/LayoutManagerFlowLayout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/Tarefa6DavidBesada.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/first.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicio1/logo2021.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module-info.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sh0gg&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sh0gg/ProyectosIDEA.git&quot;,
+    &quot;accountId&quot;: &quot;782999cb-e412-47b7-a401-7fda9bf4dc0a&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="34Vj0Wfhcr5FFIqTKfmojEiuCDk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.externalDependencies"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8d0d53cc-ccd5-4695-aa7a-3d2da43e4273" name="Changes" comment="" />
+      <created>1761305411000</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1761305411000</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -4,6 +4,6 @@
 /**
  * 
  */
-module TresEnRaya {
+module ejerciciosSwing {
 	requires java.desktop;
 }
