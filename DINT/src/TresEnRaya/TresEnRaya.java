@@ -1,4 +1,4 @@
-package TresEnRaya;
+package tresenraya;
 
 import java.awt.EventQueue;
 
