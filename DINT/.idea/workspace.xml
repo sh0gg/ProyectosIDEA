@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8d0d53cc-ccd5-4695-aa7a-3d2da43e4273" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/newpack/EjemploControlJTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/ejerciciosSwing/src/newpack/EjemploControlJTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/newpack/TablaDavidBesada.java" beforeDir="false" />
-    </list>
+    <list default="true" id="8d0d53cc-ccd5-4695-aa7a-3d2da43e4273" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
