@@ -5,5 +5,8 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="okhttp-3.14.9" level="project" />
+    <orderEntry type="library" name="okio-1.17.6" level="project" />
+    <orderEntry type="library" name="json-20250517" level="project" />
   </component>
 </module>
