@@ -2,10 +2,8 @@ package armaggedon;
 
 public class Meteorito {
     int id;
-
     private boolean taladrando = false;
     private boolean taladrado = false;
-    private boolean repostado = false;
     private boolean bombaColocada = false;
     private boolean explotado = false;
 
@@ -13,7 +11,7 @@ public class Meteorito {
         this.id = id;
     }
 
-    public synchronized boolean isExplotado() {
+    public synchronized boolean estaExplotado() {
         return explotado;
     }
 
@@ -25,7 +23,7 @@ public class Meteorito {
         return id;
     }
 
-    public synchronized boolean intentarComenzarTaladro() {
+    public synchronized boolean intentarTaladrar() {
         if (explotado || taladrado || taladrando) return false;
         taladrando = true;
         return true;
@@ -38,16 +36,14 @@ public class Meteorito {
     }
 
     public synchronized void esperarRepostajeOSalida() throws InterruptedException {
-        while (!repostado && !explotado) {
+        while (!bombaColocada && !explotado) {
             wait();
         }
     }
 
-    public synchronized boolean repostarYBombearSinEsperar() {
+    public synchronized boolean repostarYExplotar() {
         if (explotado || bombaColocada) return false;
         if (!taladrado) return false;
-        repostado = true;
-        notifyAll();
         bombaColocada = true;
         explotado = true;
         notifyAll();

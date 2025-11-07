@@ -10,10 +10,10 @@ public class Nave extends Thread {
     }
 
     protected Meteorito irMeteoritoAleatorio() {
-        log("solicitando meteorito...");
+        souts("Solicitando meteorito...");
         Meteorito m = Main.asignarMeteorito();
         if (m != null) {
-            log("en ruta al meteorito " + m.getId());
+            souts("En ruta al meteorito " + m.getId());
         }
         return m;
     }
@@ -29,7 +29,7 @@ public class Nave extends Thread {
         System.out.println("Nave " + id + ": *###* ¡Objetivos destruidos, regresamos a casa! Cambio y corto. *###*");
     }
 
-    protected void log(String msg) {
-        System.out.println("Nave " + id + ": " + msg);
+    protected void souts(String msg) {
+        System.out.println(getClass().getSimpleName() + " " + id + ": " + msg);
     }
 }

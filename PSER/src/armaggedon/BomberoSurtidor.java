@@ -1,6 +1,6 @@
 package armaggedon;
 
-public class BomberoSurtidor extends Nave{
+public class BomberoSurtidor extends Nave {
 
     public BomberoSurtidor(int id) {
         super(id);
@@ -12,15 +12,15 @@ public class BomberoSurtidor extends Nave{
             Meteorito m = irMeteoritoAleatorio();
             if (m == null) { mensajeFin(); return; }
 
-            if (m.repostarYBombearSinEsperar()) {
-                log("repostando en meteorito " + m.getId() + " y colocando bomba ¡BOOM!");
+            if (m.repostarYExplotar()) {
+                souts("Repostando y colocando bomba en meteorito " + m.getId());
             } else {
-                if (m.isExplotado()) {
-                    log("meteorito " + m.getId() + " ya explotado, buscando otro");
+                if (m.estaExplotado()) {
+                    souts("Meteorito " + m.getId() + " ya explotado, buscando otro.");
                 } else if (!m.estaTaladrado()) {
-                    log("meteorito " + m.getId() + " aún sin taladrar, buscando otro");
+                    souts("Meteorito " + m.getId() + " aún no listo, buscando otro.");
                 } else {
-                    log("meteorito " + m.getId() + " ya atendido, buscando otro");
+                    souts("Meteorito " + m.getId() + " ya atendido, buscando otro.");
                 }
             }
 

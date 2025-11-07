@@ -17,16 +17,16 @@ public class Armaggedon extends Nave {
                 return;
             }
 
-            if (!m.intentarComenzarTaladro()) {
-                log("meteorito " + m.getId() + " ocupado o resuelto, buscando otro");
+            if (!m.intentarTaladrar()) {
+                souts("Meteorito " + m.getId() + " ya taladrado o explotado. Buscando otro...");
                 continue;
             }
 
-            log("taladrando meteorito " + m.getId());
+            souts("Taladrando el meteorito " + m.getId());
             dormirAleatorio(800, 1500);
             hasDrilled = true;
             m.finTaladro();
-            log("taladro finalizado en meteorito " + m.getId() + ", esperando repostaje");
+            souts("Taladro terminado en meteorito " + m.getId());
 
             try {
                 m.esperarRepostajeOSalida();
@@ -34,10 +34,10 @@ public class Armaggedon extends Nave {
                 return;
             }
 
-            if (m.isExplotado()) {
-                log("repostaje recibido y meteorito " + m.getId() + " explosionado, despegando");
+            if (m.estaExplotado()) {
+                souts("Meteorito " + m.getId() + " explotado, despegando.");
             } else {
-                log("repostaje recibido en meteorito " + m.getId() + ", despegando");
+                souts("Repostaje y bomba colocada en meteorito " + m.getId() + ", despegando.");
             }
 
             dormirAleatorio(100, 300);
