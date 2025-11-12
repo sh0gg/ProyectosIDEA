@@ -28,6 +28,10 @@ public class Coche {
         }
     }
 
+    int getId() {
+        return id;
+    }
+
     // Getters (sincronizados!!!)
 
     synchronized int getVisitas() {

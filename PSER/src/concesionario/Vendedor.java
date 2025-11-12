@@ -32,6 +32,7 @@ public class Vendedor {
 
     synchronized public Coche asignarCocheLibre() throws InterruptedException {
         while (true) {
+
             // quedan coches a la venta?
             boolean quedanSinVender = false;
             for (Coche c : coches) {
@@ -68,7 +69,7 @@ public class Vendedor {
         for (Map.Entry<Cliente, Coche> entry : ventas.entrySet()) {
             Cliente cliente = entry.getKey();
             Coche coche = entry.getValue();
-            System.out.println(cliente.getNombre() + " compró un " + coche.getModelo() + "[" + coche.getVisitas() + " visitas]");
+            System.out.println(cliente.getNombre() + " compró un " + coche.getModelo() + " " + coche.getId() + "[" + coche.getVisitas() + " visitas]");
         }
         System.out.println("------------------------");
     }

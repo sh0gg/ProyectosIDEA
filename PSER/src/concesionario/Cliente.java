@@ -11,12 +11,13 @@ public class Cliente extends Thread {
     private Vendedor vendedor;
     private boolean sinStock;
     private Coche cocheComprado;
+    static int id = 0;
 
     private final Random r = new Random();
 
     public Cliente(Vendedor vendedor) {
         this.vendedor = vendedor;
-        this.nombre = LISTA_NOMBRES[r.nextInt(LISTA_NOMBRES.length)] + "(" + threadId() + ")"; // puse pocos nombres, asi distingo entre diferentes hilos con el mismo nombre
+        this.nombre = LISTA_NOMBRES[r.nextInt(LISTA_NOMBRES.length)] + "(" + ++id + ")";
         this.haCompradoCoche = false;
         this.sinStock = false;
     }
@@ -32,7 +33,7 @@ public class Cliente extends Thread {
         }
 
         if (haCompradoCoche) {
-            System.out.println("[" + nombre + "] - He comprado un " + cocheComprado.getModelo() + ".");
+            System.out.println("[" + nombre + "] - He comprado un " + cocheComprado.getModelo() + " " + cocheComprado.getId() + ".");
         } else {
             System.out.println("[" + nombre + "] - Jo, no compré coche.");
         }
@@ -49,9 +50,9 @@ public class Cliente extends Thread {
 
 
         coche.esVisitado();
-        System.out.println("[" + nombre + "] - He visto un " + coche.getModelo() + ".");
+        System.out.println("[" + nombre + "] - He visto el " + coche.getModelo() + " " + coche.getId() + ".");
 
-        sleep(100);
+        sleep(20);
 
         int visitas = coche.getVisitas();
 
