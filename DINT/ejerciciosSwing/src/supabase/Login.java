@@ -2,7 +2,7 @@ package supabase;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 import javax.swing.Action;
 
-public class Login extends JFrame {
+public class Login extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -54,7 +54,7 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 		setTitle("SuperAplicación - Login");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 390, 268);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
