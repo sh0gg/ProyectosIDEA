@@ -32,6 +32,10 @@ public class Coche {
         return id;
     }
 
+    String getModelo() {
+        return modelo;
+    }
+
     // Getters (sincronizados!!!)
 
     synchronized int getVisitas() {
@@ -48,10 +52,6 @@ public class Coche {
 
     synchronized boolean isVendido() {
         return isVendido;
-    }
-
-    synchronized String getModelo() {
-        return modelo;
     }
 
 }

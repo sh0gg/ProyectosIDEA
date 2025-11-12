@@ -14,7 +14,7 @@ public class Vendedor {
         this.ventas = new HashMap<Cliente, Coche>();
     }
 
-    synchronized public List<Coche> getCoches() {
+    public List<Coche> getCoches() {
         return new ArrayList<>(coches);
     }
 
@@ -64,7 +64,7 @@ public class Vendedor {
         notifyAll();
     }
 
-    synchronized public void mostrarVentas() {
+    public void mostrarVentas() {
         System.out.println("\n--- LISTA DE VENTAS ---");
         for (Map.Entry<Cliente, Coche> entry : ventas.entrySet()) {
             Cliente cliente = entry.getKey();
