@@ -1,10 +1,12 @@
 package clases;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 
 public abstract class Corredor implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     protected int dorsal;
@@ -12,6 +14,7 @@ public abstract class Corredor implements Serializable {
     protected LocalDate fechaNacimiento;
     protected int equipoId;
     protected Puntuacion[] puntuaciones;
+    protected String codCorredor;
 
     protected Corredor(String nombre, LocalDate fechaNacimiento, int equipoId) {
         this.nombre = nombre;
@@ -63,5 +66,9 @@ public abstract class Corredor implements Serializable {
 
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = LocalDate.parse(fechaNacimiento);
+    }
+
+    public void setCodCorredor(String codigo) {
+        this.codCorredor = codigo;
     }
 }
