@@ -1,11 +1,16 @@
 package clases.ClasesCorredor;
 
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {"nombre", "fechaNacimiento", "distanciaMax", "historial"})
 public class Fondista extends Corredor {
     @XmlElement(name="distancia_max")
     private float distanciaMax;

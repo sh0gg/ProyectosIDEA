@@ -1,10 +1,15 @@
 package clases.ClasesCorredor;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {"nombre", "fechaNacimiento", "velocidadMedia", "historial"})
 public class Velocista extends Corredor {
     @XmlElement(name="velocidad_media")
     private float velocidadMedia;

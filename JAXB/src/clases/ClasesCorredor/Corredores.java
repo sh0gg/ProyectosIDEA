@@ -13,7 +13,7 @@ public class Corredores {
             @XmlElement(name = "velocista", type = Velocista.class),
             @XmlElement(name = "fondista", type = Fondista.class),
     })
-    List<Corredor> lista = new ArrayList<>();
+    private final List<Corredor> lista;
 
     
     public Corredores() {

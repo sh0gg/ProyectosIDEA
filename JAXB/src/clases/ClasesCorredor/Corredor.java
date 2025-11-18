@@ -1,15 +1,16 @@
 package clases.ClasesCorredor;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import persistencia.LocalDateAdapter;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({Velocista.class, Fondista.class})
+@XmlType(propOrder = {"nombre", "fechaNacimiento", "historial"})
+@XmlTransient // se asegura de que <Corredor> no se genere como etiqueta propia
 public abstract class Corredor {
     @XmlAttribute(name = "codigo", required = true)
    private String codigo;
@@ -27,7 +28,8 @@ public abstract class Corredor {
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaNacimiento;
 
-    @XmlElement(name = "historial", required = true)
+    @XmlElementWrapper(name = "historial")
+    @XmlElement(name = "puntuacion")
     private List<Puntuacion> historial;
 
 
@@ -100,7 +102,7 @@ public abstract class Corredor {
 
     public final void setHistorial(List<Puntuacion> historial) {
         if (historial != null)
-            historial.sort((p1, p2) -> Integer.compare(p1.getAnio(), p2.getAnio()));
+            historial.sort(Comparator.comparingInt(Puntuacion::getAnio));
 
         this.historial = historial;
     }

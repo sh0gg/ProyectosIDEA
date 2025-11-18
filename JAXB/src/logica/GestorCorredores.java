@@ -6,6 +6,8 @@ import clases.ClasesCorredor.Velocista;
 import jakarta.xml.bind.JAXBException;
 import persistencia.CorredoresJAXB;
 
+import java.util.List;
+
 public class GestorCorredores {
 
     public void mostrarCorredores(String rutaXML) throws JAXBException {
@@ -27,6 +29,22 @@ public class GestorCorredores {
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void escribirXmlCorredores(String salidaXML) throws JAXBException {
+        Corredores c = CorredoresJAXB.leerCorredores(salidaXML);
+        List<Corredor> corredores = c.getLista();
+        StringBuilder sb = new StringBuilder();
+
+        if (corredores == null) {
+            System.out.println("No hay corredores a mostrar");
+            return;
+        }
+
+        for (Corredor corr : corredores) {
+
+        }
+
     }
 
     public static void main(String[] args) {
