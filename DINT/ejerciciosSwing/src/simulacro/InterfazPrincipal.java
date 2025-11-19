@@ -336,9 +336,15 @@ public class InterfazPrincipal extends JFrame {
 			return;
 		}
 
-		// Alumno a = (Alumno) modeloAlumnos.getValueAt(selectedRow, 0); ESTO ES LO QUE NO ME ESTÁ FUNCIONANDO (Comentado con el profe en clase)
+        Alumno a = new Alumno(
+                (String) modeloAlumnos.getValueAt(selectedRow, 0),
+                (String) modeloAlumnos.getValueAt(selectedRow, 1),
+                (String) modeloAlumnos.getValueAt(selectedRow,2)
+        );
+
+        // ESTO ES LO QUE NO ME ESTÁ FUNCIONANDO (Comentado con el profe en clase)
 		
-		Alumno a = new Alumno("34343434a","Pepe","Solla");
+		// Alumno a = new Alumno("34343434a","Pepe","Solla");
 
 		DlgActualizar dialogo = new DlgActualizar(a);
 		dialogo.setVisible(true);
