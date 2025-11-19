@@ -46,9 +46,9 @@ public class InterfazPrincipal extends JFrame {
 		public String apellidos;
 
 		public Alumno(String dni, String nombre, String apellidos) {
-			dni = this.dni;
-			nombre = this.nombre;
-			apellidos = this.apellidos;
+			this.dni = dni;
+            this.nombre = nombre;
+            this.apellidos = apellidos;
 		}
 
 		public String getDni() {
@@ -331,8 +331,8 @@ public class InterfazPrincipal extends JFrame {
 			return;
 		}
 
-		if (selectedRow < 0 || selectedRow > modeloAlumnos.getRowCount()) {
-			JOptionPane.showMessageDialog(InterfazPrincipal.this, "Debes seleccionar un alumno");
+        if (selectedRow < 0 || selectedRow >= modeloAlumnos.getRowCount()) {
+            JOptionPane.showMessageDialog(InterfazPrincipal.this, "Debes seleccionar un alumno");
 			return;
 		}
 
@@ -346,12 +346,22 @@ public class InterfazPrincipal extends JFrame {
 		
 		// Alumno a = new Alumno("34343434a","Pepe","Solla");
 
-		DlgActualizar dialogo = new DlgActualizar(a);
+		DlgActualizar dialogo = new DlgActualizar(this, a);
 		dialogo.setVisible(true);
 
 	}
 
-	public void eliminarAlumno() {
+    public void actualizarAlumnoEnTabla(Alumno alumno) {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow >= 0) {
+            modeloAlumnos.setValueAt(alumno.getDni(), selectedRow, 0);
+            modeloAlumnos.setValueAt(alumno.getNombre(), selectedRow, 1);
+            modeloAlumnos.setValueAt(alumno.getApellidos(), selectedRow, 2);
+        }
+    }
+
+
+    public void eliminarAlumno() {
 
 		int selectedRow = table.getSelectedRow();
 

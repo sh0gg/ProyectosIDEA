@@ -36,13 +36,17 @@ public class DlgActualizar extends JDialog {
 	private JTextField tfCambio;
 	private JButton bAplicarCambios;
 	private JButton bDescartarCambios;
+    private Alumno alumno;
+    private InterfazPrincipal main;
 
 	
 	/**
 	 * Create the dialog.
 	 */
-	public DlgActualizar(Alumno alumno) {
-		setTitle("Actualizar datos - David Besada Ramilo - Simulacro 19/11");
+	public DlgActualizar(InterfazPrincipal main, Alumno alumno) {
+		this.main = main;
+        this.alumno = alumno;
+        setTitle("Actualizar datos - David Besada Ramilo - Simulacro 19/11");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -159,6 +163,8 @@ public class DlgActualizar extends JDialog {
 					JOptionPane.showMessageDialog(DlgActualizar.this, "Debes seleccionar opcion en el CB!!!");
 					return;
 				}
+
+                main.actualizarAlumnoEnTabla(alumno);
 				dispose();
 			}
 		});
@@ -197,5 +203,10 @@ public class DlgActualizar extends JDialog {
 		bAplicarCambios.setEnabled(campoCambio);
 		bDescartarCambios.setEnabled(campoCambio);
 	}
+
+    public void setAlumnoActualizado(Alumno alumno) {
+        this.alumno = alumno;
+        dispose();
+    }
 
 }
