@@ -7,23 +7,14 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 public class InterfazTrabajadores extends JFrame {
 
@@ -38,8 +29,15 @@ public class InterfazTrabajadores extends JFrame {
 	private JButton bEliminarProvincia;
 	private JButton bAddProvincia;
 	private JComboBox<String> cbProvincias;
+    private DefaultListModel<String> profesionesModel;
+    private JList<String> lProfesiones;
+    private DefaultTableModel modeloTrabajadores;
+    private JButton bAddTrabajador;
+    private JButton bEliminarTrabajador;
+    private JTextArea taDetalle;
 
-	/**
+
+    /**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -118,6 +116,13 @@ public class InterfazTrabajadores extends JFrame {
 		pIDTrabajador.add(tfDNI, gbc_tfDNI);
 		tfDNI.setColumns(10);
 
+        tfDNI.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                actualizarEstadoBotonTrabajador();
+            }
+        });
+
 		JLabel lblNombre = new JLabel("Nombre");
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
@@ -133,6 +138,13 @@ public class InterfazTrabajadores extends JFrame {
 		gbc_tfNombre.gridy = 1;
 		pIDTrabajador.add(tfNombre, gbc_tfNombre);
 		tfNombre.setColumns(10);
+
+        tfNombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                actualizarEstadoBotonTrabajador();
+            }
+        });
 
 		JLabel lblApellido1 = new JLabel("Apellido 1");
 		GridBagConstraints gbc_lblApellido1 = new GridBagConstraints();
@@ -150,6 +162,13 @@ public class InterfazTrabajadores extends JFrame {
 		pIDTrabajador.add(tfApellido1, gbc_tfApellido1);
 		tfApellido1.setColumns(10);
 
+        tfApellido1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                actualizarEstadoBotonTrabajador();
+            }
+        });
+
 		JLabel lblApellido2 = new JLabel("Apellido 2");
 		GridBagConstraints gbc_lblApellido2 = new GridBagConstraints();
 		gbc_lblApellido2.insets = new Insets(0, 0, 0, 5);
@@ -164,6 +183,13 @@ public class InterfazTrabajadores extends JFrame {
 		gbc_tfApellido2.gridy = 3;
 		pIDTrabajador.add(tfApellido2, gbc_tfApellido2);
 		tfApellido2.setColumns(10);
+
+        tfApellido2.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                actualizarEstadoBotonTrabajador();
+            }
+        });
 
 		JPanel pProvincia = new JPanel();
 		pProvincia.setBorder(
@@ -189,8 +215,14 @@ public class InterfazTrabajadores extends JFrame {
 		gbc_cbProvincias.gridx = 0;
 		gbc_cbProvincias.gridy = 0;
 		pProvincia.add(cbProvincias, gbc_cbProvincias);
+        cbProvincias.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                actualizarEstadoBotonTrabajador();
+            }
+        });
 
-		bEliminarProvincia = new JButton("Eliminar provincia");
+
+        bEliminarProvincia = new JButton("Eliminar provincia");
 		GridBagConstraints gbc_bEliminarProvincia = new GridBagConstraints();
 		gbc_bEliminarProvincia.insets = new Insets(0, 0, 5, 0);
 		gbc_bEliminarProvincia.gridx = 1;
@@ -240,8 +272,8 @@ public class InterfazTrabajadores extends JFrame {
 		pProfesion.setLayout(gbl_pProfesion);
 
 	
-		DefaultListModel<String> profesionesModel = new DefaultListModel<>();
-		JList<String> lProfesiones = new JList<>(profesionesModel);  
+		profesionesModel = new DefaultListModel<>();
+		lProfesiones = new JList<>(profesionesModel);
 		GridBagConstraints gbc_lProfesiones = new GridBagConstraints();
 		gbc_lProfesiones.gridheight = 2;
 		gbc_lProfesiones.insets = new Insets(0, 0, 5, 5);
@@ -271,7 +303,18 @@ public class InterfazTrabajadores extends JFrame {
 		    }
 		});
 
-		tfProfesion = new JTextField();
+        bEliminarProfesion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int idx = lProfesiones.getSelectedIndex();
+                if (idx != -1) {
+                    DefaultListModel<String> model = (DefaultListModel<String>) lProfesiones.getModel();
+                    model.remove(idx);
+                }
+            }
+        });
+
+
+        tfProfesion = new JTextField();
 		GridBagConstraints gbc_tfProfesion = new GridBagConstraints();
 		gbc_tfProfesion.insets = new Insets(0, 0, 0, 5);
 		gbc_tfProfesion.fill = GridBagConstraints.HORIZONTAL;
@@ -281,25 +324,46 @@ public class InterfazTrabajadores extends JFrame {
 		tfProfesion.setColumns(10);
 
 		JButton bAddProfesion = new JButton("Añadir profesión");
-		bAddProfesion.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        String profesion = tfProfesion.getText().trim();
-		        if (!profesion.isEmpty()) {
-		            DefaultListModel<String> model = (DefaultListModel<String>) lProfesiones.getModel();
-		            model.addElement(profesion);
-		            tfProfesion.setText("");
-		        } else {
-		            JOptionPane.showMessageDialog(InterfazTrabajadores.this, "La profesión no puede estar vacía.");
-		        }
-		    }
-		});
-		GridBagConstraints gbc_bAddProfesion = new GridBagConstraints();
+        bAddProfesion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String profesion = tfProfesion.getText().trim();
+
+                if (profesion.isEmpty() || !profesion.matches(".*[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ].*")) {
+                    JOptionPane.showMessageDialog(
+                            InterfazTrabajadores.this,
+                            "La profesión debe contener algún carácter alfanumérico.",
+                            "Profesión no válida",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                    return;
+                }
+
+                DefaultListModel<String> model = (DefaultListModel<String>) lProfesiones.getModel();
+
+                // no duplicar profesiones
+                if (model.contains(profesion)) {
+                    JOptionPane.showMessageDialog(
+                            InterfazTrabajadores.this,
+                            "La profesión \"" + profesion + "\" ya está en la lista.",
+                            "Profesión duplicada",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                    return;
+                }
+
+                model.addElement(profesion);
+                tfProfesion.setText("");
+            }
+        });
+
+        GridBagConstraints gbc_bAddProfesion = new GridBagConstraints();
 		gbc_bAddProfesion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_bAddProfesion.gridx = 1;
 		gbc_bAddProfesion.gridy = 2;
 		pProfesion.add(bAddProfesion, gbc_bAddProfesion);
 
-		JButton bAddTrabajador = new JButton("Añadir trabajador");
+		bAddTrabajador = new JButton("Añadir trabajador");
+        bAddTrabajador.setEnabled(false);
 		GridBagConstraints gbc_bAddTrabajador = new GridBagConstraints();
 		gbc_bAddTrabajador.insets = new Insets(5, 5, 5, 5);
 		gbc_bAddTrabajador.fill = GridBagConstraints.BOTH;
@@ -332,22 +396,44 @@ public class InterfazTrabajadores extends JFrame {
 		gbl_pTabla.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
 		pTabla.setLayout(gbl_pTabla);
 
-		table = new JTable();
-		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.fill = GridBagConstraints.BOTH;
-		gbc_table.insets = new Insets(0, 0, 5, 0);
-		gbc_table.gridx = 0;
-		gbc_table.gridy = 0;
-		pTabla.add(table, gbc_table);
+        modeloTrabajadores = new DefaultTableModel(
+                new Object[] { "DNI", "Nombre completo", "Provincia", "Profesión" }, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-		JButton bEliminarTrabajador = new JButton("Eliminar trabajador");
+        table = new JTable(modeloTrabajadores);
+
+        JScrollPane scrollTabla = new JScrollPane(table);
+        GridBagConstraints gbc_table = new GridBagConstraints();
+        gbc_table.fill = GridBagConstraints.BOTH;
+        gbc_table.insets = new Insets(0, 0, 5, 0);
+        gbc_table.gridx = 0;
+        gbc_table.gridy = 0;
+        pTabla.add(scrollTabla, gbc_table);
+
+
+        bEliminarTrabajador = new JButton("Eliminar trabajador");
 		GridBagConstraints gbc_bEliminarTrabajador = new GridBagConstraints();
 		gbc_bEliminarTrabajador.fill = GridBagConstraints.BOTH;
 		gbc_bEliminarTrabajador.gridx = 0;
 		gbc_bEliminarTrabajador.gridy = 1;
 		pTabla.add(bEliminarTrabajador, gbc_bEliminarTrabajador);
 
-		JPanel pDatosTrabajador = new JPanel();
+        bEliminarTrabajador.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    modeloTrabajadores.removeRow(row);
+                    taDetalle.setText("");
+                    bEliminarTrabajador.setEnabled(false);
+                }
+            }
+        });
+
+        JPanel pDatosTrabajador = new JPanel();
 		pDatosTrabajador.setBorder(
 				new TitledBorder(null, "Detalles del trabajador", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_pDatosTrabajador = new GridBagConstraints();
@@ -357,10 +443,36 @@ public class InterfazTrabajadores extends JFrame {
 		pDatos.add(pDatosTrabajador, gbc_pDatosTrabajador);
 		pDatosTrabajador.setLayout(new GridLayout(0, 1, 0, 0));
 
-		JTextArea textArea = new JTextArea();
-		pDatosTrabajador.add(textArea);
+		taDetalle = new JTextArea();
+        taDetalle.setEditable(false);
+		pDatosTrabajador.add(taDetalle);
 
-	}
+        table.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    bEliminarTrabajador.setEnabled(true);
+
+                    String dni = (String) modeloTrabajadores.getValueAt(row, 0);
+                    String nombreCompleto = (String) modeloTrabajadores.getValueAt(row, 1);
+                    String provincia = (String) modeloTrabajadores.getValueAt(row, 2);
+                    String profesion = (String) modeloTrabajadores.getValueAt(row, 3);
+
+                    taDetalle.setText(
+                            "DNI: " + dni + "\n" +
+                                    "Nombre: " + nombreCompleto + "\n" +
+                                    "Provincia: " + provincia + "\n" +
+                                    "Profesión: " + profesion
+                    );
+                } else {
+                    bEliminarTrabajador.setEnabled(false);
+                    taDetalle.setText("");
+                }
+            }
+        });
+
+
+    }
 
 	public void establecerProvincia(String provincia) {
 		if (provincia == null || provincia.trim().isEmpty())
@@ -393,5 +505,18 @@ public class InterfazTrabajadores extends JFrame {
 			bEliminarProvincia.setEnabled(false);
 		}
 	}
+
+    private void actualizarEstadoBotonTrabajador() {
+        boolean camposTextoOk =
+                !tfDNI.getText().trim().isEmpty() &&
+                        !tfNombre.getText().trim().isEmpty() &&
+                        !tfApellido1.getText().trim().isEmpty() &&
+                        !tfApellido2.getText().trim().isEmpty();
+
+        boolean provinciaSeleccionada = cbProvincias.getSelectedItem() != null;
+        boolean profesionSeleccionada = (lProfesiones.getSelectedIndex() != -1);
+
+        bAddTrabajador.setEnabled(camposTextoOk && provinciaSeleccionada && profesionSeleccionada);
+    }
 
 }

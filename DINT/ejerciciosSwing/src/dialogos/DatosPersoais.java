@@ -12,6 +12,10 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+// añadidos:
+import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DatosPersoais extends JDialog {
 
@@ -93,6 +97,33 @@ public class DatosPersoais extends JDialog {
 			{
 				JButton bAceptar = new JButton("Aceptar");
 				pBoton.add(bAceptar);
+
+				// === LISTENER DO BOTÓN ACEPTAR ===
+				bAceptar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// Validación de campos
+						if (textField.getText().trim().equals("")) {
+							JOptionPane.showMessageDialog(
+									DatosPersoais.this,
+									"O nome non pode estar baleiro",
+									"Erro",
+									JOptionPane.ERROR_MESSAGE);
+							textField.requestFocus();
+							return;
+						}
+						if (textField_1.getText().trim().equals("")) {
+							JOptionPane.showMessageDialog(
+									DatosPersoais.this,
+									"Os apelidos non poden estar baleiros",
+									"Erro",
+									JOptionPane.ERROR_MESSAGE);
+							textField_1.requestFocus();
+							return;
+						}
+						// Se todo está ben, pechamos o diálogo
+						dispose();
+					}
+				});
 			}
 		}
 	}

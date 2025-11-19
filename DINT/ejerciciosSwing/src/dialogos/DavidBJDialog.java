@@ -11,6 +11,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.UIManager;
+// añadidos:
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DavidBJDialog extends JFrame {
 
@@ -77,6 +80,34 @@ public class DavidBJDialog extends JFrame {
 		gbc_bSalir.gridy = 0;
 		contentPane.add(bSalir, gbc_bSalir);
 
+		// === LISTENERS AÑADIDOS ===
+		
+		// Abrir diálogo de datos persoais (modal, centrado sobre a xanela)
+		bDatosPersoais.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatosPersoais dlg = new DatosPersoais();
+				dlg.setModal(true);                      // facémolo modal
+				dlg.setLocationRelativeTo(DavidBJDialog.this); // centrado sobre o JFrame
+				dlg.setVisible(true);
+			}
+		});
+		
+		// Abrir diálogo de datos académicos
+		bDatosAcademicos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatosAcademicos dlg = new DatosAcademicos();
+				dlg.setModal(true);
+				dlg.setLocationRelativeTo(DavidBJDialog.this);
+				dlg.setVisible(true);
+			}
+		});
+		
+		// Saír da aplicación
+		bSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 	}
 
 }

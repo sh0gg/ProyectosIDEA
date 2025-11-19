@@ -165,17 +165,56 @@ public class Registro extends JDialog {
 			putValue(NAME, "Enviar");
 			putValue(SHORT_DESCRIPTION, "Intenta registrar el nuevo usuario");
 		}
-		public void actionPerformed(ActionEvent e) {
-			String mail = tfMail.getText();
-			String contra = new String(pfContraseña.getPassword());
-			String contra2 = new String(pfContraseña.getPassword());
-			
-			
-			if (contra != contra2) {
-				DialogoLogin dialog = new DialogoLogin("¡Tus contraseñas no coinciden!");
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-			} else if ()
-		}
-	}
+        public void actionPerformed(ActionEvent e) {
+            String mail = tfMail.getText().trim();
+            String contra = new String(pfContraseña.getPassword());
+            String contra2 = new String(pfContraseñaRepetir.getPassword());
+
+            // Campos vacíos
+            if (mail.isEmpty() || contra.isEmpty() || contra2.isEmpty()) {
+                DialogoLogin dialog = new DialogoLogin("Rellena todos los campos.");
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+                return;
+            }
+
+            // Contraseñas distintas
+            if (!contra.equals(contra2)) {
+                DialogoLogin dialog = new DialogoLogin("¡Tus contraseñas no coinciden!");
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+                return;
+            }
+
+            try {
+                String signupResult = SupabaseAuth.register(mail, contra);
+                System.out.println(signupResult);
+
+                if (signupResult.contains("access_token")) {
+                    DialogoLogin dialog = new DialogoLogin("¡Usuario registrado correctamente!");
+                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    dialog.setVisible(true);
+                    dispose();
+                } else if (signupResult.toLowerCase().contains("error")) {
+                    String mensaje = "Error al registrar. Revisa el correo o la contraseña.";
+                    if (signupResult.contains("already registered")) {
+                        mensaje = "Ese e-mail ya está registrado.";
+                    }
+                    DialogoLogin dialog = new DialogoLogin(mensaje);
+                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    dialog.setVisible(true);
+                } else {
+                    DialogoLogin dialog = new DialogoLogin("No se ha podido completar el registro.");
+                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    dialog.setVisible(true);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                DialogoLogin dialog = new DialogoLogin("Error de conexión con el servicio.");
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+            }
+        }
+
+    }
 }
