@@ -10,16 +10,16 @@ for asignatura in asignaturas:
 for asignatura in asignaturas:
     print("Yo estudio " + asignatura)
 
-# print("Vamos a añadir asignaturas")
-# nAsignaturas = int(input("¿Cuántas quieres añadir? "))
-#
-# for i in range(int(nAsignaturas)):
-#     newAsignatura = input("Nombre de la asignatura: ")
-#     asignaturas.append(newAsignatura)
-#
-# print("Ahora las asignaturas son: ")
-# for asignatura in asignaturas:
-#     print("    - " + asignatura)
+print("Vamos a añadir asignaturas")
+nAsignaturas = int(input("¿Cuántas quieres añadir? "))
+
+for i in range(int(nAsignaturas)):
+    newAsignatura = input("Nombre de la asignatura: ")
+    asignaturas.append(newAsignatura)
+
+print("Ahora las asignaturas son: ")
+for asignatura in asignaturas:
+    print("    - " + asignatura)
 
 
 print("")
