@@ -4,18 +4,23 @@ import jakarta.xml.bind.annotation.*;
 
 import java.util.Objects;
 
+/**
+ * Representa un <equipo> del XML equipos.xml.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Equipo {
     @XmlAttribute(name = "id", required = true)
-    String idEquipo;
-
+    private String idEquipo;
     @XmlElement(name = "nombre", required = true)
-    String nombre;
-
-    @XmlElement(name= "patrocinadores", required = true)
+    private String nombre;
+    @XmlElement(name = "patrocinadores", required = true)
     private Patrocinadores patrocinadores;
 
-    public Equipo() {}
+    /**
+     * Constructor vacío para JAXB.
+     */
+    public Equipo() {
+    }
 
     public Equipo(String nombre) {
         this.nombre = nombre;
@@ -26,19 +31,29 @@ public class Equipo {
         this.nombre = nombreEquipo;
     }
 
-
     public String getIdEquipo() {
         return idEquipo;
     }
 
-    public void setIdEquipo(String idEquipo) {}
+    public void setIdEquipo(String idEquipo) {
+        this.idEquipo = idEquipo;
+    }
 
     public String getNombre() {
         return nombre;
     }
-    public void setNombre(String nombre) {}
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
+    public Patrocinadores getPatrocinadores() {
+        return patrocinadores;
+    }
+
+    public void setPatrocinadores(Patrocinadores patrocinadores) {
+        this.patrocinadores = patrocinadores;
+    }
 
     @Override
     public String toString() {
@@ -47,8 +62,6 @@ public class Equipo {
         sb.append("idEquipo=").append(idEquipo);
         sb.append(", nombreEquipo='").append(nombre).append('\'');
         sb.append(", patrocinadores=").append(patrocinadores);
-
-
         return sb.append("}").toString();
     }
 }

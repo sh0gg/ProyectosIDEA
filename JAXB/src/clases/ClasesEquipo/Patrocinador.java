@@ -10,19 +10,29 @@ import persistencia.LocalDateAdapter;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Representa un <patrocinador> dentro de <patrocinadores>.
+ * Ejemplo en XML:
+ * <patrocinador donacion="1500.0" fecha_inicio="2023-01-15">Nike</patrocinador>
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Patrocinador {
+    // Texto entre etiquetas: nombre del patrocinador
     @XmlValue
-    static String nombre;
-
+    private String nombre;
+    // Atributo donacion="..."
     @XmlAttribute(name = "donacion", required = true)
-    static float donacion;
-
+    private float donacion;
+    // Atributo fecha_inicio="yyyy-MM-dd"
     @XmlAttribute(name = "fecha_inicio", required = true)
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
-    static LocalDate fechaInicio;
+    private LocalDate fechaInicio;
 
-    public Patrocinador() {}
+    /**
+     * Constructor vacío para JAXB.
+     */
+    public Patrocinador() {
+    }
 
     public Patrocinador(String nombrePatrocinador, float donacion, LocalDate fechaInicio) {
         this.nombre = nombrePatrocinador;
@@ -30,35 +40,37 @@ public class Patrocinador {
         this.fechaInicio = fechaInicio;
     }
 
-    public static String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public static void setNombre(String nombre) {
-        Patrocinador.nombre = nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public static float getDonacion() {
+    public float getDonacion() {
         return donacion;
     }
 
-    public static void setDonacion(float donacion) {
-        Patrocinador.donacion = donacion;
+    public void setDonacion(float donacion) {
+        this.donacion = donacion;
     }
 
-    public static LocalDate getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public static void setFechaInicio(LocalDate fechaInicio) {
-        Patrocinador.fechaInicio = fechaInicio;
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-
+    /**
+     * Igualamos patrocinadores por nombre para poder usar Set y evitar duplicados.
+     */
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Patrocinador that = (Patrocinador) o;
+        if (this == o) return true;
+        if (!(o instanceof Patrocinador that)) return false;
         return Objects.equals(nombre, that.nombre);
     }
 
@@ -67,7 +79,6 @@ public class Patrocinador {
         return Objects.hashCode(nombre);
     }
 
-
     @Override
     public String toString() {
         return String.format("%s | Donación: %.2f | Inicio: %s",
@@ -75,6 +86,4 @@ public class Patrocinador {
                 donacion,
                 fechaInicio);
     }
-
-
 }

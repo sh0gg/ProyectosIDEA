@@ -2,25 +2,32 @@ package clases.ClasesRegistro;
 
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import persistencia.LocalDateAdapter;
+import persistencia.LocalDateAdapterRegistro;
 
 import java.time.LocalDate;
 
+/**
+ * Clase abstracta base para Trabajador y Estudiante.
+ * No se genera etiqueta <Persona>, solo <Trabajador> y <Estudiante>.
+ */
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlSeeAlso({Trabajador.class,Estudiante.class})
-@XmlTransient // recuerda poner esto en las abstractas
+@XmlSeeAlso({Trabajador.class, Estudiante.class})
+@XmlTransient
 public abstract class Persona {
     @XmlElement(name = "Nombre")
     private String nombre;
 
     @XmlElement(name = "FechaNacimiento")
-    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlJavaTypeAdapter(LocalDateAdapterRegistro.class)
     private LocalDate fechaNacimiento;
 
-    @XmlElements({
-            @XmlElement(name = "Telefonos",type = Telefonos.class),
-            @XmlElement(name = "Email", type = Email.class)
-    })
+    /**
+     * Contacto polimórfico:
+     * - <Telefonos> ... </Telefonos> -> clase Telefonos
+     * - <Email>texto</Email> -> clase Email
+     * Solo debe aparecer uno de los dos en cada Persona.
+     */
+    @XmlElements({@XmlElement(name = "Telefonos", type = Telefonos.class), @XmlElement(name = "Email", type = Email.class)})
     private Contacto contacto;
 
     public Persona() {
