@@ -7,9 +7,20 @@
     <list default="true" id="8d0d53cc-ccd5-4695-aa7a-3d2da43e4273" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/simulacro/DlgActualizar.java" beforeDir="false" afterPath="$PROJECT_DIR$/ejerciciosSwing/src/simulacro/DlgActualizar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/InterfazTrabajadores.java" beforeDir="false" afterPath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/InterfazTrabajadores.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/DialogoLogin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/DialogoProvincias.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/InterfazTrabajadores.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/Login.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/Registro.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/SupabaseAuth.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/SupabaseConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/SupabaseDB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/examen/InterfazPrincipal$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/examen/InterfazPrincipal$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/examen/InterfazPrincipal$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/examen/InterfazPrincipal$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/examen/InterfazPrincipal$Usuario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DINT/examen/InterfazPrincipal.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +57,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.InterfazPrincipal.executor": "Debug",
-    "Application.Login.executor": "Debug",
+    "Application.InterfazRegistro.executor": "Run",
+    "Application.InterfazTrabajadores.executor": "Run",
+    "Application.Login.executor": "Run",
+    "Application.SupabaseAuth.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -88,7 +102,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/ejerciciosSwing/src/examen/InterfazPrincipal.java</url>
           <line>141</line>
-          <properties class="examen.InterfazPrincipal" method="salir">
+          <properties class="examen.InterfazPrincipal">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
