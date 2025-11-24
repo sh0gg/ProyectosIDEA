@@ -6,6 +6,16 @@
       <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/dialogos/XestorDeXanelas.java" />
       <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/dialogos/DatosAcademicos.java" />
       <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/dialogos/DavidBJDialog.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/simulacro/DlgActualizar.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/Login.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/Registro.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/InterfazTrabajadores.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/DialogoProvincias.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/supabase/SupabaseConfig.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/simulacro/InterfazPrincipal.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/supabase/SupabaseAuth.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/SupabaseDB.java" />
+      <file url="file://$PROJECT_DIR$/ejerciciosSwing/src/supabase/supabase/DialogoLogin.java" />
     </excludeFromCompile>
   </component>
 </project>

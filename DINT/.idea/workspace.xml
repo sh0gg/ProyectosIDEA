@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d0d53cc-ccd5-4695-aa7a-3d2da43e4273" name="Changes" comment="" />
+    <list default="true" id="8d0d53cc-ccd5-4695-aa7a-3d2da43e4273" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/simulacro/DlgActualizar.java" beforeDir="false" afterPath="$PROJECT_DIR$/ejerciciosSwing/src/simulacro/DlgActualizar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/InterfazTrabajadores.java" beforeDir="false" afterPath="$PROJECT_DIR$/ejerciciosSwing/src/supabase/InterfazTrabajadores.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PSER/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +45,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.InterfazPrincipal.executor": "Run",
+    "Application.InterfazPrincipal.executor": "Debug",
+    "Application.Login.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -50,7 +57,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.externalDependencies"
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.excludes"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -74,5 +81,20 @@
       <updated>1761305411000</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/ejerciciosSwing/src/examen/InterfazPrincipal.java</url>
+          <line>141</line>
+          <properties class="examen.InterfazPrincipal" method="salir">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
