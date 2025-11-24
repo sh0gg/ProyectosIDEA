@@ -1,0 +1,37 @@
+Guía mínima para adaptar el ejercicio DOM a cualquier enunciado
+
+Renombra el “tipo” principal
+
+Donde ponía Corredor, pásalo a Alumno, Piloto, etc.
+
+Cambia nombre de clases, paquetes y del XML raíz si hace falta (<corredores> → <alumnos>).
+
+Ajusta las clases del modelo (clases/...)
+
+Cambia los atributos para que encajen con el nuevo tema:
+
+dorsal → matricula / codigoPiloto…
+
+equipo → grupo, escuderia…
+
+Añade o quita campos según lo que pida el enunciado.
+
+Cambia las ETIQUETAS y ATRIBUTOS en el DAO DOM (CorredoresXML → AlumnosXML, etc.)
+
+Donde ponía "velocista" / "fondista" → pon las nuevas etiquetas ("presencial", "online", "junior", "senior"…).
+
+Actualiza nombres de etiquetas en los getElementsByTagName y getAttribute.
+
+Mantén la misma lógica: leer atributos, leer subetiquetas, montar objetos.
+
+Adapta los mensajes y métodos del gestor (GestorCorredores → GestorAlumnos)
+
+Cambia textos de salida: “corredor” → “alumno” / “piloto”.
+
+Mantén los métodos con la misma idea: listarTodos, buscarPorCodigo, insertar, eliminar, actualizarX.
+
+Actualiza el XML de prueba (test/*.xml)
+
+Cambia <corredor> por <alumno> (o lo que toque).
+
+Asegúrate de que las etiquetas y atributos coinciden con lo que espera el DAO.

@@ -1,0 +1,76 @@
+Guía mínima para adaptar el ejercicio StAX a cualquier enunciado
+
+(corredores → alumnos, pilotos, clientes…)
+
+1. Renombra tipos y etiquetas principales
+
+Donde ponía Corredor → Alumno, Piloto, etc.
+
+En el XML: <velocista> / <fondista> → <alumnoOnline>, <pilotoProfesional>, etc.
+
+Cambia también la raíz si hace falta: <corredores> → <alumnos>.
+
+2. Ajusta las clases del modelo (ClasesCorredor)
+
+Cambia atributos para que encajen con el tema:
+
+dorsal → matricula, codigoPiloto…
+
+equipo → grupo, escuderia…
+
+Añade / quita campos según el XML nuevo (notaMedia, sueldo, etc.).
+
+3. Cambia etiquetas y atributos en StAX Cursor
+
+En CorredoresStAXCursor:
+
+En el switch(tag) de START_ELEMENT cambia:
+
+"velocista" / "fondista" por las nuevas etiquetas.
+
+"velocidad_media" / "distancia_max" por los nuevos nombres de campo.
+
+En los getAttributeValue(null, "codigo") ajusta el nombre del atributo:
+
+"codigo" → "id", "cod", etc.
+
+Si aparece un campo nuevo en el XML → añade un case "campoNuevo" y el setCampoNuevo(...).
+
+4. Cambia etiquetas y atributos en StAX Eventos
+
+En CorredoresStAXEventos:
+
+En el StartElement:
+
+Cambia "velocista" / "fondista" por las nuevas etiquetas.
+
+Cambia los nombres de atributos en getAttributeByName(new QName("...")).
+
+En la parte de Characters:
+
+Cambia "nombre", "fecha_nacimiento", "velocidad_media", etc., por las etiquetas reales del enunciado.
+
+5. Mantén la lógica, solo cambia nombres
+
+La estructura no cambia:
+
+START_ELEMENT → crear objeto y leer atributos.
+
+Characters → rellenar campos.
+
+END_ELEMENT → añadir el objeto a la lista.
+
+El filtro por equipo/grupo sigue igual, solo cambia el nombre del campo (getEquipo() → getGrupo() si cambias la propiedad).
+
+6. Actualiza el XML de prueba
+
+En tests/corredores.xml (o el que uses para probar) cambia:
+
+Los nombres de las etiquetas.
+
+Los nombres de los atributos.
+
+Los valores de ejemplo (ids, grupos, etc.).
+
+Con esto, en el examen:
+StAX = coger el ejemplo de corredores, cambiar etiquetas + atributos + nombres de campos, y mantener la misma estructura de lectura.

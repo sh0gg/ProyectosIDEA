@@ -1,0 +1,36 @@
+Mini-guía de adaptación en examen (la que pediste, muy corta)
+
+(si en vez de corredores fueran alumnos, pilotos, clientes…)
+
+Renombra etiquetas y atributos en los handlers:
+
+<velocista> → <alumno>
+
+codigo → id
+
+equipo → curso / escuderia…
+
+Crea nuevas clases modelo si el XML tiene tipos diferentes:
+
+Fondista / Velocista → Online / Presencial
+
+PilotoJunior / PilotoSenior
+Solo cambia nombres, la lógica es idéntica.
+
+Ajusta los switch(qName):
+
+Cambia "velocista" por "alumno"
+
+Cambia "distancia_max" por "nota_media"
+
+Añade/elimina campos según aparezcan en XML.
+
+En el handler, cada atributo del XML se convierte en un setter:
+
+att.getValue("edad") → actual.setEdad(...)
+
+En el gestor, cambia textos de salida y nombres de métodos:
+
+listarCorredoresSAX() → listarAlumnosSAX().
+
+✔ Y ya está: SAX en examen = renombrar etiquetas + renombrar campos + mantener misma estructura.

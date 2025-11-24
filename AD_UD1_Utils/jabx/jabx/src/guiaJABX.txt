@@ -1,0 +1,160 @@
+GUIA RÁPIDA JAXB (para el examen)
+
+JAXB = convertir XML ↔ Objetos Java usando anotaciones.
+
+============================================================
+1) Identificar la raíz y etiquetas del XML
+============================================================
+
+Ejemplo corredores:
+<corredores>
+    <velocista ...>
+    <fondista ...>
+</corredores>
+
+En el examen puede ser: <alumnos>, <pilotos>, <jugadores>…
+
+→ La raíz siempre se transforma en una clase con:
+   @XmlRootElement(name="corredores")
+   @XmlAccessorType(XmlAccessType.FIELD)
+
+============================================================
+2) Crear la clase raíz (lista de objetos)
+============================================================
+
+Ejemplo:
+@XmlRootElement(name="corredores")
+public class Corredores {
+    @XmlElements({
+       @XmlElement(name="velocista", type=Velocista.class),
+       @XmlElement(name="fondista", type=Fondista.class)
+    })
+    private List<Corredor> lista;
+}
+
+Si el tema cambia (alumnos, pilotos…):
+→ Cambias el nombre de la raíz y las etiquetas hijas.
+
+============================================================
+3) Crear las clases de modelo (atributos + elementos)
+============================================================
+
+Un elemento con atributos:
+<velocista codigo="V1" dorsal="1" equipo="E1">
+    <nombre>Juan</nombre>
+    <fecha_nacimiento>2000-01-01</fecha_nacimiento>
+    <velocidad_media>25.3</velocidad_media>
+</velocista>
+
+Clase:
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="velocista")
+public class Velocista {
+
+    @XmlAttribute
+    private String codigo;
+
+    @XmlAttribute
+    private int dorsal;
+
+    @XmlAttribute
+    private String equipo;
+
+    @XmlElement
+    private String nombre;
+
+    @XmlElement(name="fecha_nacimiento")
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    private LocalDate fechaNacimiento;
+
+    @XmlElement(name="velocidad_media")
+    private float velocidadMedia;
+}
+
+============================================================
+4) Historial o listas internas
+============================================================
+
+<historial>
+    <puntuacion anio="2023">95.2</puntuacion>
+</historial>
+
+Se anota así:
+
+@XmlElementWrapper(name="historial")
+@XmlElement(name="puntuacion")
+private List<Puntuacion> historial;
+
+Clase Puntuacion:
+@XmlAttribute
+private int anio;
+@XmlValue
+private float puntos;
+
+============================================================
+5) Adaptadores: fechas y listas
+============================================================
+
+Si aparece LocalDate → usar @XmlJavaTypeAdapter(LocalDateAdapter.class)
+
+Para listas como “Estudios Trabajo” → usar CategoriasAdapter.
+
+============================================================
+6) Leer XML → Objetos (unmarshal)
+============================================================
+
+Corredores c =
+    XMLJAXBUtils.unmarshal(Corredores.class, "Corredores.xml");
+
+List<Corredor> lista = c.getLista();
+
+============================================================
+7) Escribir Objetos → XML (marshal)
+============================================================
+
+XMLJAXBUtils.marshal(c, "CorredoresNuevos.xml");
+
+============================================================
+8) ¿Cómo adaptarlo a OTRO EJERCICIO del examen?
+============================================================
+
+Muy fácil. Solo:
+
+✔ Cambiar el nombre de la raíz:
+   @XmlRootElement(name="alumnos")
+
+✔ Cambiar el nombre de las etiquetas hijas:
+   @XmlElement(name="piloto_profesional")
+
+✔ Cambiar atributos según el XML:
+   @XmlAttribute(name="matricula")
+   @XmlAttribute(name="codigoPiloto")
+
+✔ Cambiar elementos según el ejercicio:
+   @XmlElement(name="nota_media")
+   @XmlElement(name="curso")
+
+✔ Ajustar listas internas (si existen):
+   @XmlElementWrapper(name="evaluaciones")
+   @XmlElement(name="examen")
+
+NO cambias nada más.  
+La lógica de leer/escribir con JAXB es SIEMPRE LA MISMA.
+
+============================================================
+9) Patrón mental para resolverlo rápido en el examen
+============================================================
+
+1. Miro el XML → detecto raíz, etiquetas y atributos.
+2. Creo clase raíz con lista de objetos.
+3. Creo clases anotadas con @XmlAttribute y @XmlElement.
+4. Si hay LocalDate → poner adaptador.
+5. Pruebo en el main:
+      objeto = unmarshal(XML)
+      modificar / añadir cosas
+      marshal(objeto, ficheroSalida)
+6. FIN. No tiene más.
+
+============================================================
+FIN DE LA GUÍA
+============================================================

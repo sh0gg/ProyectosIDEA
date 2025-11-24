@@ -1,0 +1,34 @@
+Enunciado de ejemplo (tipo examen)
+
+Implementa un programa en Java que:
+
+Pida una ruta de directorio, liste su contenido y muestre solo los .txt.
+
+Lea un archivo de texto, cuente las líneas y cuántas veces aparece una palabra dada.
+
+Guarde varios objetos Persona en un fichero binario y luego los lea y los muestre.
+
+Use un fichero binario de acceso aleatorio para guardar empleados en registros de tamaño fijo y leer un registro concreto.
+
+Abajo tienes una sola clase que resuelve todo eso, dividida en bloques.
+En el examen solo tendrías que adaptar nombres y rutas.
+
+-- Ver guía.java
+
+Cómo usar esto en el examen
+
+Si te piden directorios → busca BLOQUE 1 en el IDE.
+
+Si te piden texto → BLOQUE 2.
+
+Si te piden serialización → BLOQUE 3.
+
+Si te piden RandomAccessFile → BLOQUE 4.
+
+Solo tendrías que:
+
+cambiar nombres de clases (Persona, Empleado) por los del enunciado,
+
+ajustar rutas y campos,
+
+y añadir la lógica extra que te pidan (filtros, totales, etc.)
