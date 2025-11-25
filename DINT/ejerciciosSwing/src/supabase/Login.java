@@ -127,6 +127,7 @@ public class Login extends JDialog {
         bEnviar.setAction(action);
         pBoton.add(bEnviar);
 
+
         JLabel label_3 = new JLabel("");
         pBoton.add(label_3);
 

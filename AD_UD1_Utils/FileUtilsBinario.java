@@ -6,7 +6,7 @@ import java.io.*;
  * UTILIDADES PARA ARCHIVOS BINARIOS
  * ---------------------------------
  * Incluye:
- *  - Copia de binarios (imágenes, PDFs...)
+ *  - Copia de binarios (imágenes, PDF...)
  *  - Lectura con buffer de bytes
  *  - Escritura binaria
  *  - Serialización (guardar y cargar objetos)
