@@ -5,56 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1b79dc6-04c8-40d7-bbcf-0e39f48ea8a2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_01/sol/Plaza.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_17/Apuestas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../examenAD/EXUD1P2DavidBesada/src/MainRAF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../examenAD/EXUD1P2DavidBesada/src/clases/Fotografia.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../examenAD/EXUD1P2DavidBesada/src/clases/Fotografo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../examenAD/EXUD1P2DavidBesada/src/logica/GestorFotografos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../examenAD/EXUD1P2DavidBesada/src/persistencia/FileUtilsRandomAccess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/armaggedon/Armaggedon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/armaggedon/Armaggedon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/armaggedon/BomberoSurtidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/armaggedon/BomberoSurtidor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/armaggedon/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/armaggedon/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/armaggedon/Meteorito.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/armaggedon/Meteorito.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/armaggedon/Nave.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/armaggedon/Nave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_09_17/Cronometro.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_09_17/Cronometro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_09_17/Hilo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_09_17/Hilo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_09_17/HilosWHAT.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_09_17/HilosWHAT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_09_19/Hilo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_09_19/Hilo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_09_19/HiloInc.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_09_19/HiloInc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_09_26/EleccionesMunicipales.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_09_26/EleccionesMunicipales.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_01/Aparcamiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_01/Aparcamiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_01/AparcamientoPublico.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_01/AparcamientoPublico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_01/Conductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_01/Conductor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_01/sol/Aparcamiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_01/sol/Aparcamiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_01/sol/Coche.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_01/sol/Coche.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_01/sol/Plaza.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_01/sol/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_01/sol/Principal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_08/Oficina.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_08/Oficina.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_08/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_08/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_17/Apuestas.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_17/Conversacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_17/Conversacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/clase2025_10_17/hola.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/clase2025_10_17/hola.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/concesionario/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/concesionario/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/concesionario/Coche.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/concesionario/Coche.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/concesionario/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/concesionario/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/concesionario/Vendedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/concesionario/Vendedor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/corredores/Carrera.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/corredores/Carrera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/corredores/Corredor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/corredores/Corredor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/corredores/Juez.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/corredores/Juez.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/corredores/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/corredores/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/corredores/Resultado.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/corredores/Resultado.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/ejercicio1/Casa.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/ejercicio1/Casa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/ejercicio1/Fotografo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/ejercicio1/Fotografo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/ejercicio1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/ejercicio1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/ejercicio1/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/ejercicio1/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/ejercicio1/Pintor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/ejercicio1/Pintor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/examenPSERDavidBesada.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/examenPSERDavidBesada.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/hackers/ControlAtaque.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/hackers/ControlAtaque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/hackers/Hacker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/hackers/Hacker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/hackers/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/hackers/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/hackers/RainbowEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/hackers/RainbowEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/hackers/RainbowTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/hackers/RainbowTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/hackers/TipoClave.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/hackers/TipoClave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/pruebas/LlamanTimbre.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/pruebas/LlamanTimbre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PSER/src/pruebas/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PSER/src/hilos/pruebas/Principal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

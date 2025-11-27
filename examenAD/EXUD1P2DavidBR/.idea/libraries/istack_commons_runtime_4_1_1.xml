@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="istack-commons-runtime-4.1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/istack-commons-runtime-4.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.activation-api-2.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.xml.bind-api-4.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-core-4.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-runtime-4.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
