@@ -11,6 +11,7 @@ public class Servidor {
     public static void main(String[] args) throws IOException {
         int puerto = 7; // puerto ECHO
         String FIN = "fin";
+        String SHUTDOWN = "shutdown";
         ServerSocket serverSocket = new ServerSocket(puerto);
         System.out.println("Servidor arriba");
         Socket socket = serverSocket.accept(); // Esperamos por un cliente
@@ -24,12 +25,15 @@ public class Servidor {
             out.writeUTF(str);
             if (str.equalsIgnoreCase(FIN))
                 salir = true;
-            else {
+            else if (str.equalsIgnoreCase(SHUTDOWN)) {
+                // TODO: cerrar a todos los clientes con un for, pero aun no tengo implementado tener varios clientes "._.
+            } else {
                 System.out.println("Servidor retransmite: " + str);
                 System.out.println("****************************");
             }
         }
+    }
         socket.close();
         System.out.println("Servidor abajo");
-    }
+}
 }

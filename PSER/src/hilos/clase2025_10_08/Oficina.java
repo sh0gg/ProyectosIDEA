@@ -16,6 +16,8 @@ EL JEFE HA LLEGADO!  (dice el jefe gritando al llegar, por lo que despierta a to
 
 import java.util.ArrayList;
 
+import static java.util.Collections.shuffle;
+
 public class Oficina {
 
     private final String[] NOMBRES = {"Pacheco", "Rigoberto", "Severino", "Hermenegilda", "Pancracia"};
@@ -50,7 +52,7 @@ public class Oficina {
         genteEnOficina.add(jefe);
 
         // Para que entren aleatoriamente a la oficina
-        java.util.Collections.shuffle(genteEnOficina);
+        shuffle(genteEnOficina);
         for (Persona persona : genteEnOficina) {
             Thread.sleep(50);
             persona.start();
