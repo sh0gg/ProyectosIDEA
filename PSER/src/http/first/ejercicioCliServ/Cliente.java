@@ -33,6 +33,8 @@ public class Cliente {
         while (seguimos) {
             if (mensaje.equalsIgnoreCase(SHUTDOWN) || mensaje.equalsIgnoreCase(FIN)) {
                 seguimos = false;
+                socket.close();
+                return;
             }
             try {
                 // ENVIAMOS ...

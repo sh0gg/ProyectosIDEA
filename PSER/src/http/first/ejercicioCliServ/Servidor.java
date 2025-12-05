@@ -35,11 +35,12 @@ public class Servidor {
                         out.writeUTF(str);
 
                         if (str.equalsIgnoreCase("fin")) {
+                            System.out.println("El cliente " + socket.getRemoteSocketAddress() + " ha salido");
                             salir = true;
 
                         } else if (str.equalsIgnoreCase("shutdown")) {
                             shutdownSolicitado = true;
-                            System.out.println("Shutdown solicitado!");
+                            System.out.println("Shutdown solicitado por " +  socket.getRemoteSocketAddress());
                             cerrarTodos();
                         } else {
                             System.out.println("Servidor retransmite: " + str);
