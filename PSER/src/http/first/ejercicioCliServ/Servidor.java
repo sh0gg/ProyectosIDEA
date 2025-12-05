@@ -52,7 +52,7 @@ public class Servidor {
                     try { socket.close(); } catch (IOException ignored) {}
                     clientes.remove(socket);
 
-                    // Si ya no quedan clientes = apagar servidor
+                    // cuando se va el ultimo, cierra
                     if (clientes.isEmpty() && !shutdownSolicitado) {
                         System.out.println("Último cliente desconectado. Servidor abajo.");
                         System.exit(0);
