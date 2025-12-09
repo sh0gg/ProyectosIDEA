@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="sqlLite">
+    <ANNOTATIONS>
+      <root url="file://$PROJECT_DIR$/lib/sqlLite" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/sqlLite" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/lib/sqlLite" />
+    </JAVADOC>
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/lib/sqlLite" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/sqlLite" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib/sqlLite" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/sqlLite" recursive="false" type="SOURCES" />
+  </library>
+</component>
