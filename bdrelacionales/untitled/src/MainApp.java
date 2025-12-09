@@ -1,5 +1,3 @@
-package es.ieschandomonte.ud3.empresa25;
-
 import es.ieschandomonte.ud3.empresa25.logica.DDLService;
 import es.ieschandomonte.ud3.empresa25.logica.EmpresaService;
 import es.ieschandomonte.ud3.empresa25.modelo.Departamento;

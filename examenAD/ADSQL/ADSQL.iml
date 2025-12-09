@@ -7,5 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="sqlLite1" level="project" />
+    <orderEntry type="library" exported="" name="mysql" level="project" />
+    <orderEntry type="library" name="adaptive" level="project" />
+    <orderEntry type="library" exported="" name="enu" level="project" />
+    <orderEntry type="library" exported="" name="sqlite-jdbc-3.7.2" level="project" />
   </component>
 </module>
