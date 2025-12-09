@@ -12,7 +12,7 @@ public class Main {
 
         List<Usuario> usuarios = new ArrayList<>();
 
-        try (Connection conexion = GestorConexiones.getConnection(SQLITE, "D:/dbesarami/IDEAProjects/examenAD/ADSQL/src/sqlite/EMPRESA25.db")) {
+        try (Connection conexion = GestorConexiones.getConnection(SQLITE, "D:\\dbesarami\\IDEAProjects\\examenAD\\ADSQL\\src\\sqlite\\EMPRESA25.db")) {
 
             /*String sqlCreateTable = "CREATE TABLE usuarios (" +
                     "id INT PRIMARY KEY, " +

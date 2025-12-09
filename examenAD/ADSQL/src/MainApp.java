@@ -22,7 +22,7 @@ public class MainApp {
 
         try (Connection conn = GestorConexiones.getConnection(
                 tipo,
-                "D:/dbesarami/IDEAProjects/examenAD/ADSQL/src/sqlite/EMPRESA25.db"
+                "D:\\dbesarami\\IDEAProjects\\examenAD\\ADSQL\\src\\sqlite\\EMPRESA25.db"
         )) {
 
             EmpresaService empresaService = new EmpresaService();
