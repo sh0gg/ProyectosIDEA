@@ -12,7 +12,7 @@ public class Main {
 
         List<Usuario> usuarios = new ArrayList<>();
 
-        try (Connection conexion = GestorConexiones.getConnection(SQLITE, "D:\\dbesarami\\IDEAProjects\\examenAD\\ADSQL\\src\\sqlite\\EMPRESA25.db")) {
+        try (Connection conexion = GestorConexiones.getConnection(MYSQL, "dbpruebas", "root", "abc123.,")) {
 
             /*String sqlCreateTable = "CREATE TABLE usuarios (" +
                     "id INT PRIMARY KEY, " +
@@ -69,8 +69,8 @@ public class Main {
                 System.out.println("Filas insertadas: " + filasInsertadas);
             }*/
 
-            // String sqlSelect = "SELECT * FROM usuarios WHERE ciudad LIKE 'A%'";
-            String sqlSelect = "SELECT * FROM departamento";
+            String sqlSelect = "SELECT * FROM usuarios WHERE ciudad LIKE 'A%'";
+            // String sqlSelect = "SELECT * FROM departamento";
             PreparedStatement psSelect = conexion.prepareStatement(sqlSelect);
 
             ResultSet rs = psSelect.executeQuery();
@@ -78,12 +78,11 @@ public class Main {
             int filas = 0;
             while (rs.next()) {
                 filas++;
-                int numDepartamento = rs.getInt("NumDepartamento");
-                String nomDepartamento = rs.getString("NomeDepartamento");
-                String nssDirector = rs.getString("NSSDirector");
-
-
-                System.out.println("[" + numDepartamento + "] " + nomDepartamento + ", dirigido por " + nssDirector + ".");
+                int id =  rs.getInt("id");
+                String nombre = rs.getString("nombre") + " " + rs.getString("apellido");
+                String ciudad =  rs.getString("ciudad");
+                System.out.println("[" + id + " - " + nombre + "] " + ciudad
+                );
             }
             System.out.println("Total de usuarios: " + filas);
 

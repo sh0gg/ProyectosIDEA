@@ -1,6 +1,6 @@
 import clases.Proxecto;
-import logica.DDLService;
-import logica.EmpresaService;
+import persistencia.DDLService;
+import persistencia.EmpresaService;
 import logica.GestorConexiones;
 import util.TipoSGBD;
 

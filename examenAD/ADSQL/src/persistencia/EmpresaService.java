@@ -1,4 +1,4 @@
-package logica;
+package persistencia;
 
 import clases.Departamento;
 import clases.Proxecto;
