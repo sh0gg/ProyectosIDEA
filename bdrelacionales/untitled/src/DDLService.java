@@ -1,6 +1,6 @@
-package es.ieschandomonte.ud3.empresa25.logica;
+package logica;
 
-import es.ieschandomonte.ud3.empresa25.persistencia.TipoBD;
+import util.TipoSGBD;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class DDLService {
     // =========================================================
     // FAMILIARES DOS EMPREGADOS (tabla única, sentencias 1 a 1)
     // =========================================================
-    public void crearTablaFamiliares(Connection conn, TipoBD tipo) throws SQLException {
+    public void crearTablaFamiliares(Connection conn, TipoSGBD tipo) throws SQLException {
         if (tablaExiste(conn, null, "FAMILIAR_EMPREGADO")) {
             System.out.println("La tabla FAMILIAR_EMPREGADO ya existe. Eliminando...");
             try (Statement st = conn.createStatement()) {
@@ -62,7 +62,7 @@ public class DDLService {
     // =========================================================
     // VEHÍCULOS (varias tablas, ejecutadas como lote)
     // =========================================================
-    public void crearTaboasVehiculos(Connection conn, TipoBD tipo) throws SQLException {
+    public void crearTaboasVehiculos(Connection conn, TipoSGBD tipo) throws SQLException {
         // Preparamos la lista de sentencias DDL específicas del SGBD
         List<String> sentencias = obtenerDDLVehiculos(tipo);
 
@@ -77,7 +77,7 @@ public class DDLService {
         }
     }
 
-    private List<String> obtenerDDLVehiculos(TipoBD tipo) {
+    private List<String> obtenerDDLVehiculos(TipoSGBD tipo) {
         List<String> ddl = new ArrayList<>();
 
         switch (tipo) {

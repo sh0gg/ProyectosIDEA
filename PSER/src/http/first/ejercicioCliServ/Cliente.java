@@ -33,6 +33,8 @@ public class Cliente {
         while (seguimos) {
             if (mensaje.equalsIgnoreCase(SHUTDOWN) || mensaje.equalsIgnoreCase(FIN)) {
                 seguimos = false;
+                socket.close();
+                return;
             }
             try {
                 // ENVIAMOS ...
@@ -46,7 +48,7 @@ public class Cliente {
                     System.out.println("Ha ocurrido un problema: las cadenas son distintas.");
                 System.out.println("**************************************");
             } catch (IOException e) {
-                System.out.println("EEEEEH, que el servidor está cerrado");
+                System.out.println("¡EEEEEH, que ya no conectas con el servidor!");
                 socket.close();
                 return;
             }
