@@ -1,0 +1,53 @@
+Crea un programa en Python para gestionar las notas de una academia.
+
+Define una clase Alumno con:
+
+Atributos:
+
+nombre (string)
+
+notas (diccionario donde la clave es el nombre de la asignatura y el valor es la nota numérica)
+
+Métodos:
+
+calcular_media() → devuelve la nota media del alumno.
+
+asignaturas_aprobadas() → devuelve una lista con las asignaturas con nota >= 5.
+
+asignaturas_suspensas() → devuelve una lista con las asignaturas con nota < 5.
+
+mostrar_resumen() → imprime por pantalla:
+
+Nombre del alumno
+
+Cada asignatura con su nota
+
+Nota media
+
+Lista de asignaturas aprobadas
+
+Lista de asignaturas suspensas
+
+En el programa principal:
+
+Pide al usuario el nombre del alumno.
+
+Pide al usuario las asignaturas que cursa, en una sola línea, separadas por comas.
+
+Ejemplo: Matemáticas,Física,Historia
+
+Para cada asignatura, pide la nota numérica (puede ser decimal).
+
+Guarda las asignaturas y sus notas en un diccionario.
+
+Crea un objeto Alumno con ese nombre y ese diccionario de notas.
+
+Llama al método mostrar_resumen() para mostrar toda la información del alumno.
+
+Extra (si quieres complicarte un poco más):
+
+Mete todo lo anterior en un bucle while que permita introducir varios alumnos.
+
+El bucle termina cuando el usuario escriba "salir" como nombre del alumno.
+
+Al final, muestra el nombre y la media de todos los alumnos introducidos.
