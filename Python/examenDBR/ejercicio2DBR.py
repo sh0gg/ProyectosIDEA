@@ -100,7 +100,7 @@ while respuestaMenu != 5:
     elif respuestaMenu == 4:
         listar()
     elif respuestaMenu == 5:
-        print("¿Saliendo del programa!")
+        print("¡Saliendo del programa!")
         break
     else:
         print("¡No hay una función con ese número!")
