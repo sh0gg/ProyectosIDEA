@@ -1,7 +1,8 @@
-import logica.GestorConexiones;
-import persistencia.JDBCUtils;
+import util.JDBCUtils;
 
+import util.GestorConexiones;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;

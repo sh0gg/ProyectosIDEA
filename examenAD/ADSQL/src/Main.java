@@ -1,9 +1,12 @@
 import clases.Usuario;
-import logica.GestorConexiones;
+import util.GestorConexiones;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 import static util.TipoSGBD.*;
 
@@ -69,8 +72,9 @@ public class Main {
                 System.out.println("Filas insertadas: " + filasInsertadas);
             }*/
 
-            String sqlSelect = "SELECT * FROM usuarios WHERE ciudad LIKE 'A%'";
-            // String sqlSelect = "SELECT * FROM departamento";
+            String sqlSelect = "SELECT nombre, apellido, YEAR(CURDATE()) - YEAR(fecha_nacimiento) AS edad " +
+                    "FROM usuarios " +
+                    "WHERE (YEAR(CURDATE()) - YEAR(fecha_nacimiento)) < 40";
             PreparedStatement psSelect = conexion.prepareStatement(sqlSelect);
 
             ResultSet rs = psSelect.executeQuery();
@@ -78,11 +82,15 @@ public class Main {
             int filas = 0;
             while (rs.next()) {
                 filas++;
-                int id =  rs.getInt("id");
                 String nombre = rs.getString("nombre") + " " + rs.getString("apellido");
-                String ciudad =  rs.getString("ciudad");
-                System.out.println("[" + id + " - " + nombre + "] " + ciudad
-                );
+                int edad = rs.getInt("edad");
+
+//                Calcular la edad
+//                LocalDate fechaNacimiento = rs.getDate("fecha_nacimiento").toLocalDate();
+//                LocalDate hoy = LocalDate.now();
+//                Period periodo = Period.between(fechaNacimiento, hoy);
+//                int edad = periodo.getYears();
+                System.out.println("[" + nombre + "] " + edad);
             }
             System.out.println("Total de usuarios: " + filas);
 

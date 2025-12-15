@@ -1,4 +1,4 @@
-package persistencia;
+package logica;
 
 import util.TipoSGBD;
 
@@ -10,12 +10,13 @@ import java.util.List;
  * Crea las tablas FAMILIAR_EMPREGADO y las tablas de vehículos
  * usando sentencias DDL desde Java (Statement, batch, metadatos...). :contentReference[oaicite:4]{index=4}
  */
-public class DDLService {
+public class GestorEmpresa {
 
     // =========================================================
     // FAMILIARES DOS EMPREGADOS (tabla única, sentencias 1 a 1)
     // =========================================================
     public void crearTablaFamiliares(Connection conn, TipoSGBD tipo) throws SQLException {
+
         if (tablaExiste(conn, null, "FAMILIAR_EMPREGADO")) {
             System.out.println("La tabla FAMILIAR_EMPREGADO ya existe. Eliminando...");
             try (Statement st = conn.createStatement()) {
@@ -23,41 +24,79 @@ public class DDLService {
             }
         }
 
-        // Para simplificar, usamos un CREATE con la PK y luego añadimos otras restricciones.
-        String createTable =
-                "CREATE TABLE FAMILIAR_EMPREGADO (" +
-                        "  NSS_EMPREGADO VARCHAR(15) NOT NULL," +
-                        "  NUM_FAMILIAR INT NOT NULL," +
-                        "  NSS_FAMILIAR VARCHAR(15) NOT NULL," +
-                        "  NOME VARCHAR(25) NOT NULL," +
-                        "  APELIDO1 VARCHAR(25)," +
-                        "  APELIDO2 VARCHAR(25)," +
-                        "  DATANACEMENTO DATE," +
-                        "  PARENTESCO VARCHAR(20)," +
-                        "  SEXO CHAR(1) DEFAULT 'M' NOT NULL," +
-                        "  CONSTRAINT PK_FAMILIAR_EMP PRIMARY KEY (NSS_EMPREGADO, NUM_FAMILIAR)" +
-                        ")";
-
         try (Statement st = conn.createStatement()) {
-            System.out.println("Creando tabla FAMILIAR_EMPREGADO...");
-            st.executeUpdate(createTable);
 
-            // Restricción de unicidad sobre el NSS del familiar
-            st.executeUpdate("ALTER TABLE FAMILIAR_EMPREGADO " +
-                    "ADD CONSTRAINT UQ_FAMILIAR_NSS UNIQUE (NSS_FAMILIAR)");
+            if (tipo == TipoSGBD.SQLITE) {
 
-            // Restricción CHECK sobre SEXO ('H' o 'M')
-            st.executeUpdate("ALTER TABLE FAMILIAR_EMPREGADO " +
-                    "ADD CONSTRAINT CK_FAMILIAR_SEXO CHECK (SEXO IN ('H','M'))");
+                // IMPORTANTE: activar claves foráneas en SQLite
+                st.execute("PRAGMA foreign_keys = ON");
 
-            // Clave foránea hacia EMPREGADO(NSS)
-            st.executeUpdate("ALTER TABLE FAMILIAR_EMPREGADO " +
-                    "ADD CONSTRAINT FK_FAMILIAR_EMPREGADO " +
-                    "FOREIGN KEY (NSS_EMPREGADO) REFERENCES EMPREGADO(NSS)");
+                String createSQLite =
+                        "CREATE TABLE FAMILIAR_EMPREGADO (" +
+                                "  NSS_EMPREGADO TEXT NOT NULL," +
+                                "  NUM_FAMILIAR INTEGER NOT NULL," +
+                                "  NSS_FAMILIAR TEXT NOT NULL," +
+                                "  NOME TEXT NOT NULL," +
+                                "  APELIDO1 TEXT," +
+                                "  APELIDO2 TEXT," +
+                                "  DATANACEMENTO DATE," +
+                                "  PARENTESCO TEXT," +
+                                "  SEXO TEXT NOT NULL DEFAULT 'M'," +
+
+                                // PK compuesta
+                                "  PRIMARY KEY (NSS_EMPREGADO, NUM_FAMILIAR)," +
+
+                                // UNIQUE
+                                "  UNIQUE (NSS_FAMILIAR)," +
+
+                                // CHECK
+                                "  CHECK (SEXO IN ('H','M'))," +
+
+                                // FK
+                                "  FOREIGN KEY (NSS_EMPREGADO) REFERENCES EMPREGADO(NSS)" +
+                                ")";
+
+                System.out.println("Creando tabla FAMILIAR_EMPREGADO (SQLite)...");
+                st.executeUpdate(createSQLite);
+
+            } else {
+
+                // ===== MySQL / SQL Server =====
+                String createTable =
+                        "CREATE TABLE FAMILIAR_EMPREGADO (" +
+                                "  NSS_EMPREGADO VARCHAR(15) NOT NULL," +
+                                "  NUM_FAMILIAR INT NOT NULL," +
+                                "  NSS_FAMILIAR VARCHAR(15) NOT NULL," +
+                                "  NOME VARCHAR(25) NOT NULL," +
+                                "  APELIDO1 VARCHAR(25)," +
+                                "  APELIDO2 VARCHAR(25)," +
+                                "  DATANACEMENTO DATE," +
+                                "  PARENTESCO VARCHAR(20)," +
+                                "  SEXO CHAR(1) DEFAULT 'M' NOT NULL," +
+                                "  CONSTRAINT PK_FAMILIAR_EMP PRIMARY KEY (NSS_EMPREGADO, NUM_FAMILIAR)" +
+                                ")";
+
+                System.out.println("Creando tabla FAMILIAR_EMPREGADO...");
+                st.executeUpdate(createTable);
+
+                st.executeUpdate(
+                        "ALTER TABLE FAMILIAR_EMPREGADO " +
+                                "ADD CONSTRAINT UQ_FAMILIAR_NSS UNIQUE (NSS_FAMILIAR)");
+
+                st.executeUpdate(
+                        "ALTER TABLE FAMILIAR_EMPREGADO " +
+                                "ADD CONSTRAINT CK_FAMILIAR_SEXO CHECK (SEXO IN ('H','M'))");
+
+                st.executeUpdate(
+                        "ALTER TABLE FAMILIAR_EMPREGADO " +
+                                "ADD CONSTRAINT FK_FAMILIAR_EMPREGADO " +
+                                "FOREIGN KEY (NSS_EMPREGADO) REFERENCES EMPREGADO(NSS)");
+            }
 
             System.out.println("Tabla FAMILIAR_EMPREGADO creada correctamente.");
         }
     }
+
 
     // =========================================================
     // VEHÍCULOS (varias tablas, ejecutadas como lote)
@@ -216,4 +255,5 @@ public class DDLService {
             return rs.next();
         }
     }
+
 }

@@ -1,7 +1,7 @@
 import clases.Proxecto;
-import persistencia.DDLService;
+import logica.GestorEmpresa;
 import persistencia.EmpresaService;
-import logica.GestorConexiones;
+import util.GestorConexiones;
 import util.TipoSGBD;
 
 import java.sql.Connection;
@@ -21,12 +21,11 @@ public class MainApp {
 //        )) {
 
         try (Connection conn = GestorConexiones.getConnection(
-                tipo,
-                "D:\\dbesarami\\IDEAProjects\\examenAD\\ADSQL\\src\\sqlite\\EMPRESA25.db"
+                tipo, "D:\\dbesarami\\IDEAProjects\\examenAD\\ADSQL\\src\\sqlite\\EMPRESA25.db"
         )) {
 
             EmpresaService empresaService = new EmpresaService();
-            DDLService ddlService = new DDLService();
+            GestorEmpresa ddlService = new GestorEmpresa();
 
             System.out.println("Conectado correctamente a " + tipo);
 
@@ -40,8 +39,8 @@ public class MainApp {
             empresaService.insertarProxecto(conn, p);
 
             // Crear tablas nuevas
-            ddlService.crearTablaFamiliares(conn, tipo);
-            ddlService.crearTaboasVehiculos(conn, tipo);
+                ddlService.crearTablaFamiliares(conn, tipo);
+                ddlService.crearTaboasVehiculos(conn, tipo);
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,5 +1,5 @@
-import logica.GestorConexiones;
-import persistencia.JDBCUtils;
+import util.GestorConexiones;
+import util.JDBCUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
