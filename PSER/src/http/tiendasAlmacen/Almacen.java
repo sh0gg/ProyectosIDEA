@@ -6,10 +6,11 @@ import java.util.*;
 
 public class Almacen {
 
-    public static volatile boolean shutdown = false;
-    public static List<Socket> tiendas = Collections.synchronizedList(new ArrayList<>());
-    public static Set<String> nombresTiendas = Collections.synchronizedSet(new HashSet<>());
-    public static List<Producto> productosAlmacen = Collections.synchronizedList(new ArrayList<>());
+    private static final int MAX_CLIENTES = 3;
+    private static volatile boolean shutdown = false;
+    private static List<Socket> tiendas = Collections.synchronizedList(new ArrayList<>());
+    private static Set<String> nombresTiendas = Collections.synchronizedSet(new HashSet<>());
+    private static List<Producto> productosAlmacen = Collections.synchronizedList(new ArrayList<>());
 
     public static void main(String[] args) throws IOException {
 
@@ -21,10 +22,13 @@ public class Almacen {
         ServerSocket serverSocket = new ServerSocket(puerto);
         System.out.println("Almacén arriba en puerto " + puerto);
 
-        while (!shutdown) {
+        while (!shutdown || tiendas.size() >= MAX_CLIENTES) {
             Socket socket = serverSocket.accept();
             tiendas.add(socket);
             new Thread(() -> atenderTienda(socket)).start();
+        }
+        if (tiendas.size() > MAX_CLIENTES) {
+            System.out.println("Limite de tiendas alcanzados");
         }
     }
 
