@@ -112,7 +112,7 @@ public class Servidor {
     // ---- PROCESAR DM ----
     private static void procesarDM(ClienteInfo origen) throws IOException {
 
-        // Enviar lista de clientes
+        // Enviar lista de tiendas
         origen.out.writeUTF("Clientes conectados:");
         synchronized (clientes) {
             for (ClienteInfo c : clientes) {

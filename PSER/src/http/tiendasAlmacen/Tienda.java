@@ -27,6 +27,13 @@ public class Tienda {
 
         boolean cerrar = false;
         while (!cerrar) {
+            System.out.println("=============");
+            System.out.println("Mi almacén: ");
+            for (Producto p : tienda.productos) {
+                System.out.println(p);
+            }
+            System.out.println("=============");
+            System.out.println(" ");
             System.out.println("ORDEN (PEDIR/DEVOLVER/INFO/FIN):");
             String orden = sc.nextLine().trim().toUpperCase();
             String mensaje = "";
@@ -45,7 +52,15 @@ public class Tienda {
                     String codD = sc.nextLine().trim().toUpperCase();
                     System.out.println("Cantidad:");
                     int cantD = Integer.parseInt(sc.nextLine());
-                    mensaje = "DEVOLVER " + codD + " " + cantD;
+                    for (Producto p : tienda.productos) {
+                        if (p.getCod().equals(codD)) {
+                            if (cantD > p.getStock()) {
+                                System.out.println("NO PUEDES DEVOLVER MÁS DE LO QUE TIENES");
+                            } else {
+                                mensaje = "DEVOLVER " + codD + " " + cantD;
+                            }
+                        }
+                    }
                     break;
 
                 case "INFO":

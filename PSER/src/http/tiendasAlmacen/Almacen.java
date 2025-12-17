@@ -7,7 +7,7 @@ import java.util.*;
 public class Almacen {
 
     public static volatile boolean shutdown = false;
-    public static List<Socket> clientes = Collections.synchronizedList(new ArrayList<>());
+    public static List<Socket> tiendas = Collections.synchronizedList(new ArrayList<>());
     public static List<Producto> productosAlmacen = Collections.synchronizedList(new ArrayList<>());
 
     public static void main(String[] args) throws IOException {
@@ -23,7 +23,7 @@ public class Almacen {
 
         while (!shutdown) {
             Socket socket = serverSocket.accept();
-            clientes.add(socket);
+            tiendas.add(socket);
             System.out.println("Conectó tienda: " + socket.getRemoteSocketAddress());
 
             new Thread(() -> atenderTienda(socket)).start();
@@ -48,7 +48,11 @@ public class Almacen {
                         String codPedido = partes[1];
                         int cantPedido = Integer.parseInt(partes[2]);
                         int entregado = pedirStock(codPedido, cantPedido);
-                        respuesta = "ENTREGADO " + entregado + " " + codPedido;
+                        if (entregado == 0) {
+                            respuesta = "NO NOS QUEDA STOCK, DISCULPA";
+                        } else {
+                            respuesta = "ENTREGADO " + entregado + " " + codPedido;
+                        }
                         System.out.println("PEDIR: " + cantPedido + " " + codPedido + " → entregado " + entregado);
                         break;
 
@@ -90,7 +94,7 @@ public class Almacen {
             System.out.println("Tienda desconectada: " + socket.getRemoteSocketAddress());
         } finally {
             try { socket.close(); } catch (IOException ignored) {}
-            clientes.remove(socket);
+            tiendas.remove(socket);
         }
     }
 
@@ -123,11 +127,11 @@ public class Almacen {
     }
 
     public static void cerrarTodos() {
-        synchronized (clientes) {
-            for (Socket s : clientes) {
+        synchronized (tiendas) {
+            for (Socket s : tiendas) {
                 try { s.close(); } catch (IOException ignored) {}
             }
-            clientes.clear();
+            tiendas.clear();
         }
         System.out.println("Almacén cerrado.");
         System.exit(0);

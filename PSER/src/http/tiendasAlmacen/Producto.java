@@ -11,6 +11,10 @@ public class Producto {
         this.stock = stock;
     }
 
+    public String getCod() {
+        return cod;
+    }
+
     public int getStock() {
         return stock;
     }
