@@ -19,8 +19,8 @@ public class Producto {
         return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void addStock(int cantidad) {
+        stock += cantidad;
     }
 
     @Override
