@@ -49,7 +49,7 @@ public class Almacen {
                         int cantPedido = Integer.parseInt(partes[2]);
                         int entregado = pedirStock(codPedido, cantPedido);
                         if (entregado == 0) {
-                            respuesta = "NO NOS QUEDA STOCK, DISCULPA";
+                            respuesta = "NO NOS QUEDA STOCK DE " + codPedido + ", DISCULPA";
                         } else {
                             respuesta = "ENTREGADO " + entregado + " " + codPedido;
                         }
@@ -98,7 +98,7 @@ public class Almacen {
         }
     }
 
-    // Métodos sincronizados para concurrencia
+    // Métodos
     public synchronized static int pedirStock(String cod, int cantidad) {
         for (Producto p : productosAlmacen) {
             if (p.cod.equals(cod)) {
