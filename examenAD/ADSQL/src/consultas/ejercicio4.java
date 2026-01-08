@@ -1,14 +1,11 @@
 package consultas;
 
-import clases.Empregado;
 import persistencia.EmpresaService;
 import util.GestorConexiones;
 import util.TipoSGBD;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 
 public class ejercicio4 {
