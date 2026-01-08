@@ -154,7 +154,11 @@ public class Empregado {
 
     @Override
     public String toString() {
-        return getNomeEmpregado() + " " + getApelido1() + " " + getApelido2();
+        if (getEdad() > 0) {
+            return getNss() + " - " + getNomeEmpregado() + " " + getApelido1() + " " + getApelido2() + ". Edad: " + getEdad();
+        } else {
+            return getNss() + " - " + getNomeEmpregado() + " " + getApelido1() + " " + getApelido2() + ".";
+        }
     }
 
 }

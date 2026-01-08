@@ -5,6 +5,8 @@ import clases.Empregado;
 import clases.Proxecto;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +72,20 @@ public class EmpresaService {
         }
     }
 
+    public static boolean existeDepartamento(Connection conn, String nomeDep) throws SQLException {
+        String sqlCheck = "SELECT COUNT(*) FROM DEPARTAMENTO WHERE NomeDepartamento = ?";
+
+        try (PreparedStatement psCheck = conn.prepareStatement(sqlCheck)) {
+            psCheck.setString(1, nomeDep);
+
+            try (ResultSet rs = psCheck.executeQuery()) {
+                rs.next();
+                return rs.getInt(1) > 0;
+            }
+        }
+    }
+
+
     public List<Departamento> departamentosProyectosAsignados(Connection conn) throws SQLException {
         List<Departamento> lista = new ArrayList<>();
 
@@ -115,4 +131,70 @@ public class EmpresaService {
         return lista;
 
     }
+
+    public List<Empregado> listarEmpregados(Connection conn) throws SQLException {
+        List<Empregado> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM EMPREGADO";
+        try (Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+
+                // Calculamos la edad
+                Date fecha = rs.getDate("DataNacemento");
+                LocalDate nacimiento = fecha.toLocalDate();
+                int edad = Period.between(nacimiento, LocalDate.now()).getYears();
+
+                Empregado e = new Empregado(
+                        rs.getString("nss"),
+                        rs.getString("nome"),
+                        rs.getString("apelido1"),
+                        rs.getString("apelido2"),
+                        edad
+                );
+                lista.add(e);
+            }
+        }
+        return lista;
+    }
+
+    public void listarEmpregadosDepartamentos(Connection conn, String nomDep) throws SQLException {
+
+        String sql = """
+        SELECT e.NSS, e.Nome, e.Apelido1, e.Apelido2,
+               et.NSS AS NSS_TEMPORAL,
+               ef.NSS AS NSS_FIXO
+        FROM EMPREGADO e
+        JOIN DEPARTAMENTO d 
+             ON e.NumDepartamentoPertenece = d.NumDepartamento
+        LEFT JOIN EMPREGADOTEMPORAL et 
+             ON e.NSS = et.NSS
+        LEFT JOIN EMPREGADOFIXO ef 
+             ON e.NSS = ef.NSS
+        WHERE d.NomeDepartamento = ?
+        """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, nomDep);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+                    String nss = rs.getString("NSS");
+                    String nome = rs.getString("Nome");
+                    String apelido1 = rs.getString("Apelido1");
+                    String apelido2 = rs.getString("Apelido2");
+
+                    if (rs.getString("NSS_TEMPORAL") != null) {
+                        System.out.println("TEMPORAL -> " + nss + " - " + nome + " " + apelido1 + " " + apelido2);
+                    } else if (rs.getString("NSS_FIXO") != null) {
+                        System.out.println("FIXO -> " + nss + " - " + nome + " " + apelido1 + " " + apelido2);
+                    }
+                }
+            }
+        }
+    }
+
+
 }

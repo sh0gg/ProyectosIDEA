@@ -14,7 +14,7 @@ import java.util.List;
 public class ejercicio2 {
     public static void main(String[] args) {
 
-        // Lista de departamentos con proyectos asignados
+        // Lista de directores de departamentos con proyectos asignados
 
         TipoSGBD tipo = TipoSGBD.MYSQL;
 
@@ -36,7 +36,7 @@ public class ejercicio2 {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error al obtener los directores de departamentos con proyectos asignados");
         }
     }
 }

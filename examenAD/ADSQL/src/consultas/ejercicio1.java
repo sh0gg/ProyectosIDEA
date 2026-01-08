@@ -28,7 +28,7 @@ public class ejercicio1 {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error al obtener los datos de departamentos asignados");
         }
     }
 }
