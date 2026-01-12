@@ -13,7 +13,7 @@ public class ejercicio6 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // Lista de empregados de un departamento pasado por parametro
+        // Lista de empregados de todos los departamentos
 
         TipoSGBD tipo = TipoSGBD.MYSQL;
 

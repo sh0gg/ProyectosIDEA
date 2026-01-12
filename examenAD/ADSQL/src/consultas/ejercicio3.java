@@ -1,17 +1,12 @@
 package consultas;
 
-import clases.Departamento;
 import clases.Empregado;
 import persistencia.EmpresaService;
 import util.GestorConexiones;
 import util.TipoSGBD;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
