@@ -6,189 +6,6 @@
       <DefaultCasing>lower/lower</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
       <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <Grants>|root||admindb||ALTER|G
-|root||root|10.0.2.2|ALTER|G
-|root||root|localhost|ALTER|G
-|root||admindb||ALTER ROUTINE|G
-|root||root|10.0.2.2|ALTER ROUTINE|G
-|root||root|localhost|ALTER ROUTINE|G
-|root||root|10.0.2.2|APPLICATION_PASSWORD_ADMIN|G
-|root||root|localhost|APPLICATION_PASSWORD_ADMIN|G
-|root||mysql.infoschema|localhost|AUDIT_ABORT_EXEMPT|G
-|root||mysql.session|localhost|AUDIT_ABORT_EXEMPT|G
-|root||mysql.sys|localhost|AUDIT_ABORT_EXEMPT|G
-|root||root|10.0.2.2|AUDIT_ABORT_EXEMPT|G
-|root||root|localhost|AUDIT_ABORT_EXEMPT|G
-|root||root|10.0.2.2|AUDIT_ADMIN|G
-|root||root|localhost|AUDIT_ADMIN|G
-|root||mysql.session|localhost|AUTHENTICATION_POLICY_ADMIN|G
-|root||root|10.0.2.2|AUTHENTICATION_POLICY_ADMIN|G
-|root||root|localhost|AUTHENTICATION_POLICY_ADMIN|G
-|root||mysql.session|localhost|BACKUP_ADMIN|G
-|root||root|10.0.2.2|BACKUP_ADMIN|G
-|root||root|localhost|BACKUP_ADMIN|G
-|root||root|10.0.2.2|BINLOG_ADMIN|G
-|root||root|localhost|BINLOG_ADMIN|G
-|root||root|10.0.2.2|BINLOG_ENCRYPTION_ADMIN|G
-|root||root|localhost|BINLOG_ENCRYPTION_ADMIN|G
-|root||mysql.session|localhost|CLONE_ADMIN|G
-|root||root|10.0.2.2|CLONE_ADMIN|G
-|root||root|localhost|CLONE_ADMIN|G
-|root||mysql.session|localhost|CONNECTION_ADMIN|G
-|root||root|10.0.2.2|CONNECTION_ADMIN|G
-|root||root|localhost|CONNECTION_ADMIN|G
-|root||admindb||CREATE|G
-|root||root|10.0.2.2|CREATE|G
-|root||root|localhost|CREATE|G
-|root||root|10.0.2.2|CREATE ROLE|G
-|root||root|localhost|CREATE ROLE|G
-|root||admindb||CREATE ROUTINE|G
-|root||root|10.0.2.2|CREATE ROUTINE|G
-|root||root|localhost|CREATE ROUTINE|G
-|root||admindb||CREATE TABLESPACE|G
-|root||root|10.0.2.2|CREATE TABLESPACE|G
-|root||root|localhost|CREATE TABLESPACE|G
-|root||admindb||CREATE TEMPORARY TABLES|G
-|root||root|10.0.2.2|CREATE TEMPORARY TABLES|G
-|root||root|localhost|CREATE TEMPORARY TABLES|G
-|root||admindb||CREATE USER|G
-|root||root|10.0.2.2|CREATE USER|G
-|root||root|localhost|CREATE USER|G
-|root||admindb||CREATE VIEW|G
-|root||root|10.0.2.2|CREATE VIEW|G
-|root||root|localhost|CREATE VIEW|G
-|root||admindb||DELETE|G
-|root||root|10.0.2.2|DELETE|G
-|root||root|localhost|DELETE|G
-|root||admindb||DROP|G
-|root||root|10.0.2.2|DROP|G
-|root||root|localhost|DROP|G
-|root||root|10.0.2.2|DROP ROLE|G
-|root||root|localhost|DROP ROLE|G
-|root||root|10.0.2.2|ENCRYPTION_KEY_ADMIN|G
-|root||root|localhost|ENCRYPTION_KEY_ADMIN|G
-|root||admindb||EVENT|G
-|root||root|10.0.2.2|EVENT|G
-|root||root|localhost|EVENT|G
-|root||admindb||EXECUTE|G
-|root||root|10.0.2.2|EXECUTE|G
-|root||root|localhost|EXECUTE|G
-|root||admindb||FILE|G
-|root||root|10.0.2.2|FILE|G
-|root||root|localhost|FILE|G
-|root||mysql.infoschema|localhost|FIREWALL_EXEMPT|G
-|root||mysql.session|localhost|FIREWALL_EXEMPT|G
-|root||mysql.sys|localhost|FIREWALL_EXEMPT|G
-|root||root|10.0.2.2|FIREWALL_EXEMPT|G
-|root||root|localhost|FIREWALL_EXEMPT|G
-|root||root|10.0.2.2|FLUSH_OPTIMIZER_COSTS|G
-|root||root|localhost|FLUSH_OPTIMIZER_COSTS|G
-|root||root|10.0.2.2|FLUSH_STATUS|G
-|root||root|localhost|FLUSH_STATUS|G
-|root||root|10.0.2.2|FLUSH_TABLES|G
-|root||root|localhost|FLUSH_TABLES|G
-|root||root|10.0.2.2|FLUSH_USER_RESOURCES|G
-|root||root|localhost|FLUSH_USER_RESOURCES|G
-|root||root|10.0.2.2|GROUP_REPLICATION_ADMIN|G
-|root||root|localhost|GROUP_REPLICATION_ADMIN|G
-|root||root|10.0.2.2|GROUP_REPLICATION_STREAM|G
-|root||root|localhost|GROUP_REPLICATION_STREAM|G
-|root||admindb||INDEX|G
-|root||root|10.0.2.2|INDEX|G
-|root||root|localhost|INDEX|G
-|root||root|10.0.2.2|INNODB_REDO_LOG_ARCHIVE|G
-|root||root|localhost|INNODB_REDO_LOG_ARCHIVE|G
-|root||root|10.0.2.2|INNODB_REDO_LOG_ENABLE|G
-|root||root|localhost|INNODB_REDO_LOG_ENABLE|G
-|root||admindb||INSERT|G
-|root||root|10.0.2.2|INSERT|G
-|root||root|localhost|INSERT|G
-|root||admindb||LOCK TABLES|G
-|root||root|10.0.2.2|LOCK TABLES|G
-|root||root|localhost|LOCK TABLES|G
-|root||root|10.0.2.2|PASSWORDLESS_USER_ADMIN|G
-|root||root|localhost|PASSWORDLESS_USER_ADMIN|G
-|root||mysql.session|localhost|PERSIST_RO_VARIABLES_ADMIN|G
-|root||root|10.0.2.2|PERSIST_RO_VARIABLES_ADMIN|G
-|root||root|localhost|PERSIST_RO_VARIABLES_ADMIN|G
-|root||admindb||PROCESS|G
-|root||root|10.0.2.2|PROCESS|G
-|root||root|localhost|PROCESS|G
-|root||admindb||REFERENCES|G
-|root||root|10.0.2.2|REFERENCES|G
-|root||root|localhost|REFERENCES|G
-|root||admindb||RELOAD|G
-|root||root|10.0.2.2|RELOAD|G
-|root||root|localhost|RELOAD|G
-|root||admindb||REPLICATION CLIENT|G
-|root||root|10.0.2.2|REPLICATION CLIENT|G
-|root||root|localhost|REPLICATION CLIENT|G
-|root||admindb||REPLICATION SLAVE|G
-|root||root|10.0.2.2|REPLICATION SLAVE|G
-|root||root|localhost|REPLICATION SLAVE|G
-|root||root|10.0.2.2|REPLICATION_APPLIER|G
-|root||root|localhost|REPLICATION_APPLIER|G
-|root||root|10.0.2.2|REPLICATION_SLAVE_ADMIN|G
-|root||root|localhost|REPLICATION_SLAVE_ADMIN|G
-|root||root|10.0.2.2|RESOURCE_GROUP_ADMIN|G
-|root||root|localhost|RESOURCE_GROUP_ADMIN|G
-|root||root|10.0.2.2|RESOURCE_GROUP_USER|G
-|root||root|localhost|RESOURCE_GROUP_USER|G
-|root||root|10.0.2.2|ROLE_ADMIN|G
-|root||root|localhost|ROLE_ADMIN|G
-|root||admindb||SELECT|G
-|root||mysql.infoschema|localhost|SELECT|G
-|root||root|10.0.2.2|SELECT|G
-|root||root|localhost|SELECT|G
-|root||root|10.0.2.2|SENSITIVE_VARIABLES_OBSERVER|G
-|root||root|localhost|SENSITIVE_VARIABLES_OBSERVER|G
-|root||root|10.0.2.2|SERVICE_CONNECTION_ADMIN|G
-|root||root|localhost|SERVICE_CONNECTION_ADMIN|G
-|root||mysql.session|localhost|SESSION_VARIABLES_ADMIN|G
-|root||root|10.0.2.2|SESSION_VARIABLES_ADMIN|G
-|root||root|localhost|SESSION_VARIABLES_ADMIN|G
-|root||root|10.0.2.2|SET_USER_ID|G
-|root||root|localhost|SET_USER_ID|G
-|root||admindb||SHOW DATABASES|G
-|root||root|10.0.2.2|SHOW DATABASES|G
-|root||root|localhost|SHOW DATABASES|G
-|root||admindb||SHOW VIEW|G
-|root||root|10.0.2.2|SHOW VIEW|G
-|root||root|localhost|SHOW VIEW|G
-|root||root|10.0.2.2|SHOW_ROUTINE|G
-|root||root|localhost|SHOW_ROUTINE|G
-|root||admindb||SHUTDOWN|G
-|root||mysql.session|localhost|SHUTDOWN|G
-|root||root|10.0.2.2|SHUTDOWN|G
-|root||root|localhost|SHUTDOWN|G
-|root||admindb||SUPER|G
-|root||mysql.session|localhost|SUPER|G
-|root||root|10.0.2.2|SUPER|G
-|root||root|localhost|SUPER|G
-|root||mysql.infoschema|localhost|SYSTEM_USER|G
-|root||mysql.session|localhost|SYSTEM_USER|G
-|root||mysql.sys|localhost|SYSTEM_USER|G
-|root||root|10.0.2.2|SYSTEM_USER|G
-|root||root|localhost|SYSTEM_USER|G
-|root||mysql.session|localhost|SYSTEM_VARIABLES_ADMIN|G
-|root||root|10.0.2.2|SYSTEM_VARIABLES_ADMIN|G
-|root||root|localhost|SYSTEM_VARIABLES_ADMIN|G
-|root||root|10.0.2.2|TABLE_ENCRYPTION_ADMIN|G
-|root||root|localhost|TABLE_ENCRYPTION_ADMIN|G
-|root||root|10.0.2.2|TELEMETRY_LOG_ADMIN|G
-|root||root|localhost|TELEMETRY_LOG_ADMIN|G
-|root||admindb||TRIGGER|G
-|root||root|10.0.2.2|TRIGGER|G
-|root||root|localhost|TRIGGER|G
-|root||admindb||UPDATE|G
-|root||root|10.0.2.2|UPDATE|G
-|root||root|localhost|UPDATE|G
-|root||root|10.0.2.2|XA_RECOVER_ADMIN|G
-|root||root|localhost|XA_RECOVER_ADMIN|G
-|root||admindb||grant option|G
-|root||root|localhost|grant option|G
-performance_schema|schema||mysql.session|localhost|SELECT|G
-sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <ServerVersion>8.0.40</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
@@ -1132,88 +949,110 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Host>localhost</Host>
     </user>
     <user id="300" parent="1" name="root">
-      <Host>10.0.2.2</Host>
+      <Host>localhost</Host>
     </user>
     <user id="301" parent="1" name="root">
-      <Host>localhost</Host>
+      <Host>10.0.2.2</Host>
     </user>
     <table id="302" parent="289" name="prueba">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="303" parent="289" name="usuarios">
+    <table id="303" parent="289" name="raaah">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="304" parent="302" name="id">
+    <table id="304" parent="289" name="usuarios">
+      <DetailsLevel>3</DetailsLevel>
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="305" parent="302" name="id">
       <AutoIncrement>3</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="305" parent="302" name="nombre">
+    <column id="306" parent="302" name="nombre">
       <Position>2</Position>
       <StoredType>varchar(45)|0s</StoredType>
     </column>
-    <column id="306" parent="302" name="apellido">
+    <column id="307" parent="302" name="apellido">
       <Position>3</Position>
       <StoredType>varchar(45)|0s</StoredType>
     </column>
-    <column id="307" parent="302" name="edad">
+    <column id="308" parent="302" name="edad">
       <Position>4</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <index id="308" parent="302" name="PRIMARY">
+    <index id="309" parent="302" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="309" parent="302" name="PRIMARY">
+    <key id="310" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="310" parent="303" name="id">
+    <column id="311" parent="303" name="ID">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="311" parent="303" name="nombre">
+    <column id="312" parent="303" name="NOMBRE">
+      <Position>2</Position>
+      <StoredType>varchar(20)|0s</StoredType>
+    </column>
+    <column id="313" parent="303" name="FECHA">
+      <Position>3</Position>
+      <StoredType>date|0s</StoredType>
+    </column>
+    <column id="314" parent="303" name="VALORACION">
+      <Position>4</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="315" parent="304" name="id">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StoredType>int|0s</StoredType>
+    </column>
+    <column id="316" parent="304" name="nombre">
       <Position>2</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="312" parent="303" name="apellido">
+    <column id="317" parent="304" name="apellido">
       <Position>3</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="313" parent="303" name="email">
+    <column id="318" parent="304" name="email">
       <Position>4</Position>
       <StoredType>varchar(100)|0s</StoredType>
     </column>
-    <column id="314" parent="303" name="fecha_nacimiento">
+    <column id="319" parent="304" name="fecha_nacimiento">
       <Position>5</Position>
       <StoredType>date|0s</StoredType>
     </column>
-    <column id="315" parent="303" name="ciudad">
+    <column id="320" parent="304" name="ciudad">
       <Position>6</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="316" parent="303" name="pais">
+    <column id="321" parent="304" name="pais">
       <Position>7</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="317" parent="303" name="saldo">
+    <column id="322" parent="304" name="saldo">
       <Position>8</Position>
       <StoredType>decimal(10,2 digit)|0s</StoredType>
     </column>
-    <index id="318" parent="303" name="PRIMARY">
+    <index id="323" parent="304" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="319" parent="303" name="PRIMARY">
+    <key id="324" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
