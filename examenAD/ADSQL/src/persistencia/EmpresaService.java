@@ -110,6 +110,24 @@ public class EmpresaService {
         }
     }
 
+    public static int numEmpleadosFixDep(Connection conn, int numDep) throws SQLException {
+        String sql = """
+        SELECT COUNT(*)
+        FROM EMPREGADOFIXO EF
+        JOIN EMPREGADO E ON EF.NSS = E.NSS
+        WHERE E.NumDepartamentoPertenece = ?
+    """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, numDep);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        }
+    }
+
+
     public static ArrayList<String> listaDepartamentosNumEmpleados(Connection conn, int numEmpleados) throws SQLException, ClassNotFoundException {
         ArrayList<String> lista = new ArrayList<>();
         String sql = """
@@ -140,6 +158,24 @@ public class EmpresaService {
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 lista.add(rs.getString("NomeDepartamento"));
+            }
+        }
+
+        return lista;
+    }
+
+    public static ArrayList<Proxecto> listaProxectos(Connection conn) throws SQLException, ClassNotFoundException {
+        ArrayList<Proxecto> lista = new ArrayList<>();
+        String sql = "SELECT NumProxecto, NomeProxecto, Lugar, NumDepartControla FROM proxecto";
+
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                int nProxecto = rs.getInt("NumProxecto");
+                String nomProxecto =  rs.getString("NomeProxecto");
+                String lugar = rs.getString("Lugar");
+                int numDepartControla = rs.getInt("NumDepartControla");
+
+                lista.add(new Proxecto(nProxecto, nomProxecto, lugar, numDepartControla));
             }
         }
 
@@ -344,6 +380,65 @@ public class EmpresaService {
 
                 System.out.println(nss + " - " + nomeCompleto + ". Salario: " + salario + ". Departamento: " + nomeDepartamento);
             }
+        }
+    }
+
+    public static int cambiarDepartamentoProyecto(Connection conn, String nomDep, String nomProx) throws SQLException {
+
+        String sql = """
+                UPDATE PROXECTO
+                SET NumDepartControla = (
+                            SELECT NumDepartamento
+                            FROM DEPARTAMENTO
+                            WHERE NomeDepartamento = ?
+                            )
+                WHERE NomeProxecto = ?;
+                """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, nomDep);
+            ps.setString(2, nomProx);
+
+            int result = ps.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("Se actualizó correctamente el proyecto " + nomProx + ", ahora asignado a " + nomDep);
+            }
+
+            return result;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int incrementarSalariosDepartamento(Connection conn, int incremento, int numDepartamento) throws SQLException {
+        String sql = """
+                SELECT EF.NSS, EF.SALARIO
+                FROM EMPREGADOFIXO EF
+                JOIN EMPREGADO E ON EF.NSS = E.NSS
+                WHERE E.NumDepartamentoPertenece = ?
+        """;
+
+        int afectados = 0;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+
+            ps.setInt(1, numDepartamento);
+            conn.setAutoCommit(false);
+
+            try  (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int salarioActual =  rs.getInt("Salario");
+                    rs.updateInt("Salario", salarioActual+incremento);
+                    rs.updateRow();
+                    afectados++;
+                }
+            }
+
+            conn.commit();
+            return afectados;
         }
     }
 }
