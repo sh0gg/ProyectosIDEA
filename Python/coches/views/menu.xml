@@ -1,0 +1,12 @@
+<odoo>
+    <menuitem id="menu_coches_root" name="Coches" sequence="10" groups="coches.group_coches_user"/>
+
+    <menuitem
+        id="menu_coches_coches"
+        name="Coches"
+        parent="menu_coches_root"
+        action="action_coches_coche"
+        sequence="10"
+        groups="coches.group_coches_user"
+    />
+</odoo>

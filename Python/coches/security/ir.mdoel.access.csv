@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_coches_coche_user,coches.coche user,model_coches_coche,coches.group_coches_user,1,1,1,1
