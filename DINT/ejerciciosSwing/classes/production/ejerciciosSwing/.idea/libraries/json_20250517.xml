@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="json-20250517">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/supabase/json-20250517.jar!/" />
+      <root url="jar://$PROJECT_DIR$/supabase/okhttp-3.14.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/supabase/okio-1.17.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

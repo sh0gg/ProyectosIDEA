@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="simulacro">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/simulacro.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

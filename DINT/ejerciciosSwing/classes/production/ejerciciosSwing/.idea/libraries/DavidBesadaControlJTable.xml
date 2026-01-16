@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="DavidBesadaControlJTable">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/newpack/DavidBesadaControlJTable.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
