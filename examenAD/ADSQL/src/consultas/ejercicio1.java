@@ -1,7 +1,7 @@
 package consultas;
 
 import clases.Departamento;
-import persistencia.EmpresaService;
+import logica.GestorEmpresa;
 import util.GestorConexiones;
 import util.TipoSGBD;
 
@@ -14,18 +14,13 @@ public class ejercicio1 {
 
         // Lista de departamentos con proyectos asignados
 
-        TipoSGBD tipo = TipoSGBD.MYSQL;
+        TipoSGBD tipo = TipoSGBD.SQLSERVER; // en el examen
+        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "sa", "abc123.")) {
 
-        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "root", "abc123.,")) {
+            GestorEmpresa gestor = new GestorEmpresa();
+            List<Departamento> deps = gestor.getDepartamentosConProyectosAsignados(conn);
 
-            EmpresaService emServ = new EmpresaService();
-
-            List<Departamento> dAsignados = emServ.departamentosProyectosAsignados(conn);
-
-            for (Departamento d :  dAsignados) {
-                System.out.println(d);
-            }
-
+            for (Departamento d : deps) System.out.println(d);
 
         } catch (SQLException e) {
             System.out.println("Error al obtener los datos de departamentos asignados");

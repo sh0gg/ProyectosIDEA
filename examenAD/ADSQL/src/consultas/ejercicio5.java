@@ -1,42 +1,38 @@
 package consultas;
 
-import persistencia.EmpresaService;
+import clases.Empregado;
+import logica.GestorEmpresa;
 import util.GestorConexiones;
 import util.TipoSGBD;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ejercicio5 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // Dado o nome dun proxecto e unha localidade, visualizar os empregados fixos que traballan nese proxecto e
-        // que pertencen á localidade indicada. Mostrar: NSS, nome completo, salario e nome do departamento no que
-        // traballan.
 
-        TipoSGBD tipo = TipoSGBD.MYSQL;
+        // Dado o nome dun proxecto e unha localidade,
+        // visualizar empregados fixos nese proxecto e desa localidade.
 
-        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "root", "abc123.,")) {
+        TipoSGBD tipo = TipoSGBD.SQLSERVER;
+        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "sa", "abc123.")) {
+
+            GestorEmpresa gestor = new GestorEmpresa();
 
             System.out.println("¿Qué proyecto quiere visualizar?");
-            String nomProx = sc.nextLine().toUpperCase();
-
-            while (!EmpresaService.existeProxecto(conn, nomProx)) {
-                System.out.println("El proyecto no existe");
-                nomProx = sc.nextLine();
-            }
+            String nomProx = sc.nextLine().trim().toUpperCase();
 
             System.out.println("¿Qué localidad quiere visualizar?");
-            String nomLoc = sc.nextLine().toUpperCase();
+            String nomLoc = sc.nextLine().trim().toUpperCase();
 
-            while (!EmpresaService.existeLocalidade(conn, nomLoc)) {
-                System.out.println("Esa localidad no existe");
-                nomLoc = sc.nextLine();
-            }
+            List<Empregado> res = gestor.getEmpregadosFixosProxectoLocalidade(conn, nomProx, nomLoc);
+            for (Empregado e : res) System.out.println(e);
 
-            EmpresaService.listarEmpregadosFixosLocalidade(conn, nomProx, nomLoc);
-
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
         } catch (SQLException e) {
             System.out.println("Error al obtener los datos");
         }

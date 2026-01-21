@@ -6,7 +6,9 @@ import util.TipoSGBD;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Crea las tablas FAMILIAR_EMPREGADO y las tablas de vehículos
@@ -492,6 +494,76 @@ public class GestorEmpresa {
                 rs.getString("Localidade") + " | Salario=" +
                 rs.getDouble("Salario");
     }
+
+    // ================= CONSULTAS =================
+
+    public List<Departamento> getDepartamentosConProyectosAsignados(Connection conn) throws SQLException {
+        EmpresaService es = new EmpresaService();
+        return es.departamentosProyectosAsignados(conn);
+    }
+
+    public List<Empregado> getDirectoresDeDepsConProyectosAsignados(Connection conn) throws SQLException {
+        EmpresaService es = new EmpresaService();
+        return es.directoresDepProAsignados(conn);
+    }
+
+    public List<Empregado> getListaEmpregados(Connection conn) throws SQLException {
+        EmpresaService es = new EmpresaService();
+        return es.listarEmpregados(conn);
+    }
+
+    public List<Empregado> getEmpregadosDeDepartamento(Connection conn, String nomDep) throws SQLException {
+        EmpresaService es = new EmpresaService();
+
+        if (!es.existeDepartamento(conn, nomDep)) {
+            throw new IllegalArgumentException("El departamento no existe");
+        }
+        return es.listarEmpregadosDepartamentos(conn, nomDep);
+    }
+
+    public List<Empregado> getEmpregadosFixosProxectoLocalidade(
+            Connection conn, String nomProx, String nomLoc) throws SQLException {
+
+        EmpresaService es = new EmpresaService();
+
+        if (!es.existeProxecto(conn, nomProx)) {
+            throw new IllegalArgumentException("El proyecto no existe");
+        }
+        if (!EmpresaService.existeLocalidade(conn, nomLoc)) {
+            throw new IllegalArgumentException("La localidad no existe");
+        }
+        return EmpresaService.listarEmpregadosFixosLocalidade(conn, nomProx, nomLoc);
+    }
+
+    public Map<String, List<Empregado>> getEmpregadosAgrupadosPorDepartamento(Connection conn) throws SQLException, ClassNotFoundException {
+        EmpresaService es = new EmpresaService();
+        Map<String, List<Empregado>> res = new HashMap<>();
+
+        List<String> deps = EmpresaService.listaDepartamentos(conn);
+        for (String d : deps) {
+            res.put(d, es.listarEmpregadosDepartamentos(conn, d));
+        }
+        return res;
+    }
+
+    public List<DepartamentoNumEmpleados> getDepartamentosConMasDeNEmpleados(Connection conn, int n) throws SQLException {
+        return EmpresaService.listaDepartamentosNumEmpleados(conn, n);
+    }
+
+    public List<Empregado> getEmpregadosFixosConSalarioMayor(Connection conn, int salarioMin) throws SQLException {
+        EmpresaService es = new EmpresaService();
+        return es.listarEmpregadosFixosSalario(conn, salarioMin);
+    }
+
+    public List<Empregado> getMaxSalarioFijosPorDepartamentoDesdeUltimo(Connection conn) throws SQLException {
+        EmpresaService es = new EmpresaService();
+        return es.listarEmpregadosFixosSalarioMaxScroll(conn);
+    }
+
+    public List<DepartamentoNumProyectos> getDepartamentosConMaxNumProyectos(Connection conn) throws SQLException {
+        return EmpresaService.listaDepartamentosMaxProyectos(conn);
+    }
+
 
 
 }

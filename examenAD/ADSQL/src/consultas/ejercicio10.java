@@ -1,25 +1,30 @@
 package consultas;
 
-import persistencia.EmpresaService;
+import clases.Departamento;
+import clases.DepartamentoNumProyectos;
+import logica.GestorEmpresa;
 import util.GestorConexiones;
 import util.TipoSGBD;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ejercicio10 {
-    // Visualizar os departamentos (número e nome) que controlan o máximo número de proxectos
-
     public static void main(String[] args) {
 
-        TipoSGBD tipo = TipoSGBD.MYSQL;
+        // Departamentos que controlan el máximo número de proyectos
 
-        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "root", "abc123.,")) {
+        TipoSGBD tipo = TipoSGBD.SQLSERVER;
+        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "sa", "abc123.")) {
 
-            EmpresaService.listaDepartamentosMaxProyectos(conn);
+            GestorEmpresa gestor = new GestorEmpresa();
+            List<DepartamentoNumProyectos> deps = gestor.getDepartamentosConMaxNumProyectos(conn);
+
+            for (DepartamentoNumProyectos d : deps) System.out.println(d);
 
         } catch (SQLException e) {
-            System.out.println("Error al obtener la lista de departamentos que controlan o máximo número de proxectos");
+            System.out.println("Error al obtener la lista de departamentos con máximo número de proyectos");
         }
     }
 }

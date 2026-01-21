@@ -1,6 +1,8 @@
 package consultas;
 
-import persistencia.EmpresaService;
+import clases.Departamento;
+import clases.DepartamentoNumEmpleados;
+import logica.GestorEmpresa;
 import util.GestorConexiones;
 import util.TipoSGBD;
 
@@ -10,39 +12,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ejercicio7 {
-
-//    Visualizar os departamentos (número e nome) que teñen máis de N empregados. O valor N será introducido
-//    como parámetro.
-
     public static void main(String[] args) {
-        int numEmpleados = 0;
         Scanner sc = new Scanner(System.in);
 
-        TipoSGBD tipo = TipoSGBD.MYSQL;
+        // Departamentos con más de N empleados
 
-        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "root", "abc123.,")) {
+        TipoSGBD tipo = TipoSGBD.SQLSERVER;
+        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "sa", "abc123.")) {
 
-            System.out.println("Ver departamentos con más de X empleados. Introduce un numero:");
-            numEmpleados = sc.nextInt();
-            List<String> listaDepartamentos = EmpresaService.listaDepartamentosNumEmpleados(conn, numEmpleados);
-            for (String departamento :  listaDepartamentos) {
-                System.out.println(departamento);
-            }
+            System.out.println("Introduce N:");
+            int n = Integer.parseInt(sc.nextLine().trim());
+
+            GestorEmpresa gestor = new GestorEmpresa();
+            List<DepartamentoNumEmpleados> deps = gestor.getDepartamentosConMasDeNEmpleados(conn, n);
+
+            for (DepartamentoNumEmpleados d : deps) System.out.println(d);
 
         } catch (SQLException e) {
-            System.out.println("Error al obtener la lista de departamentos que superan los " + numEmpleados + " empleados.");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error al obtener los departamentos con más de N empleados");
         }
     }
-
-//    """
-//    SELECT d.NumDepartamento, d.NomeDepartamento, COUNT(e.NSS) AS NumEmpregados
-//    FROM DEPARTAMENTO d
-//    LEFT JOIN EMPREGADO e
-//        ON e.NumDepartamentoPertenece = d.NumDepartamento
-//    GROUP BY d.NumDepartamento, d.NomeDepartamento
-//    HAVING COUNT(e.NSS) > ?
-//    ORDER BY NumEmpregados DESC
-//    """
 }

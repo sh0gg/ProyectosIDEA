@@ -30,29 +30,47 @@ public class EmpresaService {
         return lista;
     }
 
-    public static void listaDepartamentosMaxProyectos(Connection conn) throws SQLException {
+    public static List<DepartamentoNumProyectos> listaDepartamentosMaxProyectos(Connection conn) throws SQLException {
+
+        List<DepartamentoNumProyectos> out = new ArrayList<>();
 
         String sql = """
-                        SELECT NumDepartamento, NomeDepartamento, COUNT(*) AS NumProyectos
-                        FROM departamento
-                                 JOIN proxecto ON departamento.NumDepartamento = proxecto.NumDepartControla
-                        GROUP BY NumDepartamento, NomeDepartamento
-                        HAVING NumProyectos =
-                               (SELECT MAX(NumP)
-                                FROM (SELECT COUNT(*) AS NumP FROM PROXECTO GROUP BY NumDepartControla) AS sub)
-                        ORDER BY NumDepartamento DESC
-                """;
+        SELECT d.NumDepartamento,
+               d.NomeDepartamento,
+               d.NSSDirector,
+               COUNT(*) AS NumProyectos
+        FROM departamento d
+                 JOIN proxecto p ON d.NumDepartamento = p.NumDepartControla
+        GROUP BY d.NumDepartamento, d.NomeDepartamento, d.NSSDirector
+        HAVING COUNT(*) = (
+            SELECT MAX(NumP)
+            FROM (
+                SELECT COUNT(*) AS NumP
+                FROM proxecto
+                GROUP BY NumDepartControla
+            ) sub
+        )
+        ORDER BY d.NumDepartamento DESC
+        """;
 
-        // EH ATENTO, EN SQL SERVER TIENES QUE HACER HAVING COUNT(proxecto.NumProxecto) =
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    System.out.println("[" + rs.getInt("NumDepartamento") + " - " + rs.getString("NomeDepartamento") + "] Numero de Proyectos: " + rs.getInt("NumProyectos"));
-                }
+            while (rs.next()) {
+                DepartamentoNumProyectos d = new DepartamentoNumProyectos(
+                        rs.getInt("NumDepartamento"),
+                        rs.getString("NomeDepartamento"),
+                        rs.getString("NSSDirector"),
+                        rs.getInt("NumProyectos")
+                );
+                out.add(d);
             }
         }
+
+        return out;
     }
+
+
 
     private static void existeProxecto(Connection conn, Proxecto p) throws SQLException {
         String sqlCheck = "SELECT COUNT(*) FROM PROXECTO WHERE NomeProxecto = ?";
@@ -126,28 +144,38 @@ public class EmpresaService {
     }
 
 
-    public static ArrayList<String> listaDepartamentosNumEmpleados(Connection conn, int numEmpleados) throws SQLException, ClassNotFoundException {
-        ArrayList<String> lista = new ArrayList<>();
+    public static List<DepartamentoNumEmpleados> listaDepartamentosNumEmpleados(Connection conn, int numEmpleados) throws SQLException {
+
+        List<DepartamentoNumEmpleados> out = new ArrayList<>();
+
         String sql = """
-                Select departamento.NumDepartamento, departamento.NomeDepartamento, count(*) AS NumEmpleados
-                From departamento
-                INNER JOIN empregado on departamento.NumDepartamento = empregado.NumDepartamentoPertenece
-                group by departamento.NumDepartamento
-                having NumEmpleados > ?
-                ORDER BY NumEmpleados DESC
-                """;
+        SELECT d.NumDepartamento, d.NomeDepartamento, d.NSSDirector, COUNT(*) AS NumEmpleados
+        FROM departamento d
+        INNER JOIN empregado e ON d.NumDepartamento = e.NumDepartamentoPertenece
+        GROUP BY d.NumDepartamento, d.NomeDepartamento, d.NSSDirector
+        HAVING COUNT(*) > ?
+        ORDER BY NumEmpleados DESC
+        """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, numEmpleados);
+
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    lista.add("[" + rs.getString("NumDepartamento") + "] " + rs.getString("NomeDepartamento") + " - " + rs.getInt(3) + " empleados.");
+                    DepartamentoNumEmpleados d = new DepartamentoNumEmpleados(
+                            rs.getInt("NumDepartamento"),
+                            rs.getString("NomeDepartamento"),
+                            rs.getString("NSSDirector"),
+                            rs.getInt("NumEmpleados")
+                    );
+                    out.add(d);
                 }
             }
         }
 
-        return lista;
+        return out;
     }
+
 
     public static ArrayList<String> listaDepartamentos(Connection conn) throws SQLException, ClassNotFoundException {
         ArrayList<String> lista = new ArrayList<>();
@@ -180,66 +208,59 @@ public class EmpresaService {
         return lista;
     }
 
-    public static void listarEmpregadosDepartamentos(Connection conn, String nomDep) throws SQLException {
+    public static List<Empregado> listarEmpregadosDepartamentos(Connection conn, String nomDep) throws SQLException {
+
+        List<Empregado> out = new ArrayList<>();
 
         String sql = """
-                SELECT e.NSS, e.Nome, e.Apelido1, e.Apelido2,
-                       et.NSS AS NSS_TEMPORAL,
-                       ef.NSS AS NSS_FIXO
-                FROM EMPREGADO e
-                JOIN DEPARTAMENTO d
-                     ON e.NumDepartamentoPertenece = d.NumDepartamento
-                LEFT JOIN EMPREGADOTEMPORAL et
-                     ON e.NSS = et.NSS
-                LEFT JOIN EMPREGADOFIXO ef
-                     ON e.NSS = ef.NSS
-                WHERE d.NomeDepartamento = ?
-                """;
+        SELECT e.NSS, e.Nome, e.Apelido1, e.Apelido2, e.Localidade
+        FROM EMPREGADO e
+        JOIN DEPARTAMENTO d ON e.NumDepartamentoPertenece = d.NumDepartamento
+        WHERE d.NomeDepartamento = ?
+        ORDER BY e.Apelido1, e.Apelido2, e.Nome
+        """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setString(1, nomDep);
 
             try (ResultSet rs = ps.executeQuery()) {
-
                 while (rs.next()) {
-                    String nss = rs.getString("NSS");
-                    String nome = rs.getString("Nome");
-                    String apelido1 = rs.getString("Apelido1");
-                    String apelido2 = rs.getString("Apelido2");
-
-                    if (rs.getString("NSS_TEMPORAL") != null) {
-                        System.out.println("TEMPORAL -> " + nss + " - " + nome + " " + apelido1 + " " + apelido2);
-                    } else if (rs.getString("NSS_FIXO") != null) {
-                        System.out.println("FIXO -> " + nss + " - " + nome + " " + apelido1 + " " + apelido2);
-                    }
+                    out.add(mapEmpregadoBasico(rs));
                 }
             }
         }
+
+        return out;
     }
 
-    public static void listarEmpregadosFixosLocalidade(Connection conn, String nomProx, String nomLoc) {
+    public static List<Empregado> listarEmpregadosFixosLocalidade(Connection conn, String nomProx, String nomLoc) throws SQLException {
+
+        List<Empregado> out = new ArrayList<>();
 
         String sql = """
-                        SELECT DISTINCT e.NSS, Nome, Apelido1, Apelido2, Salario, NomeDepartamento
-                        FROM EMPREGADO e
-                          JOIN empregado_proxecto ep ON e.NSS = ep.NSSEmpregado
-                          JOIN bdempresa25.proxecto p on ep.NumProxecto = p.NumProxecto
-                          JOIN DEPARTAMENTO d ON e.NumDepartamentoPertenece = d.NumDepartamento
-                          LEFT JOIN EMPREGADOFIXO ef
-                              ON e.NSS = ef.NSS
-                        WHERE NomeProxecto LIKE ? AND E.Localidade LIKE ? AND ef.NSS IS NOT NULL
-                """;
+        SELECT DISTINCT e.NSS, e.Nome, e.Apelido1, e.Apelido2, e.Localidade,
+               ef.Salario AS Salario, d.NomeDepartamento
+        FROM EMPREGADO e
+          JOIN empregado_proxecto ep ON e.NSS = ep.NSSEmpregado
+          JOIN proxecto p ON ep.NumProxecto = p.NumProxecto
+          JOIN DEPARTAMENTO d ON e.NumDepartamentoPertenece = d.NumDepartamento
+          JOIN EMPREGADOFIXO ef ON e.NSS = ef.NSS
+        WHERE p.NomeProxecto LIKE ? AND e.Localidade LIKE ?
+        ORDER BY d.NomeDepartamento, ef.Salario DESC
+        """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setString(1, nomProx);
             ps.setString(2, nomLoc);
 
-            printEmpregadoFixoFullDatos(ps);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    out.add(mapEmpregadoBasico(rs));
+                }
+            }
         }
+
+        return out;
     }
 
     private static void printEmpregadoFixoFullDatos(PreparedStatement ps) throws SQLException {
@@ -282,6 +303,23 @@ public class EmpresaService {
         return getListaDepartamentos(conn, lista, sql);
     }
 
+    public List<Empregado> directoresDepProAsignados(Connection conn) throws SQLException {
+        EmpresaService es = new EmpresaService();
+
+        // 1) obtener deps con proyectos
+        List<Departamento> deps = es.departamentosProyectosAsignados(conn);
+
+        // 2) sacar lista de NSS de directores
+        List<String> nnss = new ArrayList<>();
+        for (Departamento d : deps) {
+            if (d.getNssDirector() != null) nnss.add(d.getNssDirector());
+        }
+
+        // 3) pedir los empleados de esos NSS
+        return es.directoresDepProAsignados(conn, nnss);
+    }
+
+
     public List<Empregado> directoresDepProAsignados(Connection conn, List<String> nnss) throws SQLException {
         List<Empregado> lista = new ArrayList<>();
 
@@ -321,50 +359,67 @@ public class EmpresaService {
         return lista;
     }
 
-    public void listarEmpregadosFixosSalario(Connection conn, int salarioMin) {
+    public List<Empregado> listarEmpregadosFixosSalario(Connection conn, int salarioMin) throws SQLException {
+
+        List<Empregado> out = new ArrayList<>();
+
         String sql = """
-                        SELECT DISTINCT e.NSS, Nome, Apelido1, Apelido2, Salario, NomeDepartamento
-                        FROM EMPREGADO e
-                          JOIN DEPARTAMENTO d ON e.NumDepartamentoPertenece = d.NumDepartamento
-                          LEFT JOIN EMPREGADOFIXO ef
-                              ON e.NSS = ef.NSS
-                        WHERE Salario > ?
-                        ORDER BY Salario DESC
-                """;
+        SELECT DISTINCT e.NSS, e.Nome, e.Apelido1, e.Apelido2, e.Localidade,
+               ef.Salario AS Salario, d.NomeDepartamento
+        FROM EMPREGADO e
+          JOIN DEPARTAMENTO d ON e.NumDepartamentoPertenece = d.NumDepartamento
+          JOIN EMPREGADOFIXO ef ON e.NSS = ef.NSS
+        WHERE ef.Salario > ?
+        ORDER BY ef.Salario DESC
+        """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setInt(1, salarioMin);
 
-            printEmpregadoFixoFullDatos(ps);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    out.add(mapEmpregadoBasico(rs));
+                }
+            }
         }
+
+        return out;
     }
 
-    public void listarEmpregadosFixosSalarioMaxScroll(Connection conn) {
+
+    public List<Empregado> listarEmpregadosFixosSalarioMaxScroll(Connection conn) throws SQLException {
+
+        List<Empregado> out = new ArrayList<>();
+
         String sql = """
-                SELECT DISTINCT e.NSS, Nome, Apelido1, Apelido2, Salario, NomeDepartamento
-                FROM EMPREGADO e
-                         JOIN DEPARTAMENTO d ON e.NumDepartamentoPertenece = d.NumDepartamento
-                         LEFT JOIN EMPREGADOFIXO ef
-                                   ON e.NSS = ef.NSS
-                WHERE Salario = (
-                    SELECT MAX(ef2.Salario)
-                    FROM EMPREGADO e2
-                             JOIN EMPREGADOFIXO ef2
-                                  ON e2.NSS = ef2.NSS
-                    WHERE e2.NumDepartamentoPertenece = e.NumDepartamentoPertenece
-                    )
-                ORDER BY d.NomeDepartamento;
-                """;
+        SELECT DISTINCT e.NSS, e.Nome, e.Apelido1, e.Apelido2, e.Localidade,
+               ef.Salario AS Salario, d.NomeDepartamento
+        FROM EMPREGADO e
+                 JOIN DEPARTAMENTO d ON e.NumDepartamentoPertenece = d.NumDepartamento
+                 JOIN EMPREGADOFIXO ef ON e.NSS = ef.NSS
+        WHERE ef.Salario = (
+            SELECT MAX(ef2.Salario)
+            FROM EMPREGADO e2
+                     JOIN EMPREGADOFIXO ef2 ON e2.NSS = ef2.NSS
+            WHERE e2.NumDepartamentoPertenece = e.NumDepartamentoPertenece
+        )
+        ORDER BY d.NomeDepartamento
+        """;
 
-        try (PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
-
-            printEmpregadoFixoFullDatosEX(ps);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (PreparedStatement ps = conn.prepareStatement(
+                sql,
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY
+        )) {
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.afterLast();
+                while (rs.previous()) {
+                    out.add(mapEmpregadoBasico(rs));
+                }
+            }
         }
+
+        return out;
     }
 
     private void printEmpregadoFixoFullDatosEX(PreparedStatement ps) throws SQLException {
@@ -747,5 +802,16 @@ public class EmpresaService {
         ps.setInt(1, n);
         return ps.executeQuery();
     }
+
+    private static Empregado mapEmpregadoBasico(ResultSet rs) throws SQLException {
+        Empregado e = new Empregado(
+                rs.getString("NSS"),
+                rs.getString("Nome"),
+                rs.getString("Apelido1"),
+                rs.getString("Apelido2")
+        );
+        return e;
+    }
+
 
 }

@@ -1,7 +1,7 @@
 package consultas;
 
 import clases.Empregado;
-import persistencia.EmpresaService;
+import logica.GestorEmpresa;
 import util.GestorConexiones;
 import util.TipoSGBD;
 
@@ -12,24 +12,20 @@ import java.util.List;
 
 public class ejercicio3 {
     public static void main(String[] args) {
-            // Lista de empregados
 
-            TipoSGBD tipo = TipoSGBD.MYSQL;
+        // Lista de empregados (ordenados por edad)
 
-            try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "root", "abc123.,")) {
+        TipoSGBD tipo = TipoSGBD.SQLSERVER;
+        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "sa", "abc123.")) {
 
-                EmpresaService emServ = new EmpresaService();
+            GestorEmpresa gestor = new GestorEmpresa();
+            List<Empregado> lEmpregados = gestor.getListaEmpregados(conn);
 
-                List<Empregado> lEmpregados = emServ.listarEmpregados(conn);
+            lEmpregados.sort(Comparator.comparingInt(Empregado::getEdad));
+            for (Empregado e : lEmpregados) System.out.println(e);
 
-                lEmpregados.sort(Comparator.comparingInt(Empregado::getEdad));
-
-                for (Empregado e : lEmpregados) {
-                    System.out.println(e.toString());
-                }
-
-            } catch (SQLException e) {
-                System.out.println("Error al obtener el listado de empleados.");
-            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener el listado de empleados.");
         }
+    }
 }

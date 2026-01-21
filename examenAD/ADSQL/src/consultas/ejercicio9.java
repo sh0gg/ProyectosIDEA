@@ -1,30 +1,30 @@
 package consultas;
 
-import persistencia.EmpresaService;
+import clases.Empregado;
+import logica.GestorEmpresa;
 import util.GestorConexiones;
 import util.TipoSGBD;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ejercicio9 {
-    //  Visualizar os datos dos empregados fixos que máis gañan en cada departamento, ordenados por nome do
-    //  departemento. Utilizar unha sentenza con scroll para navegar polo ResultSet desde o último elemento ata o
-    //  primeiro.
-
     public static void main(String[] args) {
 
-        TipoSGBD tipo = TipoSGBD.MYSQL;
+        // Empleados fijos que más ganan en cada departamento,
+        // ordenados por nombre del departamento y navegando RS desde el último al primero.
 
-        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "root", "abc123.,")) {
+        TipoSGBD tipo = TipoSGBD.SQLSERVER;
+        try (Connection conn = GestorConexiones.getConnection(tipo, "BDEMPRESA25", "sa", "abc123.")) {
 
-            EmpresaService emServ = new EmpresaService();
+            GestorEmpresa gestor = new GestorEmpresa();
+            List<Empregado> res = gestor.getMaxSalarioFijosPorDepartamentoDesdeUltimo(conn);
 
-            emServ.listarEmpregadosFixosSalarioMaxScroll(conn);
+            for (Empregado e : res) System.out.println(e);
 
         } catch (SQLException e) {
             System.out.println("Error al obtener el listado de empleados.");
         }
     }
 }
-
