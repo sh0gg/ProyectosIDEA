@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b91a0648-8340-492a-847c-932ad4defe7d/console.sql" value="b91a0648-8340-492a-847c-932ad4defe7d" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b91a0648-8340-492a-847c-932ad4defe7d/console_1.sql" value="b91a0648-8340-492a-847c-932ad4defe7d" />
+    <file url="file://$PROJECT_DIR$/src/persistencia/ExposicionService.java" value="b91a0648-8340-492a-847c-932ad4defe7d" />
+  </component>
+</project>

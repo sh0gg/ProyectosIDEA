@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BDEN26-DavidBesadaRamilo.iml" filepath="$PROJECT_DIR$/BDEN26-DavidBesadaRamilo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/SqlServer 2019/SqlServer 2019.iml" filepath="$PROJECT_DIR$/lib/SqlServer 2019/SqlServer 2019.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/sqljdbc_4.0/sqljdbc_4.0.iml" filepath="$PROJECT_DIR$/lib/sqljdbc_4.0/sqljdbc_4.0.iml" />
+    </modules>
+  </component>
+</project>
