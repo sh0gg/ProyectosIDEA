@@ -1,0 +1,291 @@
+========================================
+CHULETILLA UD2 JDBC + SQL SERVER (EXAMEN)
+========================================
+
+------------------------------------------------------------
+0) REGLA DE ORO (CAPAS)
+------------------------------------------------------------
+PERSISTENCIA (DAO/Service): SQL + JDBC. NO imprimir. Devuelve datos/filas.
+LOGICA (Gestor): valida + decide + imprime/ordena/agrupa. NO SQL.
+MAIN (ejercicio): pide input y llama a lógica.
+
+------------------------------------------------------------
+1) CLASE java.sql A USAR (DIME QUÉ QUIERES HACER)
+------------------------------------------------------------
+- Statement:
+  * DDL (CREATE/DROP TABLE/PROC/FUNCTION) o SQL sin parámetros.
+- PreparedStatement:
+  * SELECT/INSERT/UPDATE/DELETE con "?" (IN). 90% casos.
+  * Batch -> addBatch/executeBatch.
+- CallableStatement:
+  * PROCEDURE/FUNCTION. IN/OUT/ResultSet.
+- ResultSet:
+  * Leer filas (next).
+  * Scroll: TYPE_SCROLL_INSENSITIVE.
+  * Updatable: CONCUR_UPDATABLE.
+
+------------------------------------------------------------
+2) MÉTODOS JDBC (ELIGE BIEN)
+------------------------------------------------------------
+executeQuery()  -> SELECT -> devuelve ResultSet
+executeUpdate() -> INSERT/UPDATE/DELETE/DDL -> devuelve int filas (DDL suele 0)
+execute()       -> "no sé si RS o update" (proc/ddl):
+                   boolean hasRS = st.execute();
+                   if(hasRS) rs=st.getResultSet(); else count=st.getUpdateCount();
+
+------------------------------------------------------------
+3) SIEMPRE try-with-resources (PUNTOS)
+------------------------------------------------------------
+try (PreparedStatement ps = conn.prepareStatement(sql);
+     ResultSet rs = ps.executeQuery()) { ... }
+
+------------------------------------------------------------
+4) TRANSACCIONES (SI HAY VARIAS ESCRITURAS)
+------------------------------------------------------------
+conn.setAutoCommit(false);
+try {
+  // varias operaciones
+  conn.commit();
+} catch (SQLException e) {
+  conn.rollback();
+  throw e;
+} finally {
+  conn.setAutoCommit(true);
+}
+
+------------------------------------------------------------
+5) METADATOS (IMPORTANTE)
+------------------------------------------------------------
+A) DatabaseMetaData (info BD + estructura)
+DatabaseMetaData md = conn.getMetaData();
+
+- Info:
+md.getDatabaseProductName()
+md.getDatabaseProductVersion()
+md.getDriverName()
+md.getURL()
+md.getUserName()
+
+- Existe tabla:
+try(ResultSet rs = md.getTables(null,"dbo","TABLA", new String[]{"TABLE"})){
+  boolean existe = rs.next();
+}
+
+- Columnas tabla:
+try(ResultSet rs = md.getColumns(null,"dbo","TABLA", null)){
+  while(rs.next()){
+    rs.getString("COLUMN_NAME");
+    rs.getString("TYPE_NAME");
+    rs.getInt("COLUMN_SIZE");
+    rs.getInt("NULLABLE"); // DatabaseMetaData.columnNullable
+  }
+}
+
+B) ResultSetMetaData (info columnas devueltas por SELECT)
+ResultSetMetaData rsmd = rs.getMetaData();
+int n = rsmd.getColumnCount();
+for(int i=1;i<=n;i++){
+  rsmd.getColumnName(i);
+  rsmd.getColumnTypeName(i);
+}
+
+------------------------------------------------------------
+6) PLANTILLAS SQL SERVER DDL DESDE JAVA (SIN GO)
+------------------------------------------------------------
+-- DROPs seguros (en Java con Statement.execute)
+IF OBJECT_ID('dbo.TABLA','U') IS NOT NULL DROP TABLE dbo.TABLA;
+IF OBJECT_ID('dbo.proc','P') IS NOT NULL DROP PROCEDURE dbo.proc;
+IF OBJECT_ID('dbo.fn','FN') IS NOT NULL DROP FUNCTION dbo.fn;
+
+-- CREATE TABLE (ejemplo con constraints)
+CREATE TABLE dbo.T(
+  Id INT IDENTITY(1,1) NOT NULL,
+  Nombre VARCHAR(50) NOT NULL,
+  Edad INT NULL,
+  DepId INT NOT NULL,
+  CONSTRAINT PK_T PRIMARY KEY (Id),
+  CONSTRAINT UQ_T_Nombre UNIQUE (Nombre),
+  CONSTRAINT CK_T_Edad CHECK (Edad IS NULL OR Edad >= 0),
+  CONSTRAINT FK_T_Dep FOREIGN KEY (DepId) REFERENCES dbo.DEP(IdDep)
+);
+
+-- ON DELETE / ON UPDATE (si lo piden)
+FOREIGN KEY (DepId) REFERENCES dbo.DEP(IdDep)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
+
+------------------------------------------------------------
+7) CONSTRAINTS (LISTA RÁPIDA)
+------------------------------------------------------------
+PRIMARY KEY (PK)     -> único + no null
+FOREIGN KEY (FK)     -> referencia otra tabla
+UNIQUE (UQ)          -> único (permite NULL salvo combinado con NOT NULL)
+NOT NULL             -> obligatorio
+CHECK (CK)           -> condición (rango, IN(...), etc.)
+DEFAULT              -> valor por defecto
+IDENTITY(1,1)        -> autoincrement SQL Server
+
+Ejemplos CHECK:
+CHECK (Salario >= 0)
+CHECK (Tipo IN ('FIXO','TEMP'))
+CHECK (CP LIKE '[0-9][0-9][0-9][0-9][0-9]')  -- 5 dígitos (ojo patrón SQL Server)
+
+------------------------------------------------------------
+8) SELECT (PATRONES QUE CAEN)
+------------------------------------------------------------
+SELECT con WHERE:
+SELECT * FROM EMP WHERE Salario > ?;
+
+JOIN:
+SELECT e.NSS, e.Nombre, d.Nombre
+FROM EMP e JOIN DEP d ON e.DepId = d.IdDep
+WHERE d.Nombre = ?;
+
+AGREGADOS:
+SELECT d.Nombre, COUNT(*) AS NumEmp
+FROM DEP d JOIN EMP e ON d.IdDep=e.DepId
+GROUP BY d.Nombre
+HAVING COUNT(*) > ?;
+
+MAX POR GRUPO (subconsulta):
+SELECT e.*
+FROM EMP e
+WHERE e.Salario = (
+  SELECT MAX(e2.Salario) FROM EMP e2 WHERE e2.DepId = e.DepId
+);
+
+------------------------------------------------------------
+9) PREPAREDSTATEMENT (IN) - PLANTILLAS
+------------------------------------------------------------
+String sql = "SELECT ... WHERE x=? AND y=?";
+try(PreparedStatement ps = conn.prepareStatement(sql)){
+  ps.setInt(1, x);
+  ps.setString(2, y);
+  try(ResultSet rs = ps.executeQuery()){ ... }
+}
+
+INSERT:
+String sql="INSERT INTO T(a,b) VALUES(?,?)";
+ps.setString(1,a);
+ps.setInt(2,b);
+int filas = ps.executeUpdate();
+
+UPDATE/DELETE:
+int filas = ps.executeUpdate();
+
+------------------------------------------------------------
+10) BATCH (MUY EXAMENABLE)
+------------------------------------------------------------
+String sql="INSERT INTO T(a,b) VALUES(?,?)";
+try(PreparedStatement ps = conn.prepareStatement(sql)){
+  for(...) {
+    ps.setString(1,a);
+    ps.setInt(2,b);
+    ps.addBatch();
+  }
+  int[] res = ps.executeBatch();
+}
+
+------------------------------------------------------------
+11) RESULTSET SCROLL (LECTURA AL REVÉS)
+------------------------------------------------------------
+PreparedStatement ps = conn.prepareStatement(sql,
+  ResultSet.TYPE_SCROLL_INSENSITIVE,
+  ResultSet.CONCUR_READ_ONLY);
+ResultSet rs = ps.executeQuery();
+rs.afterLast();
+while(rs.previous()){ ... }
+
+------------------------------------------------------------
+12) RESULTSET UPDATABLE (SIN UPDATE SQL)
+------------------------------------------------------------
+PreparedStatement ps = conn.prepareStatement("SELECT ... FROM T",
+  ResultSet.TYPE_SCROLL_INSENSITIVE,
+  ResultSet.CONCUR_UPDATABLE);
+ResultSet rs = ps.executeQuery();
+
+while(rs.next()){
+  rs.updateString("Col", "nuevo");
+  rs.updateRow();
+}
+
+INSERT con RS:
+rs.moveToInsertRow();
+rs.updateString("Col","x");
+rs.insertRow();
+rs.moveToCurrentRow();
+
+------------------------------------------------------------
+13) CALLABLESTATEMENT (PROCEDURE / FUNCTION)
+------------------------------------------------------------
+A) PROCEDURE con IN:
+{call dbo.prX(?,?)}
+cs.setInt(1, ...);
+cs.executeUpdate();  // si solo update
+
+B) PROCEDURE con OUT:
+{call dbo.prY(?,?,?,?)}
+cs.setInt(1, in);
+cs.registerOutParameter(2, Types.VARCHAR);
+cs.registerOutParameter(3, Types.INTEGER);
+cs.execute();
+String a = cs.getString(2);
+int b = cs.getInt(3);
+
+C) PROCEDURE que devuelve ResultSet (execute):
+boolean hasRS = cs.execute();
+if(hasRS){
+  try(ResultSet rs = cs.getResultSet()){ ... }
+} else {
+  int count = cs.getUpdateCount();
+}
+
+D) FUNCTION:
+{?=call dbo.fn(?,?)}
+cs.registerOutParameter(1, Types.INTEGER);
+cs.setString(2, ...);
+cs.setInt(3, ...);
+cs.execute();
+int res = cs.getInt(1);
+
+------------------------------------------------------------
+14) CREAR PROCEDURES/FUNCTIONS DESDE JAVA (SQL SERVER)
+------------------------------------------------------------
+- NO uses GO en JDBC.
+- DROP con IF OBJECT_ID...
+- CREATE en un execute separado (otro Statement.execute)
+
+DROP PROC:
+IF OBJECT_ID('dbo.prX','P') IS NOT NULL DROP PROCEDURE dbo.prX;
+
+CREATE PROC:
+CREATE PROCEDURE dbo.prX @a INT AS BEGIN ... END
+
+DROP FN:
+IF OBJECT_ID('dbo.fnX','FN') IS NOT NULL DROP FUNCTION dbo.fnX;
+
+CREATE FN:
+CREATE FUNCTION dbo.fnX(@x INT) RETURNS INT AS BEGIN ... RETURN ... END
+
+------------------------------------------------------------
+15) ERRORES TÍPICOS (EVITAR)
+------------------------------------------------------------
+- SQL en lógica (mal).
+- Imprimir en persistencia (mal).
+- Statement + concatenación (inyección / resta puntos).
+- No cerrar RS/PS/CS.
+- No transacción si hay varias escrituras.
+- En ResultSet: columnas con alias mal (NO "e.NSS"; usa alias "NSS" o nombre real).
+
+------------------------------------------------------------
+16) CHECKLIST RÁPIDO ANTES DE ENTREGAR
+------------------------------------------------------------
+[ ] Persistencia no imprime
+[ ] Lógica imprime / valida
+[ ] PreparedStatement para parámetros
+[ ] CallableStatement para proc/fn
+[ ] try-with-resources en todo
+[ ] executeQuery vs executeUpdate vs execute correctos
+[ ] Si varias operaciones -> transacción
+[ ] Metadatos: DatabaseMetaData / ResultSetMetaData usados bien
+========================================
