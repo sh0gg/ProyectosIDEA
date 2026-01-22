@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ADSQL.iml" filepath="$PROJECT_DIR$/ADSQL.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BDEN26-DavidBesadaRamilo/BDEN26-DavidBesadaRamilo.iml" filepath="$PROJECT_DIR$/BDEN26-DavidBesadaRamilo/BDEN26-DavidBesadaRamilo.iml" />
     </modules>
   </component>
 </project>
