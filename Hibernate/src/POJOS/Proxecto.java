@@ -1,12 +1,17 @@
 package POJOS;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Proxecto implements java.io.Serializable {
 
     private int numProxecto;
     private Departamento departamento;
     private String nomeProxecto;
     private String lugar;
-   
+    // mapear las fases del proyecto como componente o valor
+    private Set<Fase> fases = new HashSet<Fase>();
+
     public Proxecto() {
     }
 
@@ -23,7 +28,13 @@ public class Proxecto implements java.io.Serializable {
         this.nomeProxecto = nomeProxecto;
     }
 
- 
+    public Proxecto(int numProxecto, Departamento departamento, String nomeProxecto, String lugar, Set<Fase> fases) {
+        this.numProxecto = numProxecto;
+        this.departamento = departamento;
+        this.nomeProxecto = nomeProxecto;
+        this.lugar = lugar;
+        this.fases = fases;
+    }
 
     public int getNumProxecto() {
         return this.numProxecto;
@@ -57,7 +68,12 @@ public class Proxecto implements java.io.Serializable {
         this.lugar = lugar;
     }
 
-   
 
+    public Set<Fase> getFases() {
+        return fases;
+    }
 
+    public void setFases(Set<Fase> fases) {
+        this.fases = fases;
+    }
 }

@@ -2,6 +2,10 @@ package POJOS;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Empregado implements java.io.Serializable {
@@ -13,6 +17,10 @@ public class Empregado implements java.io.Serializable {
     private LocalDate dataNacemento;
     private Character sexo;
     private Enderezo enderezo;
+    // mapeo componente telefono
+    private Map<String,String> telefonos = new HashMap<String,String>();
+    // mapeo componente familiar
+    private List<Familiar> familiares = new ArrayList<Familiar>();
 
     public Empregado() {
     }
@@ -34,6 +42,29 @@ public class Empregado implements java.io.Serializable {
         this.apelido2 = apelido2;
         this.sexo = sexo;
         this.enderezo = enderezo;
+    }
+
+    public Empregado(String nss, String nome, String apelido1, String apelido2, LocalDate dataNacemento, Character sexo, Enderezo enderezo, Map<String, String> telefonos) {
+        this.nss = nss;
+        this.nome = nome;
+        this.apelido1 = apelido1;
+        this.apelido2 = apelido2;
+        this.dataNacemento = dataNacemento;
+        this.sexo = sexo;
+        this.enderezo = enderezo;
+        this.telefonos = telefonos;
+    }
+
+    public Empregado(String nss, String nome, String apelido1, String apelido2, LocalDate dataNacemento, Character sexo, Enderezo enderezo, Map<String, String> telefonos, List<Familiar> familiares) {
+        this.nss = nss;
+        this.nome = nome;
+        this.apelido1 = apelido1;
+        this.apelido2 = apelido2;
+        this.dataNacemento = dataNacemento;
+        this.sexo = sexo;
+        this.enderezo = enderezo;
+        this.telefonos = telefonos;
+        this.familiares = familiares;
     }
 
     public String getNss() {
@@ -90,5 +121,21 @@ public class Empregado implements java.io.Serializable {
 
     public void setEnderezo(Enderezo enderezo) {
         this.enderezo = enderezo;
+    }
+
+    public Map<String, String> getTelefonos() {
+        return telefonos;
+    }
+
+    public void setTelefonos(Map<String, String> telefonos) {
+        this.telefonos = telefonos;
+    }
+
+    public List<Familiar> getFamiliares() {
+        return familiares;
+    }
+
+    public void setFamiliares(List<Familiar> familiares) {
+        this.familiares = familiares;
     }
 }

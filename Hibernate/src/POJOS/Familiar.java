@@ -4,7 +4,7 @@ package POJOS;
 import java.util.Date;
 
 
-public class Familiar  implements java.io.Serializable {
+public class Familiar implements java.io.Serializable {
 
      private String nss;
      private String nome;

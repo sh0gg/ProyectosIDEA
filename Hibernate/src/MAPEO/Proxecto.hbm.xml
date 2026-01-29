@@ -1,18 +1,26 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
     <class name="POJOS.Proxecto" table="PROXECTO" schema="dbo" catalog="EMPRESAHB26">
         <id name="numProxecto" type="int">
-            <column name="NumProxecto" />
-            <generator class="increment" />
+            <column name="NumProxecto"/>
+            <generator class="increment"/>
         </id>
         <property name="nomeProxecto" type="string">
-            <column name="NomeProxecto" length="25" not-null="true" unique="true" />
+            <column name="NomeProxecto" length="25" not-null="true" unique="true"/>
         </property>
         <property name="lugar" type="string">
-            <column name="Lugar" length="25" not-null="true" />
+            <column name="Lugar" length="25" not-null="true"/>
         </property>
+        <!-- Mapear las fases de un proyecto como componente -->
+        <set name="fases" table="PROXECTOFASE" schema="dbo" catalog="EMPRESAHB26">
+            <key column="NumProxecto"/>
+            <composite-element class="POJOS.Fase">
+                <property name="nombre" column="NombreFase"/>
+                <property name="estado" column="Estado"/>
+            </composite-element>
+        </set>
     </class>
 </hibernate-mapping>

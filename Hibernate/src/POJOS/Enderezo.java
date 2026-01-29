@@ -17,6 +17,10 @@ public class Enderezo implements java.io.Serializable {
         this.provincia = provincia;
     }
 
+    public Enderezo() {
+
+    }
+
     public String getRua() {
         return rua;
     }

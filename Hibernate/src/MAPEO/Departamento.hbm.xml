@@ -11,6 +11,9 @@
         <property name="nomeDepartamento" type="string">
             <column name="NomeDepartamento" length="25" not-null="true" unique="true" />
         </property>
-        
+        <set name="funciones" table="FUNCION" schema="dbo" catalog="EMPRESAHB26">
+            <key column="NumDepartamento"/>
+            <element column="Funcion" type="string"/>
+        </set>
     </class>
 </hibernate-mapping>
