@@ -4,8 +4,10 @@ package POJOS;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class Empregado implements java.io.Serializable {
@@ -16,16 +18,31 @@ public class Empregado implements java.io.Serializable {
     private String apelido2;
     private LocalDate dataNacemento;
     private Character sexo;
+    //Mapeo como componente
     private Enderezo enderezo;
-    // mapeo componente telefono
-    private Map<String,String> telefonos = new HashMap<String,String>();
-    // mapeo componente familiar
-    private List<Familiar> familiares = new ArrayList<Familiar>();
+   //mapeo componente los telefonos
+  private Map<String, String> telefonos = new HashMap();
+  
+  //mapear familiares como colección List
+  private List<Familiar> familiares = new ArrayList();
+  
+  //se guardamos el superivisor de un empleao
+    private Empregado supervisor;
+    //mapeo de los supervisados que supervisa un empleado supervisor
+    private Set<Empregado> supervisados = new HashSet(0);
+ //mapeo del departamento que pertenece un empleado
+    private Departamento departamento;
+    //mapeo de los empreados proyectos 
+    private Set<EmpregadoProxecto> empregadoProxectos = new HashSet(0);
+   
+     //mapeo del vehiculo del empleado
+    private Vehiculo vehiculo;
+
+
 
     public Empregado() {
     }
-
-    public Empregado(String nss) {
+ public Empregado(String nss) {
         this.nss = nss;
     }
 
@@ -35,37 +52,15 @@ public class Empregado implements java.io.Serializable {
         this.apelido1 = apelido1;
     }
 
-    public Empregado(String nss, String nome, String apelido1, String apelido2, Character sexo, Enderezo enderezo) {
-        this.nss = nss;
-        this.nome = nome;
-        this.apelido1 = apelido1;
-        this.apelido2 = apelido2;
-        this.sexo = sexo;
-        this.enderezo = enderezo;
-    }
-
-    public Empregado(String nss, String nome, String apelido1, String apelido2, LocalDate dataNacemento, Character sexo, Enderezo enderezo, Map<String, String> telefonos) {
+    public Empregado(String nss, String nome, String apelido1, String apelido2, LocalDate dataNacemento, Character sexo) {
         this.nss = nss;
         this.nome = nome;
         this.apelido1 = apelido1;
         this.apelido2 = apelido2;
         this.dataNacemento = dataNacemento;
         this.sexo = sexo;
-        this.enderezo = enderezo;
-        this.telefonos = telefonos;
     }
-
-    public Empregado(String nss, String nome, String apelido1, String apelido2, LocalDate dataNacemento, Character sexo, Enderezo enderezo, Map<String, String> telefonos, List<Familiar> familiares) {
-        this.nss = nss;
-        this.nome = nome;
-        this.apelido1 = apelido1;
-        this.apelido2 = apelido2;
-        this.dataNacemento = dataNacemento;
-        this.sexo = sexo;
-        this.enderezo = enderezo;
-        this.telefonos = telefonos;
-        this.familiares = familiares;
-    }
+   
 
     public String getNss() {
         return this.nss;
@@ -74,6 +69,8 @@ public class Empregado implements java.io.Serializable {
     public void setNss(String nss) {
         this.nss = nss;
     }
+
+    
 
     public String getNome() {
         return this.nome;
@@ -138,4 +135,48 @@ public class Empregado implements java.io.Serializable {
     public void setFamiliares(List<Familiar> familiares) {
         this.familiares = familiares;
     }
+
+    public Empregado getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(Empregado supervisor) {
+        this.supervisor = supervisor;
+    }
+
+    public Set<Empregado> getSupervisados() {
+        return supervisados;
+    }
+
+    public void setSupervisados(Set<Empregado> supervisados) {
+        this.supervisados = supervisados;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    public Set<EmpregadoProxecto> getEmpregadoProxectos() {
+        return empregadoProxectos;
+    }
+
+    public void setEmpregadoProxectos(Set<EmpregadoProxecto> empregadoProxectos) {
+        this.empregadoProxectos = empregadoProxectos;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+   
+   
+
 }

@@ -1,6 +1,8 @@
 package PERSITENCIA;
 
+import POJOS.Departamento;
 import POJOS.Empregado;
+import POJOS.Fase;
 import POJOS.Proxecto;
 import Utilidades.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -35,11 +37,119 @@ public class EmpresaHBDAO {
             tx = sesion.beginTransaction();
             sesion.save(empregado);
             tx.commit();
+            System.out.println("Se ha creado el empleado " + empregado.toString());
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            System.out.println("Error al crear empregado.");
         }
     }
 
+    public static int añadirFuncionDep(int i, String funcion) {
+        Transaction tx = null;
+        try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+            tx = sesion.beginTransaction();
+            Departamento d = sesion.get(Departamento.class, i);
+            if (d == null) {
+                return -1;
+            }
+            if (d.getFunciones().contains(funcion)) {
+                return 0;
+            }
+            d.getFunciones().add(funcion);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return 0;
+        }
+        return 1;
+    }
+
+    public static int eliminarFuncionDep(int i, String funcion) {
+        Transaction tx = null;
+        try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+            tx = sesion.beginTransaction();
+            Departamento d = sesion.get(Departamento.class, i);
+            if (d == null) {
+                return -1;
+            }
+            if (!d.getFunciones().contains(funcion)) {
+                return 0;
+            }
+            d.getFunciones().remove(funcion);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return 0;
+        }
+        return 1;
+    }
+
+    public static int añadirFaseProxecto(int i, Fase fase) {
+        Transaction tx = null;
+        try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+            tx = sesion.beginTransaction();
+            Proxecto p = sesion.get(Proxecto.class, i);
+            if (p == null) {
+                return -1;
+            }
+            if (p.getFases().contains(fase)) {
+                return 0;
+            }
+            p.getFases().add(fase);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return 0;
+        }
+        return 1;
+    }
+
+    public static int addOrUpdateTlf(String nss, String numero, String info) {
+        Transaction tx = null;
+        try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+            tx = sesion.beginTransaction();
+            Empregado e = sesion.get(Empregado.class, nss);
+            if (e == null) {
+                return -1;
+            }
+            e.getTelefonos().put(numero, info);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return 0;
+        }
+        return 1;
+    }
+
+    public static int deleteTlf(String nss, String numero) {
+        Transaction tx = null;
+        try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+            tx = sesion.beginTransaction();
+            Empregado e = sesion.get(Empregado.class, nss);
+            if (e == null) {
+                return -1;
+            }
+            if (!e.getTelefonos().containsKey(numero)) {
+                return 0;
+            }
+            e.getTelefonos().remove(numero);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return 0;
+        }
+        return 1;
+    }
 }

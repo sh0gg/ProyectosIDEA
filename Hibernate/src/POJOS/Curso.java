@@ -5,7 +5,7 @@ public class Curso implements java.io.Serializable {
     private int codigo;
     private String nome;
     private Integer horas;
-
+   
 
     public Curso() {
     }
@@ -20,6 +20,7 @@ public class Curso implements java.io.Serializable {
         this.horas = horas;
     }
 
+    
 
     public int getCodigo() {
         return this.codigo;
@@ -45,5 +46,8 @@ public class Curso implements java.io.Serializable {
         this.horas = horas;
     }
 
+    
+
+    
 
 }

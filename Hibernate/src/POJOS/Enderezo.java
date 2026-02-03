@@ -1,12 +1,17 @@
+
 package POJOS;
 
-public class Enderezo implements java.io.Serializable {
-    private String rua;
-    private Integer numeroCalle;
-    private String piso;
-    private String cp;
-    private String localidade;
-    private String provincia;
+
+public class Enderezo {
+     private String rua;
+     private Integer numeroCalle;
+     private String piso;
+     private String cp;
+     private String localidade;
+     private String provincia;
+
+    public Enderezo() {
+    }
 
     public Enderezo(String rua, Integer numeroCalle, String piso, String cp, String localidade, String provincia) {
         this.rua = rua;
@@ -15,10 +20,6 @@ public class Enderezo implements java.io.Serializable {
         this.cp = cp;
         this.localidade = localidade;
         this.provincia = provincia;
-    }
-
-    public Enderezo() {
-
     }
 
     public String getRua() {
@@ -68,4 +69,5 @@ public class Enderezo implements java.io.Serializable {
     public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
+    
 }

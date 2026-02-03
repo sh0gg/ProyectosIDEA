@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 09-feb-2023 8:57:24 by Hibernate Tools 3.6.0 -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping>
     <class catalog="EMPRESAHB26" name="POJOS.Empregado" schema="dbo" table="EMPREGADO">
         <id name="nss" type="string">
             <column length="15" name="NSS"/>
             <generator class="assigned"/>
         </id>
-
+    
         <property name="nome" type="string">
             <column length="25" name="Nome" not-null="true"/>
         </property>
@@ -17,13 +16,14 @@
         </property>
         <property name="apelido2" type="string">
             <column length="25" name="Apelido2"/>
+        </property>       
+        <property name="dataNacemento" type="java.time.LocalDate">
+            <column  name="DataNacemento"/>
         </property>
         <property name="sexo" type="java.lang.Character">
             <column length="1" name="Sexo"/>
-        </property>
-
-        <!-- componente enderezo -->
-
+        </property>  
+        <!--mapeo de la dirección del empregado como clase componente -->
         <component class="POJOS.Enderezo" name="enderezo">
             <property name="rua" type="string">
                 <column length="30" name="Rua"/>
@@ -43,27 +43,21 @@
             <property name="provincia" type="string">
                 <column length="15" name="Provincia"/>
             </property>
-        </component>
-
-        <property name="dataNacemento" type="java.time.LocalDate">
-            <column length="23" name="DataNacemento"/>
-        </property>
-
-        <!-- mapear los telefonos como map de componentes -->
-        <map name="telefonos" table="TELEFONO" schema="dbo" catalog="EMPRESAHB26">
+        </component>       
+        <!-- Mapear los telefonos como map de componentes -->
+        <map name="telefonos" table="TELEFONO">
             <key>
                 <column name="NSS" length="15" not-null="true"/>
             </key>
-            <map-key type="string" column="Telefono"/>
-            <element type="string" column="Informacion"/>
-        </map>
-
-        <!-- mapear los familiares como list de componentes -->
-        <list name="familiares" table="FAMILIAR" schema="dbo" catalog="EMPRESAHB26">
+            <map-key column="Telefono" type="string"/>
+            <element column="Informacion" type="string"/>         
+        </map>  
+        <!--Mapear los familiares como list -->
+        <list name="familiares" table="FAMILIAR">
             <key>
-                <column name="NSS_EMPREGADO" length="15" not-null="true"/>
+                <column length="15" name="NSS_empregado" not-null="true"/>
             </key>
-            <list-index column="Numero" base="1"/>
+            <list-index base="1" column="Numero"/>
             <composite-element class="POJOS.Familiar">
                 <property name="nss" type="string">
                     <column length="15" name="NSS" not-null="true"/>
@@ -77,8 +71,8 @@
                 <property name="apelido2" type="string">
                     <column length="25" name="Apelido2"/>
                 </property>
-                <property name="dataNacimento" type="date">
-                    <column length="23" name="Data_nacimento"/>
+                <property name="dataNacimento" type="java.time.LocalDate">
+                    <column  name="Data_nacimento"/>
                 </property>
                 <property name="parentesco" type="string">
                     <column length="20" name="Parentesco" not-null="true"/>
@@ -87,11 +81,28 @@
                     <column length="1" name="Sexo" not-null="true"/>
                 </property>
             </composite-element>
-
-
-        </list>
-
-
+        </list> 
+        
+        <!-- Mapeo del departamento que pertenece un empleado -->
+        <many-to-one class="POJOS.Departamento" fetch="select" name="departamento">
+            <column name="NumDepartamentoPertenece"/>
+        </many-to-one>
+        
+        <!-- mapeo del vehiculo de un empleado -->
+        <one-to-one class="POJOS.Vehiculo" name="vehiculo"/>
+        
+        <!--  mapear el supervisor de un empleado    -->
+        <many-to-one class="POJOS.Empregado" fetch="select" name="supervisor">
+            <column length="15" name="NSSSupervisa"/>
+        </many-to-one>
+        
+        <!-- mapeo con set de los empleados que supervisa un supervisor   -->
+        <set fetch="select" inverse="true" lazy="true" name="supervisados" table="EMPREGADO">
+            <key>
+                <column length="15" name="NSSSupervisa"/>
+            </key>
+            <one-to-many class="POJOS.Empregado"/>
+        </set>
     </class>
-
+    
 </hibernate-mapping>

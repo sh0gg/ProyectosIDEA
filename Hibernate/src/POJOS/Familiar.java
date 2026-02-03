@@ -1,23 +1,23 @@
 package POJOS;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
-public class Familiar implements java.io.Serializable {
+public class Familiar  implements java.io.Serializable {
 
-     private String nss;
+     private String nss; //nss del familiar
      private String nome;
      private String apelido1;
      private String apelido2;
-     private Date dataNacimento;
+     private LocalDate dataNacimento;
      private String parentesco;
      private char sexo;
 
     public Familiar() {
     }
 
-    public Familiar(String nss, String nome, String apelido1, String apelido2, Date dataNacimento, String parentesco, char sexo) {
+    public Familiar(String nss, String nome, String apelido1, String apelido2,  LocalDate dataNacimento, String parentesco, char sexo) {
         this.nss = nss;
         this.nome = nome;
         this.apelido1 = apelido1;
@@ -57,11 +57,11 @@ public class Familiar implements java.io.Serializable {
     public void setApelido2(String apelido2) {
         this.apelido2 = apelido2;
     }
-    public Date getDataNacimento() {
+    public  LocalDate getDataNacimento() {
         return this.dataNacimento;
     }
     
-    public void setDataNacimento(Date dataNacimento) {
+    public void setDataNacimento( LocalDate dataNacimento) {
         this.dataNacimento = dataNacimento;
     }
     public String getParentesco() {
@@ -79,7 +79,21 @@ public class Familiar implements java.io.Serializable {
         this.sexo = sexo;
     }
 
+//
 
+@Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Familiar familiar = (Familiar) o;
+    return nss != null && nss.equals(familiar.nss);
+}
+
+@Override
+public int hashCode() {
+    return nss != null ? nss.hashCode() : 0;
+}
 
 
 }

@@ -11,9 +11,30 @@
         <property name="nomeDepartamento" type="string">
             <column name="NomeDepartamento" length="25" not-null="true" unique="true" />
         </property>
-        <set name="funciones" table="FUNCION" schema="dbo" catalog="EMPRESAHB26">
-            <key column="NumDepartamento"/>
-            <element column="Funcion" type="string"/>
+        <set name="funciones" table="DEPARTAMENTOFUNCION"  >
+            <key column="NumDepartamento"/> 
+            <element column="Funcion"  type="string"/>            
         </set>
-    </class>
+      <!--  empregados que pertenecen a un departamento   -->
+    <set name="empregados" table="EMPREGADO" inverse="true" lazy="true" fetch="select">
+        <key>
+            <column name="NumDepartamentoPertenece"/>
+        </key>
+        <one-to-many class="POJOS.Empregado"/>
+    </set>
+    <!--  mapeo de los proyectos que controla  un departamento  -->
+    <bag name="proxectos" table="PROXECTO" inverse="true" lazy="true" fetch="select">
+        <key>
+            <column name="NumDepartControla" not-null="true"/>
+        </key>
+        <one-to-many class="POJOS.Proxecto"/>
+    </bag>
+    
+    <!--  mapeo del director de un departamento 
+    <many-to-one class="POJOS.Empregadofixo" name="director" fetch="select">
+        <column length="15" name="NSSDirector" not-null="true"/>
+    </many-to-one>
+         -->
+</class>
+    
 </hibernate-mapping>

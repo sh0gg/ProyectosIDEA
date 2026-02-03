@@ -14,10 +14,14 @@
         <property name="hibernate.format_sql">true</property>
         <!-- Opcional: mostrar los valores de los parámetros -->
         <property name="hibernate.use_sql_comments">true</property>
-        <mapping resource="MAPEO/Proxecto.hbm.xml"/>
         <mapping resource="MAPEO/Curso.hbm.xml"/>
-        <mapping resource="MAPEO/Vehiculo.hbm.xml"/>
-        <mapping resource="MAPEO/Empregado.hbm.xml"/>
         <mapping resource="MAPEO/Departamento.hbm.xml"/>
+        <mapping resource="MAPEO/Edicion.hbm.xml"/>
+        <mapping resource="MAPEO/Empregado.hbm.xml"/>
+        <mapping resource="MAPEO/EmpregadoProxecto.hbm.xml"/>
+        <mapping resource="MAPEO/Proxecto.hbm.xml"/>
+        <mapping resource="MAPEO/Vehiculo.hbm.xml"/>
+
+
     </session-factory>
 </hibernate-configuration>
