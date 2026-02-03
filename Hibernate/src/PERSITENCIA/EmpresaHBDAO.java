@@ -1,13 +1,14 @@
 package PERSITENCIA;
 
-import POJOS.Departamento;
-import POJOS.Empregado;
-import POJOS.Fase;
-import POJOS.Proxecto;
+import POJOS.*;
 import Utilidades.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
 
 public class EmpresaHBDAO {
 
@@ -151,5 +152,36 @@ public class EmpresaHBDAO {
             return 0;
         }
         return 1;
+    }
+
+    public static int insertFamiliar(String nss, Familiar familiar) {
+        Transaction tx = null;
+        try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+            tx = sesion.beginTransaction();
+            Empregado e = sesion.get(Empregado.class, nss);
+            if (e == null) {
+                return -1;
+            }
+            if (e.getFamiliares().contains(familiar)) {
+                return 0;
+            }
+            e.getFamiliares().add(familiar);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return 0;
+        }
+        return 1;
+    }
+
+    public static List<Empregado> getEmpregadosLocalidade(String localidade) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Empregado> empregados = null;
+        try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+
+        }
     }
 }

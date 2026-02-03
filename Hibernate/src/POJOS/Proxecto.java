@@ -10,7 +10,7 @@ public class Proxecto implements java.io.Serializable {
     private String nomeProxecto;
     private String lugar;
     //mapear las fase de proyecto como componente
-    private Set<ProxectoFase> fases = new HashSet<>();
+    private Set<Fase> fases = new HashSet<>();
    
     public Proxecto() {
     }
@@ -62,11 +62,11 @@ public class Proxecto implements java.io.Serializable {
         this.lugar = lugar;
     }
 
-    public Set<ProxectoFase> getFases() {
+    public Set<Fase> getFases() {
         return fases;
     }
 
-    public void setFases(Set<ProxectoFase> fases) {
+    public void setFases(Set<Fase> fases) {
         this.fases = fases;
     }
 

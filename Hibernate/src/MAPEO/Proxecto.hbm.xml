@@ -17,8 +17,8 @@
         <!-- mapear las fase de proyecto como componente         -->
         <set name="fases" table="PROXECTOFASE">
             <key column="NumProxecto"/> 
-            <composite-element class="POJOS.ProxectoFase">
-                <property name="nomeFase" column="NombreFase"/>
+            <composite-element class="POJOS.Fase">
+                <property name="nombre" column="NombreFase"/>
                 <property name="estado" column="Estado"/> 
             </composite-element>            
         </set>

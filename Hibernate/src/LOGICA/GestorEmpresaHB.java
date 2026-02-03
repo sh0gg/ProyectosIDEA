@@ -6,6 +6,8 @@ import POJOS.Familiar;
 import POJOS.Fase;
 import POJOS.Proxecto;
 
+import java.util.List;
+
 
 public class GestorEmpresaHB {
     public static void comprobarConexion() {
@@ -81,7 +83,7 @@ public class GestorEmpresaHB {
     }
 
     public static void engadirOuActualizarTelefono(String nss, String numero, String info) {
-        int resultado = EmpresaHBDAO.addOrUpdateTlf(nss,numero,info);
+        int resultado = EmpresaHBDAO.addOrUpdateTlf(nss, numero, info);
         if (resultado != 1) {
             if (resultado == 0) {
                 System.out.println("Ha fallado la insercion/actualizacion del telefono " + info + " en el empleado con NSS " + nss + ".");
@@ -107,15 +109,23 @@ public class GestorEmpresaHB {
     }
 
     public static void crearFamiliar(String nss, Familiar familiar) {
-        int resultado = EmpresaHBDAO.insertFamiliar(nss,familiar);
+        int resultado = EmpresaHBDAO.insertFamiliar(nss, familiar);
         if (resultado != 1) {
             if (resultado == 0) {
-
+                System.out.println("Ha fallado la insercion del familiar " + familiar.toString() + " del empleado con NSS " + nss + ".");
             } else if (resultado == -1) {
-
+                System.out.println("No se ha encontrado el empleado con NSS " + nss + ".");
             }
         } else {
+            System.out.println("Se ha añadido el familiar " + familiar.toString() + " del empleado con NSS " + nss + ".");
+        }
+    }
 
+    public static void mostrarEmpregadosPorLocalidade(String localidade) {
+        List<Empregado> empregados = EmpresaHBDAO.getEmpregadosLocalidade(localidade);
+        System.out.println("Empregados da localidade de " +  localidade + ":");
+        for (Empregado e: empregados) {
+            System.out.println(e.toString());
         }
     }
 }

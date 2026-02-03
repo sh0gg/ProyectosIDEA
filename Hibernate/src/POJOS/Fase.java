@@ -1,9 +1,9 @@
+
 package POJOS;
 
-import java.io.Serializable;
 
-public class Fase implements Serializable {
-    private String nombre;
+public class Fase {
+   private String nombre;
     private String estado;
 
     public Fase() {
@@ -18,8 +18,8 @@ public class Fase implements Serializable {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nomeFase) {
+        this.nombre = nomeFase;
     }
 
     public String getEstado() {
@@ -29,4 +29,20 @@ public class Fase implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Fase that = (Fase) o;
+        return nombre != null &&
+               nombre.equalsIgnoreCase(that.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre == null ? 0 : nombre.toLowerCase().hashCode();
+    }
+
 }

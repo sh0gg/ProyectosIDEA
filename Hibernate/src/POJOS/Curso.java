@@ -20,8 +20,6 @@ public class Curso implements java.io.Serializable {
         this.horas = horas;
     }
 
-    
-
     public int getCodigo() {
         return this.codigo;
     }
