@@ -128,5 +128,11 @@ public class GestorEmpresaHB {
             System.out.println(e.toString());
         }
     }
+
+    public static void crearEmpregadoConDepartamento(Empregado novoEmpregado, String nomeDepartamento) {
+    }
+
+    public static void cambiarDepartamentoEmpregado(String nss, int idDepartamentoNuevo) {
+    }
 }
 

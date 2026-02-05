@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class catalog="EMPRESAHB26"  name="POJOS.Habilidade"  schema="dbo"   table="HABILIDADE">
+        <!--     CLAVE PRIMARIA AUTONUMÉRICA -->
+        <id name="id" type="int">
+            <column name="IDHABILIDADE"/>
+            <generator class="identity"/>
+        </id>
+        <property name="nome" type="string">
+            <column name="NOME" length="50" unique="true" not-null="true"/>
+        </property>
+
+        <!-- Los empregaos que tiene una habilidad
+          MANY-TO-MANY (LADO INVERSO)
+          inverse="true" → NO controla la tabla intermedia
+          La controla EMPREGADO         -->
+        <set name="empregados" table="EMPREGADO_HABILIDADE"  inverse="true">
+            <key column="IDHABILIDADE"/>
+            <many-to-many class="POJOS.Empregado" column="NSS"/>
+        </set>
+
+    </class>
+</hibernate-mapping>

@@ -21,6 +21,7 @@
         <mapping resource="MAPEO/EmpregadoProxecto.hbm.xml"/>
         <mapping resource="MAPEO/Proxecto.hbm.xml"/>
         <mapping resource="MAPEO/Vehiculo.hbm.xml"/>
+        <mapping resource="MAPEO/Habilidade.hbm.xml"/>
 
 
     </session-factory>

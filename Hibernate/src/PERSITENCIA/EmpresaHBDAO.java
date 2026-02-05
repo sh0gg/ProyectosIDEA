@@ -6,8 +6,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 public class EmpresaHBDAO {
@@ -177,11 +175,13 @@ public class EmpresaHBDAO {
     }
 
     public static List<Empregado> getEmpregadosLocalidade(String localidade) {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        List<Empregado> empregados = null;
         try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
-
+            return sesion.createQuery("FROM Empregado e WHERE e.enderezo.localidade = :loc", Empregado.class)
+                    .setParameter("loc", localidade)
+                    .list();
+        } catch (HibernateException e) {
+            System.out.println("Error al recuperar empleados por localidad: " + e.getMessage());
+            return null;
         }
     }
 }

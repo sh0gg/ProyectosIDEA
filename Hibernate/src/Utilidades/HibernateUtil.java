@@ -22,10 +22,11 @@ public class HibernateUtil {
 //Necesrio en Hibernate 5, no en la version 4, Hibernate 5 ya no busca automáticamente
 //todos los mappings en el classpath. 
             configuration.addResource("MAPEO/Curso.hbm.xml");
-             configuration.addResource("MAPEO/Vehiculo.hbm.xml");
+            configuration.addResource("MAPEO/Vehiculo.hbm.xml");
             configuration.addResource("MAPEO/Empregado.hbm.xml");
             configuration.addResource("MAPEO/Departamento.hbm.xml");
-              configuration.addResource("MAPEO/Proxecto.hbm.xml");
+            configuration.addResource("MAPEO/Proxecto.hbm.xml");
+            configuration.addResource("MAPEO/Habilidade.hbm.xml");
 
             // Construir el service registry usando las propiedades de configuración
             serviceRegistry = new StandardServiceRegistryBuilder()
@@ -43,7 +44,8 @@ public class HibernateUtil {
 
     /**
      * Devuelve la SessionFactory de Hibernate
-     * @return 
+     *
+     * @return
      */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
@@ -52,7 +54,7 @@ public class HibernateUtil {
     /**
      * Cierra el ServiceRegistry al finalizar la aplicación
      * usa para cerrar y limpiar todos los recursos de Hibernate cuando ya no los necesitas.
-    */
+     */
     public static void shutdown() {
         if (serviceRegistry != null) {
             StandardServiceRegistryBuilder.destroy(serviceRegistry);

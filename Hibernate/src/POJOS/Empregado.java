@@ -1,14 +1,7 @@
 package POJOS;
 
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 
 public class Empregado implements java.io.Serializable {
 
@@ -20,29 +13,31 @@ public class Empregado implements java.io.Serializable {
     private Character sexo;
     //Mapeo como componente
     private Enderezo enderezo;
-   //mapeo componente los telefonos
-  private Map<String, String> telefonos = new HashMap();
-  
-  //mapear familiares como colección List
-  private List<Familiar> familiares = new ArrayList();
-  
-  //se guardamos el superivisor de un empleao
+    //mapeo componente los telefonos
+    private Map<String, String> telefonos = new HashMap();
+
+    //mapear familiares como coleccion List
+    private List<Familiar> familiares = new ArrayList();
+
+    //se guardamos el superivisor de un empleao
     private Empregado supervisor;
     //mapeo de los supervisados que supervisa un empleado supervisor
     private Set<Empregado> supervisados = new HashSet(0);
- //mapeo del departamento que pertenece un empleado
+    //mapeo del departamento que pertenece un empleado
     private Departamento departamento;
     //mapeo de los empreados proyectos 
     private Set<EmpregadoProxecto> empregadoProxectos = new HashSet(0);
-   
-     //mapeo del vehiculo del empleado
+
+    //mapeo del vehiculo del empleado
     private Vehiculo vehiculo;
 
+    private Set<Habilidade> habilidades = new HashSet<>();
 
 
     public Empregado() {
     }
- public Empregado(String nss) {
+
+    public Empregado(String nss) {
         this.nss = nss;
     }
 
@@ -60,7 +55,24 @@ public class Empregado implements java.io.Serializable {
         this.dataNacemento = dataNacemento;
         this.sexo = sexo;
     }
-   
+
+    public Empregado(String nss, String nome, String apelido1, String apelido2, LocalDate dataNacemento, Character sexo, Enderezo enderezo, Map<String, String> telefonos, List<Familiar> familiares, Empregado supervisor, Set<Empregado> supervisados, Departamento departamento, Set<EmpregadoProxecto> empregadoProxectos, Vehiculo vehiculo, Set<Habilidade> habilidades) {
+        this.nss = nss;
+        this.nome = nome;
+        this.apelido1 = apelido1;
+        this.apelido2 = apelido2;
+        this.dataNacemento = dataNacemento;
+        this.sexo = sexo;
+        this.enderezo = enderezo;
+        this.telefonos = telefonos;
+        this.familiares = familiares;
+        this.supervisor = supervisor;
+        this.supervisados = supervisados;
+        this.departamento = departamento;
+        this.empregadoProxectos = empregadoProxectos;
+        this.vehiculo = vehiculo;
+        this.habilidades = habilidades;
+    }
 
     public String getNss() {
         return this.nss;
@@ -69,8 +81,6 @@ public class Empregado implements java.io.Serializable {
     public void setNss(String nss) {
         this.nss = nss;
     }
-
-    
 
     public String getNome() {
         return this.nome;
@@ -176,7 +186,12 @@ public class Empregado implements java.io.Serializable {
         this.vehiculo = vehiculo;
     }
 
-   
-   
 
+    public Set<Habilidade> getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(Set<Habilidade> habilidades) {
+        this.habilidades = habilidades;
+    }
 }

@@ -103,6 +103,15 @@
             </key>
             <one-to-many class="POJOS.Empregado"/>
         </set>
+
+        <!-- mapeo habilidades -->
+        <set lazy="true" name="habilidades" table="EMPREGADO_HABILIDADE">
+            <key>
+                <column name="NSS" />
+            </key>
+            <many-to-many class="POJOS.Habilidade" column="IDHABILIDADE" />
+        </set>
+
     </class>
     
 </hibernate-mapping>
