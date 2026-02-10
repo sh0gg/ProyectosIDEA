@@ -2,18 +2,21 @@
 
 class Animal:
     def hablar(self):
-        print("Hace un ruido")
+        return "Hace ruido"
 
 class Perro(Animal):   # Hereda de Animal
     def hablar(self):  # Sobreescribe el método
-        print("Guau!")
+        return "Guau!"
 
 class Gato(Animal):
     def hablar(self):
-        print("Miau!")
+        return "Miau!"
+
 
 p = Perro()
 g = Gato()
 
+
 p.hablar()
 g.hablar()
+
