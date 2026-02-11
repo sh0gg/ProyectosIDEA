@@ -1,0 +1,156 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="PrimerInforme" language="java" columnCount="1" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="282deb95-fe63-43e4-a772-311117b51b02">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="dni" class="java.lang.String">
+		<description><![CDATA[dni del usuario de la ficha]]></description>
+	</parameter>
+	<query language="sql"><![CDATA[SELECT dint.historial.fecha_hora,
+	dint.historial.registro_texto,
+	dint.historial.movimiento,
+	dint.usuarios.dni,
+	dint.usuarios.nombre,
+	dint.usuarios.apellidos,
+	dint.usuarios.edad,
+	(SELECT COUNT(*) FROM dint.historial INNER JOIN dint.usuarios ON 
+	 dint.historial.dni_usuario = dint.usuarios.dni WHERE dint.historial.movimiento LIKE 'ENTRADA') AS entradas,
+	 (SELECT COUNT(*) FROM dint.historial INNER JOIN dint.usuarios ON 
+	 dint.historial.dni_usuario = dint.usuarios.dni WHERE dint.historial.movimiento LIKE 'SALIDA') AS salidas
+FROM dint.historial
+	INNER JOIN dint.usuarios ON 
+	 dint.historial.dni_usuario = dint.usuarios.dni
+WHERE dint.usuarios.dni =  $P{dni} 
+ORDER BY dint.historial.fecha_hora DESC]]></query>
+	<field name="fecha_hora" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historial"/>
+	</field>
+	<field name="registro_texto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="registro_texto"/>
+		<property name="com.jaspersoft.studio.field.label" value="registro_texto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historial"/>
+	</field>
+	<field name="movimiento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="movimiento"/>
+		<property name="com.jaspersoft.studio.field.label" value="movimiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historial"/>
+	</field>
+	<field name="dni" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dni"/>
+		<property name="com.jaspersoft.studio.field.label" value="dni"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+	</field>
+	<field name="apellidos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apellidos"/>
+		<property name="com.jaspersoft.studio.field.label" value="apellidos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+	</field>
+	<field name="edad" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="edad"/>
+		<property name="com.jaspersoft.studio.field.label" value="edad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+	</field>
+	<field name="entradas" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="entradas"/>
+		<property name="com.jaspersoft.studio.field.label" value="entradas"/>
+	</field>
+	<field name="salidas" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="salidas"/>
+		<property name="com.jaspersoft.studio.field.label" value="salidas"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="93" splitType="Stretch">
+		<element kind="staticText" uuid="137f1537-5b15-451f-9945-2b84596bde48" x="70" y="0" width="102" height="30" fontName="Impact" fontSize="24.0" bold="true" underline="false" italic="false" hTextAlign="Center">
+			<text><![CDATA[Gym Tony]]></text>
+		</element>
+		<element kind="image" uuid="8293fbf4-04f5-4982-9699-4efe1c8f6b25" x="0" y="0" width="60" height="60">
+			<expression><![CDATA["C:/Users/dbesarami/JaspersoftWorkspace/DINT/assets/logoGymTony.png"]]></expression>
+		</element>
+		<element kind="staticText" uuid="8aef4df0-07b0-40e2-b2a4-6057493bf8ca" x="71" y="30" width="100" height="30" italic="true" hTextAlign="Center">
+			<text><![CDATA["A bajar las copas!"]]></text>
+		</element>
+		<element kind="textField" uuid="4a7dedd4-35d6-4760-98f9-9bda964557ca" x="450" y="0" width="102" height="18" pattern="MMMM d, yyyy" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[new java.util.Date().toString()]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1d01370-bb54-4321-82ee-2d999711383f"/>
+		</element>
+		<element kind="staticText" uuid="8aa15f0e-58f9-49fa-be59-7ac713b5f58a" x="160" y="30" width="240" height="41" fontName="SansSerif" fontSize="18.0" italic="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Ficha de usuario]]></text>
+		</element>
+	</title>
+	<pageHeader height="43" splitType="Stretch">
+		<element kind="staticText" uuid="d12c957e-ab70-40f3-af79-4f8d27fb5ed2" x="130" y="0" width="50" height="20">
+			<text><![CDATA[Nombre:]]></text>
+		</element>
+		<element kind="staticText" uuid="dfc67496-a0a4-47de-ae01-906be54e7b56" x="0" y="0" width="50" height="20">
+			<text><![CDATA[DNI:]]></text>
+		</element>
+		<element kind="staticText" uuid="6958e204-109e-4ad3-852e-6f768c5c718d" x="130" y="20" width="50" height="20">
+			<text><![CDATA[Apellido:]]></text>
+		</element>
+		<element kind="staticText" uuid="5f04f104-6ddb-4b77-9ea2-4d17e2e768c8" x="0" y="20" width="50" height="20">
+			<text><![CDATA[Edad:]]></text>
+		</element>
+		<element kind="textField" uuid="73a4bc93-0dae-4c0c-8251-e21cf74af574" x="50" y="0" width="80" height="20">
+			<expression><![CDATA[$F{dni}]]></expression>
+		</element>
+		<element kind="textField" uuid="19b1e4c7-bc35-4cd0-8389-d05a7fbe74a4" x="50" y="20" width="80" height="20">
+			<expression><![CDATA[$F{edad}]]></expression>
+		</element>
+		<element kind="textField" uuid="2aac2d2a-a61a-4ce9-89ac-3911707e1582" x="180" y="20" width="80" height="20">
+			<expression><![CDATA[$F{apellidos}]]></expression>
+		</element>
+		<element kind="textField" uuid="9a397c31-8088-4ff7-ad19-a3ac6d1eef16" x="180" y="0" width="80" height="20">
+			<expression><![CDATA[$F{nombre}]]></expression>
+		</element>
+		<element kind="line" uuid="88f8e1ed-3a77-483a-b2ce-f14bcefe6110" x="0" y="42" width="552" height="1"/>
+		<element kind="textField" uuid="641a20b3-679d-4549-91b1-be990d359ec2" x="330" y="20" width="80" height="20">
+			<expression><![CDATA[$F{salidas}]]></expression>
+		</element>
+		<element kind="staticText" uuid="c5baa775-49c8-48f7-a93b-6abd4f57cb96" x="260" y="0" width="70" height="20">
+			<text><![CDATA[Nº entradas:]]></text>
+		</element>
+		<element kind="staticText" uuid="9dc770d8-9f44-43f4-9e59-5041a262b69e" x="260" y="20" width="70" height="20">
+			<text><![CDATA[Nº salidas:]]></text>
+		</element>
+		<element kind="textField" uuid="1e42bdd4-fe6e-409f-b493-4459b7b3d1d1" x="330" y="0" width="80" height="20">
+			<expression><![CDATA[$F{entradas}]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="34">
+		<element kind="staticText" uuid="c5128914-3e84-42f7-b7f3-1e69aec8f1c6" mode="Opaque" x="0" y="4" width="552" height="30" forecolor="#030303" backcolor="rgba(255, 147, 72, 0.29411766)" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Registro]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="742077bf-1279-4613-bd16-cf7d18179cfa"/>
+			<box>
+				<pen lineWidth="1.0" lineColor="#FF7F27"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="textField" uuid="ab5d4d55-ad05-468e-8a3c-79ac069735af" mode="Opaque" x="0" y="0" width="552" height="30" backcolor="rgba(0, 158, 231, 0.29411766)" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{registro_texto}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="742077bf-1279-4613-bd16-cf7d18179cfa"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#4ABDEF"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="50">
+		<element kind="staticText" uuid="95193e82-a835-48de-a51e-51afd337d057" x="460" y="10" width="48" height="20" fontName="Impact" fontSize="9.0" bold="true" underline="false" italic="false" hTextAlign="Center">
+			<text><![CDATA[Gym Tony]]></text>
+		</element>
+		<element kind="staticText" uuid="e57a3510-a0c9-4d14-822a-8a837ee8e317" x="460" y="20" width="48" height="10" fontSize="4.0" italic="true" hTextAlign="Center">
+			<text><![CDATA["A bajar las copas!"]]></text>
+		</element>
+		<element kind="image" uuid="fe185f9c-15d4-4b01-9ccc-8c3b97775f82" x="510" y="10" width="42" height="40">
+			<expression><![CDATA["C:/Users/dbesarami/JaspersoftWorkspace/DINT/assets/logoGymTony.png"]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>

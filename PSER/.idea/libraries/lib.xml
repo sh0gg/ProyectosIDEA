@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/JSON-java-20251224/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/JSON-java-20251224/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/extras/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/extras/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/gson/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/gson/src/main/java-templates" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/gson/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/metrics/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/proto/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/proto/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/test-graal-native-image/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/test-jpms/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/test-shrinker/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/gson-gson-parent-2.13.2/test-shrinker/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" type="SOURCES" />
+  </library>
+</component>

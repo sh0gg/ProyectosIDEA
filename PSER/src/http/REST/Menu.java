@@ -1,4 +1,4 @@
-package http;
+package http.REST;
 
 import java.util.Scanner;
 
@@ -22,10 +22,10 @@ public class Menu {
     private static void mostrarMenu() {
         System.out.println("Menu");
         System.out.println("===============");
-        System.out.println("Opción 1 : -");
-        System.out.println("Opción 2 : -");
-        System.out.println("Opción 3 : -");
-        System.out.println("Opción 4 : -");
+        System.out.println("Opción 1 : GET");
+        System.out.println("Opción 2 : POST");
+        System.out.println("Opción 3 : DELETE");
+        System.out.println("Opción 4 : RestInsertarProvinciaClientes");
         System.out.println("Opción 5 : Salir");
         System.out.println("===============");
         System.out.println(" ");
@@ -59,15 +59,19 @@ public class Menu {
     }
 
     private static void metodoCuatro() {
+        RestInsertarProvinciaClientes.main(null);
     }
 
     private static void metodoTres() {
+        RestDELETE.main(null);
     }
 
     private static void metodoDos() {
+        RestPOST.main(null);
     }
 
     private static void metodoUno() {
+        RestGET.main(null);
     }
 
 }
