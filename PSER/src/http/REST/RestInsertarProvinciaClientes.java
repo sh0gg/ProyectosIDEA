@@ -1,5 +1,7 @@
 package http.REST;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
@@ -36,9 +38,28 @@ public class RestInsertarProvinciaClientes {
 
             con.connect();
             if (con.getResponseCode() == 201) {
-                /* Si en la inserción devolvemos un JSON con la clave generada, aquí deberíamos
-                recuperar el JSON y analizarlo para obtenerla por si la necesitamos */
-                System.out.println("Inserción correcta");
+                Scanner lector = new Scanner(con.getInputStream());
+                String respuestaJson = "";
+                while (lector.hasNext()) {
+                    respuestaJson += lector.nextLine();
+                }
+                lector.close();
+
+                System.out.println("Inserción correcta.");
+                System.out.println("Respuesta del servidor: " + respuestaJson);
+
+                 JSONObject obj = new JSONObject(respuestaJson);
+                 int codProvincia = obj.getInt("id");
+
+                System.out.println("Añadir cliente.");
+                System.out.println("Nombre: ");
+                String nombre = sc.nextLine();
+                System.out.println("VIP?: ");
+                int vip = sc.nextInt();
+
+
+
+
             } else {
                 System.out.println("Problemas.Respuesta: (" + con.getResponseCode() + ") " + con.getResponseMessage());
             }

@@ -24,7 +24,7 @@ public class Menu {
         System.out.println("===============");
         System.out.println("Opción 1 : GET");
         System.out.println("Opción 2 : POST");
-        System.out.println("Opción 3 : DELETE");
+        System.out.println("Opción 3 : RestDeleteConListado");
         System.out.println("Opción 4 : RestInsertarProvinciaClientes");
         System.out.println("Opción 5 : Salir");
         System.out.println("===============");
@@ -63,7 +63,7 @@ public class Menu {
     }
 
     private static void metodoTres() {
-        RestDELETE.main(null);
+        RestDeleteConListado.main(null);
     }
 
     private static void metodoDos() {
