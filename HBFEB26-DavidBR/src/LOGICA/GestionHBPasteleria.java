@@ -73,11 +73,23 @@ public class GestionHBPasteleria {
         }
         // System.out.println("Actualmente, " + nombrePasteleria + " es de " +  duenoActual); YA SE DA ESTA INFO AL EJECUTAR getPasteleroPasteleria
         System.out.println("Pasará a ser de " + alias);
-        String nuevoDueno = HBPasteleriaDAO.cambiarDueno(alias,nombrePasteleria);
+        String nuevoDueno = HBPasteleriaDAO.cambiarDueno(alias, nombrePasteleria);
         if (nuevoDueno.equals(alias)) {
             System.out.println("Traspaso completado! " + nombrePasteleria + " es ahora de " + nuevoDueno);
         } else if (nuevoDueno.equals("errPastelero")) {
             System.out.println("El alias del nuevo dueño no existe!");
+        } else {
+            System.out.println("Algo ha fallado COMPRUEBA EL CODIGO"); // esta salida es para mi
+        }
+    }
+
+    public static void borrarProducto(int id) {
+        int resultado = HBPasteleriaDAO.borrarProducto(id);
+
+        if (resultado == 0) {
+            System.out.println("Se ha borrado correctamente el producto con el id " + id);
+        } else if (resultado == -1) {
+            System.out.println("No se ha encontrado el producto con el id " + id + ". Cancelando operacion!");
         } else {
             System.out.println("Algo ha fallado COMPRUEBA EL CODIGO"); // esta salida es para mi
         }

@@ -4,6 +4,7 @@ package PERSISTENCIA;
 
 import POJOS.Pasteleria;
 import POJOS.Pastelero;
+import POJOS.Producto;
 import POJOS.Tecnica;
 import UTILIDADES.HibernateUtil;
 import org.hibernate.Session;
@@ -125,5 +126,27 @@ public class HBPasteleriaDAO {
             session.close();
         }
         return nuevoDueno;
+    }
+
+    public static int borrarProducto(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        int resultado = -2;
+        Producto prod = null;
+        try {
+            prod = session.createQuery("from Producto p where p.codigo LIKE :i", Producto.class).setParameter("i", id).uniqueResult();
+            if (prod != null) {
+                session.delete(prod);
+                resultado = 0;
+            } else {
+                resultado = -1;
+            }
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+        return resultado;
     }
 }

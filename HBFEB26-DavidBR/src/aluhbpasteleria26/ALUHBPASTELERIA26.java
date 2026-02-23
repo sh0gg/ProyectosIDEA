@@ -39,7 +39,14 @@ public class ALUHBPASTELERIA26 {
         //GestionHBPasteleria.cambiarDueno("Seo", "BakedCake");
         */
 
-        //
+        // Eliminar producto (falta eliminacion en pastelerias: default-cascade="all"?
+        GestionHBPasteleria.borrarProducto(13);
+
+        // Eliminar producto (ya no existe)
+        GestionHBPasteleria.borrarProducto(13);
+
+        // Mostrar certificaciones
+
 
     }
 

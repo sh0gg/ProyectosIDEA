@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 17 mar. 2024 15:28:42 by Hibernate Tools 4.3.1 -->
-<hibernate-mapping>
+<hibernate-mapping default-cascade="all-delete-orphan">
     <class name="POJOS.Producto" table="PRODUCTO" schema="dbo" catalog="HBPASTELERIA26" >
        <id name="codigo" type="int">
             <column name="Codigo" />
