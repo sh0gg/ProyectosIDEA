@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- mapeo cocineros examen hb -->
+<hibernate-mapping>
+    <class catalog="COCINAHB22" name="POJOS.Cocinero" schema="dbo" table="COCINERO">
+        <id name="codigo" type="int">
+            <column name="CODIGO"/>
+            <generator class="increment"/>
+        </id>
+        <property name="nombre" type="string">
+            <column length="50" name="NOMBRE" not-null="true"/>
+        </property>
+        <property name="apellido1" type="string">
+            <column length="50" name="APELLIDO1" not-null="true"/>
+        </property>
+        <property name="apellido2" type="string">
+            <column length="50" name="APELLIDO2"/>
+        </property>
+        <property name="sexo" type="java.lang.Character">
+            <column length="1" name="SEXO"/>
+        </property>
+        <property name="apodo" type="string" unique="true">
+            <column length="35" name="APODO"/>
+        </property>     
+        <one-to-one class="POJOS.Contactococinero" name="contacto"/> 
+        
+        <idbag name="premios" table="PREMIO">
+            <collection-id type="java.lang.Integer" column="IDPREMIO">
+                <generator class="increment"/>
+            </collection-id>
+            <key>
+                <column name="CODCOCINERO" not-null="true"/>
+            </key>
+            <composite-element class="POJOS.Premio">
+                <property name="premio" column="PREMIO" type="string" not-null="true"/>
+                <property name="anho" column="ANHO" type="java.lang.Integer"/>
+            </composite-element>
+        </idbag>
+        
+        
+        
+        <bag name="publicaciones" table="COCINEROPUBLICACION" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDCOCINERO" not-null="true"/>
+            </key>
+            <many-to-many entity-name="POJOS.Publicacion">
+                <column name="CODPUBLICACION" not-null="true"/>
+            </many-to-many>
+        </bag>
+        
+        <list name="restaurantes" table="RESTAURANTE">
+            <key>
+                <column length="15" name="CODCOCINERO" not-null="true"/>
+            </key>
+            <list-index base="1" column="NUMERO"/>
+            <composite-element class="POJOS.Restaurante">
+                <property name="nombrerestaurante" type="string">
+                    <column name="NOMBRERESTAURANTE" length="30" not-null="true" />
+                </property>
+                <property name="tenedores" type="java.lang.Integer">
+                    <column name="TENEDORES"  not-null="true" />
+                </property>
+                <property name="localidad" type="string">
+                    <column name="LOCALIDAD" length="40" not-null="true" />
+                </property>
+            </composite-element>
+        </list>
+        
+        
+        <bag fetch="select" inverse="true" lazy="true" cascade="all, delete-orphan" name="recetas" table="RECETA">
+            <key>
+                <column name="CODCOCINERO"/>
+            </key>
+            <one-to-many class="POJOS.Receta"/>
+        </bag>
+        
+        
+    </class>
+</hibernate-mapping>

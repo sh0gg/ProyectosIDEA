@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://;databaseName=HBPASTELERIA26;encrypt=true; trustServerCertificate=true; </property>
+    <property name="hibernate.connection.username">sa</property>
+    <property name="hibernate.connection.password">abc123.</property>
+     
+    <mapping resource="MAPEO/Certificacion.hbm.xml"/>
+    <mapping resource="MAPEO/Pasteleria.hbm.xml"/>
+    <mapping resource="MAPEO/Pastelero.hbm.xml"/>
+    <mapping resource="MAPEO/Producto.hbm.xml"/>
+     </session-factory>
+</hibernate-configuration>

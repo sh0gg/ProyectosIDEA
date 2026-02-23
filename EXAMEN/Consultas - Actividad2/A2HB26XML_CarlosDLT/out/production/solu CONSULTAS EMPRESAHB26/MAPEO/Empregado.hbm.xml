@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class catalog="EMPRESAHB26" name="POJOS.Empregado" schema="dbo" table="EMPREGADO">
+        <id name="nss" type="string">
+            <column length="15" name="NSS"/>
+            <generator class="assigned"/>
+        </id>
+    
+        <property name="nome" type="string">
+            <column length="25" name="Nome" not-null="true"/>
+        </property>
+        <property name="apelido1" type="string">
+            <column length="25" name="Apelido1" not-null="true"/>
+        </property>
+        <property name="apelido2" type="string">
+            <column length="25" name="Apelido2"/>
+        </property> 
+        <!--mapeo de la fecha de nacimiento como Localdate.
+          Aqui en property se puede usar tipos Java modernos,
+          Hibernate puede aplicar automáticamente un UserType interno para convertir LocalDate ↔ SQL DATE
+        -->    
+        <property name="dataNacemento" type="java.time.LocalDate">
+            <column  name="DataNacemento"/>
+        </property>
+        <property name="sexo" type="java.lang.Character">
+            <column length="1" name="Sexo"/>
+        </property>  
+                
+        <!--mapeo de la dirección del empregado como clase componente -->
+        <component class="POJOS.Enderezo" name="enderezo">
+            <property name="rua" type="string">
+                <column length="30" name="Rua"/>
+            </property>
+            <property name="numeroCalle" type="java.lang.Integer">
+                <column name="Numero_Calle"/>
+            </property>
+            <property name="piso" type="string">
+                <column length="4" name="Piso"/>
+            </property>
+            <property name="cp" type="string">
+                <column length="5" name="CP"/>
+            </property>
+            <property name="localidade" type="string">
+                <column length="25" name="Localidade"/>
+            </property>
+            <property name="provincia" type="string">
+                <column length="15" name="Provincia"/>
+            </property>
+        </component>       
+        <!-- Mapear los telefonos como map de componentes -->
+        <map name="telefonos" table="TELEFONO">
+            <key>
+                <column name="NSS" length="15" not-null="true"/>
+            </key>
+            <map-key column="Telefono" type="string"/>
+            <element column="Informacion" type="string"/>         
+        </map>  
+        <!--Mapear los familiares como list de componentes  -->
+        <list name="familiares" table="FAMILIAR">
+            <key>
+                <column length="15" name="NSS_empregado" not-null="true"/>
+            </key>
+            <list-index base="1" column="Numero"/>
+            <composite-element class="POJOS.Familiar">
+                <property name="nss" type="string">
+                    <column length="15" name="NSS" not-null="true"/>
+                </property>
+                <property name="nome" type="string">
+                    <column length="25" name="Nome" not-null="true"/>
+                </property>
+                <property name="apelido1" type="string">
+                    <column length="25" name="Apelido1" not-null="true"/>
+                </property>
+                <property name="apelido2" type="string">
+                    <column length="25" name="Apelido2"/>
+                </property>
+                <property name="dataNacimento" type="java.time.LocalDate">
+                    <column  name="Data_nacimento"/>
+                </property>
+                <property name="parentesco" type="string">
+                    <column length="20" name="Parentesco" not-null="true"/>
+                </property>
+                <property name="sexo" type="char">
+                    <column length="1" name="Sexo" not-null="true"/>
+                </property>
+            </composite-element>
+        </list> 
+       
+        
+        <!-- Mapeo del departamento que pertenece un empleado -->
+        <many-to-one class="POJOS.Departamento" fetch="select" name="departamento">
+            <column name="NumDepartamentoPertenece"/>
+        </many-to-one>
+        
+        <!--   MANY-TO-MANY: HABILIDADES DE UN EMPREGADO
+        Este es el LADO PROPIETARIO de la relación
+        Controla la tabla EMPREGADO_HABILIDADE -->
+        <set name="habilidades"  table="EMPREGADO_HABILIDADE">
+            <key column="NSS"/>
+            <many-to-many class="POJOS.Habilidade"  column="IDHABILIDADE"/>
+        </set>
+
+        <!-- mapeo del vehiculo de un empleado -->
+        <one-to-one class="POJOS.Vehiculo" name="vehiculo" cascade="all"/>
+               
+        <!-- 
+        Mapeo das participacións dun empregado/proxecto.        
+        inverse="true":
+            - Indica que este SET NON é o lado propietario da relación.
+            - A FK real está na entidade intermedia EMPREGADO_PROXECTO.
+            - Polo tanto, Hibernate NON debe facer INSERT/UPDATE da FK desde aquí.        
+        cascade="all-delete-orphan":
+            - cascade="all": Todas las operaciones de persistencia realizadas sobre la Empregado
+             se propagan automáticamente a las entidades asociadas EMPREGADOPROXECTO.
+            - delete-orphan: se se elimina unha participación deste SET,
+              Hibernate elimina a fila correspondente da táboa EMPREGADO_PROXECTO
+              porque queda “orfá” (sen entidade pai).
+        -->
+        <set name="proxectos" inverse="true" cascade="all-delete-orphan">
+            <key column="NSSEmpregado"/>
+            <one-to-many class="POJOS.EmpregadoProxecto"/>
+        </set>
+
+        <!--  mapear el supervisor de un empleado  
+        Lado propietario         -->
+        <many-to-one class="POJOS.Empregado" fetch="select" name="supervisor">
+            <column length="15" name="NSSSupervisa"/>
+        </many-to-one>
+        
+        <!-- mapeo con set de los empleados que supervisa un supervisor   -->
+        <set fetch="select" inverse="true" lazy="true" name="supervisados" table="EMPREGADO">
+            <key>
+                <column length="15" name="NSSSupervisa"/>
+            </key>
+            <one-to-many class="POJOS.Empregado"/>
+        </set>
+        <!--  
+            Mapeo de herdanza JOINED:
+            - Cada subclase (EmpregadoFixo e EmpregadoTemporal) ten a súa propia táboa.
+            - A clave primaria NSS é compartida e tamén é FK á táboa EMPREGADO.
+            
+        -->
+        <joined-subclass name="POJOS.Empregadofixo" table="EMPREGADOFIXO">
+            <!-- es la PK que también es  FK á táboa EMPREGADO -->
+            <key column="NSS"/>
+            <property name="salario" type="java.lang.Double">
+                <column name="Salario" precision="53" scale="0"/>
+            </property>
+            <property name="dataAlta" type="java.time.LocalDate">
+                <column length="10" name="DataAlta"/>
+            </property>
+            <property name="categoria" type="string">
+                <column length="20" name="Categoria"/>
+            </property>
+            
+            <!-- Mapeo de las horas extras del empleado fijo como Map de componentes -->
+            <map name="horasextras" table="HORASEXTRAS">    
+                <!-- La FK hacia EMPREGADO (NSS del empleado fijo) -->
+                <key column="NSS"/>
+                <!-- La clave del Map -->
+                <map-key  column="Data" type="java.time.LocalDate"/>
+                <!-- El valor del Map: número de horas extras -->
+                <element type="double" column="HorasExtras"/>
+            </map>
+            <!--  Mapeo del departamento del que un empleado fijo puede ser director.            
+                Esta relación es ONE-TO-ONE porque:
+                - Un empleado fijo solo puede ser director de UN ÚNICO departamento.
+                - Y cada departamento solo puede tener UN director.                
+                Por eso se usa <one-to-one> en este lado.                
+                Si un empleado pudiera dirigir VARIOS departamentos,
+                entonces el mapeo sería <one-to-many> en Empregadofixo.                
+                property-ref="director" indica que la FK real está en la tabla DEPARTAMENTO (no en EMPREGADOFIXO),
+                en la columna que referencia al empleado director.
+            -->
+            <one-to-one name="deptodirector" class="POJOS.Departamento" property-ref="director"/>
+             
+        </joined-subclass>
+        <joined-subclass name="POJOS.Empregadotemporal" table="EMPREGADOTEMPORAL">
+            <key column="NSS"/>
+            <property name="dataInicio" type="java.time.LocalDate">
+                <column name="DataInicio" length="10" />
+            </property>
+            <property name="dataFin" type="java.time.LocalDate">
+                <column name="DataFin" length="10" />
+            </property>
+            <property name="costeHora" type="java.lang.Double">
+                <column name="CosteHora" precision="53" scale="0" />
+            </property>
+            <property name="numHoras" type="java.lang.Double">
+                <column name="NumHoras" precision="53" scale="0" />
+            </property>
+        </joined-subclass>      
+        
+    </class>
+    
+</hibernate-mapping>

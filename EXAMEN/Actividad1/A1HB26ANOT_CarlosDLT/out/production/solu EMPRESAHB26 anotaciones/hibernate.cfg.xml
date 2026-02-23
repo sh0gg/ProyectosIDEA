@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://localhost;databaseName=EMPRESAHB26;encrypt=true; trustServerCertificate=true; </property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password">abc123.</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
+    
+        <!--
+            <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.use_sql_comments">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property> -->
+        <mapping class="POJOS.Departamento"/>
+        <mapping class="POJOS.Empregado"/>
+        <mapping class="POJOS.Proxecto"/>
+        <mapping class="POJOS.EmpregadoProxecto"/>
+        <mapping class="POJOS.Vehiculo"/>
+        <mapping class="POJOS.Empregadofixo"/>
+        <mapping class="POJOS.Empregadotemporal"/>
+        <mapping class="POJOS.Habilidade"/>
+        <mapping class="POJOS.Lugar"/>
+    </session-factory>
+</hibernate-configuration>

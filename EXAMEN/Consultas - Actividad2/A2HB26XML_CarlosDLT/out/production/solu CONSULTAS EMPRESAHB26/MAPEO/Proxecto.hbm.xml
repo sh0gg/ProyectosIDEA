@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="POJOS.Proxecto" table="PROXECTO" schema="dbo" catalog="EMPRESAHB26">
+        <id name="numProxecto" type="int">
+            <column name="NumProxecto" />
+            <generator class="increment" />
+        </id>
+        <property name="nomeProxecto" type="string">
+            <column name="NomeProxecto" length="25" not-null="true" unique="true" />
+        </property>
+        <property name="lugar" type="string">
+            <column name="Lugar" length="25" not-null="true" />
+        </property>
+        <!-- mapear las fase de proyecto como componente         -->
+        <set name="fases" table="PROXECTOFASE">
+            <key column="NumProxecto"/> 
+            <composite-element class="POJOS.ProxectoFase">
+                <property name="nomeFase" column="NomeFase"/>   
+                <property name="estado" column="Estado"/> 
+            </composite-element>            
+        </set>
+       <!-- Mapeo dos empregados asociados ao proxecto.
+        inverse="true":
+    - Este SET non e o lado propietario da relacion.
+    - A FK real esta na entidade intermedia EMPREGADO_PROXECTO.
+    - Hibernate non debe facer INSERT nin UPDATE da FK desde aqui.
+    cascade="all-delete-orphan":
+    - cascade="all": Todas as operacions de persistencia feitas sobre Proxecto
+      propaganse automaticamente a EmpregadoProxecto.
+    - delete-orphan: Se se elimina unha participacion deste SET,
+      Hibernate borra a fila correspondente en EMPREGADO_PROXECTO
+      porque queda sen entidade pai (proxecto).
+
+Este e o lado inverso, non o propietario.
+O cascade actua unicamente sobre EmpregadoProxecto, non sobre Empregado.
+-->
+
+        <set name="empregados" inverse="true" cascade="all-delete-orphan">
+            <key column="NumProxecto"/>
+            <one-to-many class="POJOS.EmpregadoProxecto"/>
+        </set>   
+       <!--Mapeo del departamento que controla los proyectos -->
+    <many-to-one name="departamento"
+                     class="POJOS.Departamento"
+                     column="NumDepartControla"
+                     not-null="true"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="POJOS.Pastelero" table="PASTELERO" schema="dbo" catalog="HBPASTELERIA26" >
+        <id name="codigo" type="string">
+            <column name="Codigo" length="4" />
+            <generator class="assigned" />
+        </id>
+        <property name="nome" type="string">
+            <column name="Nome" length="30" not-null="true" />
+        </property>
+        <property name="apelidos" type="string">
+            <column name="Apelidos" length="50" not-null="true" />
+        </property>
+        <property name="alias" type="string" unique="true">
+            <column name="ALIAS" length="25" not-null="true"  />
+        </property>
+        <property name="datanacemento" type="java.time.LocalDate">
+            <column name="Datanacemento" not-null="true" />
+        </property>
+        <property name="sexo" type="java.lang.Character">
+            <column name="SEXO" length="1" />
+        </property>
+        <component class="POJOS.Contacto" name="contacto">
+            <property name="telefonoFijo" type="string">
+                <column name="TELEFONOFIJO" length="9" />
+            </property>
+            <property name="telefonoMovil" type="string">
+                <column name="TELEFONOMOVIL" length="9" />
+            </property>
+            <property name="email" type="string">
+                <column name="EMAIL" length="60" />
+            </property>
+        </component>
+
+        <!-- Map de tecnicas -->
+        <map name="tecnicas" table="TECNICA">
+            <key>
+                <column name="Codpastelero" length="4" not-null="true"/>
+            </key>
+            <map-key type="string" column="Tecnica"/>
+            <element type="string" column="Nivel"/>
+        </map>
+
+        <!-- Set de pastelerias -->
+        <set fetch="select" inverse="true" lazy="true" name="pastelerias" table="PASTELERIA">
+            <key>
+                <column length="4" name="Codigo"/>
+            </key>
+            <one-to-many class="POJOS.Pasteleria"/>
+        </set>
+
+        <!-- mapeo de la certificacion -->
+        <one-to-one name="certificacion" class="POJOS.Certificacion"/>
+
+    </class>
+</hibernate-mapping>

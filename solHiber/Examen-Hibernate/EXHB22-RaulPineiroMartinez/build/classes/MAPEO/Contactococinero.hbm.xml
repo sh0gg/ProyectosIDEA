@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- codigo xml para el examen hb -->
+<hibernate-mapping>
+    <class catalog="COCINAHB22" name="POJOS.Contactococinero" schema="dbo" table="CONTACTOCOCINERO">
+        <id name="codcocinero" type="int">
+            <column name="CODCOCINERO"/>
+            <generator class="foreign">
+                <param name="property">cocinero</param>
+            </generator>
+        </id>
+        <one-to-one class="POJOS.Cocinero" name="cocinero" constrained="true"/>
+        <property name="email" type="string">
+            <column length="30" name="EMAIL"/>
+        </property>
+        <property name="telefonomovil" type="string">
+            <column length="9" name="TELEFONOMOVIL"/>
+        </property>
+        <property name="telefonofijo" type="string">
+            <column length="9" name="TELEFONOFIJO"/>
+        </property>
+    </class>
+</hibernate-mapping>

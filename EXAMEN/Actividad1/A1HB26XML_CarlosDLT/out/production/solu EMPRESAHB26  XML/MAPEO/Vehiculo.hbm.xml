@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="POJOS.Vehiculo" table="VEHICULO" schema="dbo" catalog="EMPRESAHB26">
+          <!-- 
+         Vehiculo NO genera su propia clave primaria.La PK de Vehiculo se toma del objeto empregado asociado
+         Hibernate copiará el NSS del empleado y lo usará como PK del vehículo
+        -->
+        <id name="nss" type="string">
+            <column name="NSS" length="15" />
+            <generator class="foreign">
+                <param name="property">empregado</param>
+            </generator>
+        </id>
+        <!--mapeo de las propiedades-->
+        <property name="matricula" type="string" >
+            <column name="Matricula" length="10" unique='true'/>
+        </property>
+        <property name="marca" type="string">
+            <column name="Marca" length="15" />
+        </property>
+        <property name="modelo" type="string">
+            <column name="Modelo" length="25" />
+        </property>
+        <property name="dataCompra" type="java.time.LocalDate">
+            <column name="DataCompra" length="10" />
+        </property>
+       <!-- mapeo del empleado que tiene el vehiculo
+         constrained="true"
+         La clave primaria de esta entidad (Vehiculo) es también una clave foránea hacia la otra entidad (Empregado).
+          Hibernate Sabe que Vehiculo depende de Empregado. No puede insertarse antes.
+            Sabe que la PK de Vehiculo = PK de Empregado  
+            No genera clave propia.
+            Sabe que debe usar el generador foreign, porque la PK viene del empleado.
+        -->
+         <one-to-one name="empregado" class="POJOS.Empregado" constrained="true">           
+        </one-to-one>
+    </class>
+</hibernate-mapping>

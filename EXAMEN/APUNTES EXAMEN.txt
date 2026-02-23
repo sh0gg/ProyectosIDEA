@@ -1,0 +1,185 @@
+EN EL MAPEO:
+EN LA CLAVE PRIMARIA en la línea de generator el atributo class puede ser:
+assigned: si es para que lo asigne el programador
+increment: para que lo genere hibernate
+identity: lo genera la propia bd
+foreign: en relación one-to-one comparten misma clave, por lo cual:
+ <generator class="foreign">
+                <param name="property">empregado</param> <!--// esto es para coger el valor de empregado ya que comparten la misma clave (relacion one to one)-->
+            </generator>
+
+
+RELACIONES:
+- MANY-TO-ONE -> ONE-TO-MANY: LLEVA INVERSE A TRUE EL LADO ONE-TO-MANY
+   <!-- Mapeo del departamento que pertenece un empleado -->
+        <many-to-one class="POJOS.Departamento" fetch="select" name="departamento">
+            <column name="NumDepartamentoPertenece"/>
+        </many-to-one>
+
+  <set name="empregados" table="EMPREGADO" inverse="true" lazy="true" fetch="select">
+        <key>
+            <column name="NumDepartamentoPertenece"/>
+        </key>
+        <one-to-many class="POJOS.Empregado"/>
+
+- MANY-TO-MANY -> MANY-TO-MANY:
+
+<!--   MANY-TO-MANY: HABILIDADES DE UN EMPREGADO
+          Este es el LADO PROPIETARIO de la relación (EMPREGADO)
+          Controla la tabla EMPREGADO_HABILIDADE -->
+        <set name="habilidades"  table="EMPREGADO_HABILIDADE">
+            <key column="NSS"/>
+            <many-to-many class="POJOS.Habilidade"  column="IDHABILIDADE"/>
+        </set>
+
+ <!-- Los empregados que tiene una habilidad
+          MANY-TO-MANY (LADO INVERSO): HABILIDADE
+          inverse="true" → NO controla la tabla intermedia
+          La controla EMPREGADO         -->
+        <set name="empregados" table="EMPREGADO_HABILIDADE"  inverse="true">
+            <key column="IDHABILIDADE"/>
+            <many-to-many class="POJOS.Empregado" column="NSS"/>
+        </set>
+
+- ONE-TO-ONE -> ONE-TO-ONE:
+A PARTE DE LO DE GENERATOR
+LADO EMPREGADO: SE PONE AQUÍ CASCADE PARA ELIMINAR LOS VEHÍCULOS SI SE ELIMINA EL EMPLEADO
+   <!-- mapeo del vehiculo de un empleado -->
+        <one-to-one class="POJOS.Vehiculo" name="vehiculo" cascade="all"/>
+
+LADO VEHÍCULO ("DÉBIL"): SE PONE CONSTRAINED="TRUE"
+ <one-to-one name="empregado" class="POJOS.Empregado" constrained="true"/>
+
+- ONE-TO-MANY -> MANY-TO-ONE:
+ <!-- 
+        Mapeo das participacións dun empregado/proxecto.        
+        inverse="true":
+            - Indica que este SET NON é o lado propietario da relación.
+            - A FK real está na entidade intermedia EMPREGADO_PROXECTO.
+            - Polo tanto, Hibernate NON debe facer INSERT/UPDATE da FK desde aquí.        
+        cascade="all-delete-orphan":
+            - cascade="all": Todas las operaciones de persistencia realizadas sobre la Empregado
+             se propagan automáticamente a las entidades asociadas EMPREGADOPROXECTO.
+            - delete-orphan: se se elimina unha participación deste SET,
+              Hibernate elimina a fila correspondente da táboa EMPREGADO_PROXECTO
+              porque queda “orfá” (sen entidade pai).
+        -->
+        <set name="proxectos" inverse="true" cascade="all-delete-orphan">
+            <key column="NSSEmpregado"/>
+            <one-to-many class="POJOS.EmpregadoProxecto"/>
+        </set>
+
+     <!--      Lado propietario porque ten a FK.        
+        Relacion co empregado:
+        insert="false" e update="false":
+            - A FK xa esta incluida na clave composta (composite-id).
+            - Esta FK esta controlada pola PK composta.
+            - Hibernate non debe facer INSERT nin UPDATE directamente sobre esta columna.
+            - A columna NSS xa se insire ou actualiza a traves do composite-id.
+            - Se non pomos estes atributos, Hibernate tentaria facer dous INSERT
+              sobre a mesma columna: un polo composite-id e outro polo many-to-one,
+              o que provocaria un erro de columna duplicada.
+        -->
+
+        <many-to-one name="empregado" class="POJOS.Empregado" column="NSSEmpregado" insert="false" update="false"/>
+
+  <!-- Relacion co proxecto --> 
+        <many-to-one name="proxecto" class="POJOS.Proxecto" column="NumProxecto" insert="false" update="false"/>
+
+    <!-- Mapeo dos empregados asociados ao proxecto.
+        inverse="true":
+    - Este SET non e o lado propietario da relacion.
+    - A FK real esta na entidade intermedia EMPREGADO_PROXECTO.
+    - Hibernate non debe facer INSERT nin UPDATE da FK desde aqui.
+    cascade="all-delete-orphan":
+    - cascade="all": Todas as operacions de persistencia feitas sobre Proxecto
+      propaganse automaticamente a EmpregadoProxecto.
+    - delete-orphan: Se se elimina unha participacion deste SET,
+      Hibernate borra a fila correspondente en EMPREGADO_PROXECTO
+      porque queda sen entidade pai (proxecto).
+
+Este e o lado inverso, non o propietario.
+O cascade actua unicamente sobre EmpregadoProxecto, non sobre Empregado.
+-->
+
+        <set name="empregados" inverse="true" cascade="all-delete-orphan">
+            <key column="NumProxecto"/>
+            <one-to-many class="POJOS.EmpregadoProxecto"/>
+        </set>   
+        <many-to-one name="departamento"
+            class="POJOS.Departamento"
+            column="NumDepartControla"
+            not-null="true"/>
+
+
+MAPEO DE HERENCIA: Y CON UNA RELACIÓN ONE-TO-ONE -> ONE-TO-ONE ESPECIAL, PORQUE UN EMPLEADOFIJO PUEDE SER DIRECTOR DE UN SOLO DEPARTAMENTO
+  <!--  
+            Mapeo de herdanza JOINED:
+            - Cada subclase (EmpregadoFixo e EmpregadoTemporal) ten a súa propia táboa.
+            - A clave primaria NSS é compartida e tamén é FK á táboa EMPREGADO.
+            
+        -->
+        <joined-subclass name="POJOS.Empregadofixo" table="EMPREGADOFIXO">
+            <!-- es la PK que también es  FK á táboa EMPREGADO -->
+            <key column="NSS"/>
+            <property name="salario" type="java.lang.Double">
+                <column name="Salario" precision="53" scale="0"/>
+            </property>
+            <property name="dataAlta" type="java.time.LocalDate">
+                <column length="10" name="DataAlta"/>
+            </property>
+            <property name="categoria" type="string">
+                <column length="20" name="Categoria"/>
+            </property>
+            
+            <!-- Mapeo de las horas extras del empleado fijo como Map de componentes -->
+            <map name="horasextras" table="HORASEXTRAS">    
+                <!-- La FK hacia EMPREGADO (NSS del empleado fijo) -->
+                <key column="NSS"/>
+                <!-- La clave del Map -->
+                <map-key  column="Data" type="java.time.LocalDate"/>
+                <!-- El valor del Map: número de horas extras -->
+                <element type="double" column="HorasExtras"/>
+            </map>
+            <!--  Mapeo del departamento del que un empleado fijo puede ser director.            
+                Esta relación es ONE-TO-ONE porque:
+                - Un empleado fijo solo puede ser director de UN ÚNICO departamento.
+                - Y cada departamento solo puede tener UN director.                
+                Por eso se usa <one-to-one> en este lado.                
+                Si un empleado pudiera dirigir VARIOS departamentos,
+                entonces el mapeo sería <one-to-many> en Empregadofixo.                
+                property-ref="director" indica que la FK real está en la tabla DEPARTAMENTO (no en EMPREGADOFIXO),
+                en la columna que referencia al empleado director.
+            -->
+            <one-to-one name="deptodirector" class="POJOS.Departamento" property-ref="director"/>
+             
+		✓ Lado propietario (Departamento): 
+		 <!--  mapeo del director de un departamento, tiene que ser un empleado fijo -->
+        <many-to-one class="POJOS.Empregadofixo" name="director"  unique="true" fetch="select">
+            <column length="15" name="NSSDirector" not-null="true"/>
+        </many-to-one>
+	       El lado propietario de la relación es Departamento, ya que contiene la clave foránea NSSDirector.
+	 	El mapeo se realiza mediante un <many-to-one> con unique="true" para reflejar la relación 1:1: 
+	       ¿Por qué NO se puede poner <one-to-one> en este lado? 
+		Porque Hibernate no decide la cardinalidad por la lógica del modelo, sino por dónde está la clave foránea (FK) en la base de datos. 
+	    • El lado que tiene la FK siempre se mapea con <many-to-one>. Aunque la relación sea 1:1 real. 
+		• El lado que NO tiene la FK se mapea con <one-to-one>: Es el lado inverso. 
+	✓ Lado inverso (EmpregadoFixo): Se puede mapearse la relación inversa mediante un <one-to-one>: 
+
+        </joined-subclass>
+        <joined-subclass name="POJOS.EmpregadoTemporal" table="EMPREGADOTEMPORAL">
+            <key column="NSS"/>
+            <property name="dataInicio" type="java.time.LocalDate">
+                <column name="DataInicio" length="10" />
+            </property>
+            <property name="dataFin" type="java.time.LocalDate">
+                <column name="DataFin" length="10" />
+            </property>
+            <property name="costeHora" type="java.lang.Double">
+                <column name="CosteHora" precision="53" scale="0" />
+            </property>
+            <property name="numHoras" type="java.lang.Double">
+                <column name="NumHoras" precision="53" scale="0" />
+            </property>
+        </joined-subclass>      
+        

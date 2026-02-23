@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="POJOS.Certificacion" table="CERTIFICACION" schema="dbo" catalog="HBPASTELERIA26" >
+        <id name="codpastelero" type="string">
+            <column name="Codpastelero" length="4" />
+            <generator class="foreign">
+                <param name="property">pastelero</param>
+            </generator>
+        </id>
+        <property name="numlicencia" type="string">
+            <column name="Numlicencia" length="6" not-null="true"  />
+        </property>
+
+        <property name="titulacion" type="string">
+            <column name="Titulacion" length="60" not-null="true" />
+        </property>
+
+        <property name="dataexpedicon" type="java.time.LocalDate">
+            <column name="Dataexpedicon" />
+        </property>
+
+        <property name="organismo" type="string">
+            <column name="Organismo" length="70" />
+        </property>
+       
+    </class>
+</hibernate-mapping>
