@@ -1,0 +1,256 @@
+D) Plantilla ultra-rápida para “enviar distintos tipos de datos”
+
+Si el profe pide “manda un int y un boolean”:
+
+Cliente
+out.writeUTF("ADD_STOCK"); // comando
+out.writeUTF("TORNILLOS"); // string
+out.writeInt(20);          // int
+out.writeBoolean(true);    // boolean
+out.flush();
+Servidor (mismo orden)
+String cmd = in.readUTF();
+String item = in.readUTF();
+int cantidad = in.readInt();
+boolean urgente = in.readBoolean();
+
+
+🧠 1️⃣ ESTRUCTURA GENERAL DE CUALQUIER EXAMEN TCP
+
+Siempre tiene 4 piezas:
+
+1) ServerSocket (escuchar)
+2) accept() (aceptar cliente)
+3) Hilo por cliente (si es multicliente)
+4) Protocolo (login + comandos)
+📦 2️⃣ ¿Dónde está cada cosa en los ejemplos que te di?
+🔵 A) Abrir servidor (siempre igual)
+
+Lo encuentras en:
+
+ServerV1_SimpleEcho
+
+ServerV2_MultiClient_ThreadPerClient
+
+ServerV3_LoginLimit
+
+ServerV4_LoginCreds
+
+La estructura es SIEMPRE esta:
+
+ServerSocket serverSocket = new ServerSocket(PORT);
+
+while(true) {
+    Socket socket = serverSocket.accept();
+    new Thread(() -> handle(socket)).start();
+}
+
+📌 Esto es lo primero que escribes siempre.
+
+🟢 B) Hilo por cliente (handleClient)
+
+Lo encuentras en:
+
+ServerV2_MultiClient_ThreadPerClient
+
+ServerV3_LoginLimit
+
+ServerV4_LoginCreds
+
+Estructura mental:
+
+try (
+    DataInputStream in = ...
+    DataOutputStream out = ...
+) {
+
+    // 1) Login (si hay)
+    // 2) Bucle de comandos
+}
+
+📌 TODO lo que haga el cliente se gestiona aquí.
+
+🟡 C) Login (dos formas)
+🔹 Login por límite (ServerV3)
+
+Lo encuentras en:
+
+ConnectionManagerLimit.login()
+
+ServerV3_LoginLimit
+
+Flujo mental:
+
+1) Cliente conecta
+2) Servidor llama a manager.login()
+3) Servidor envía boolean (loginOk)
+4) Si false → cerrar
+
+Código clave:
+
+boolean loginOk = manager.login(userId);
+out.writeBoolean(loginOk);
+out.flush();
+
+Cliente:
+
+boolean loginOk = in.readBoolean();
+if(!loginOk) return;
+🔹 Login con usuario + contraseña (ServerV4)
+
+Lo encuentras en:
+
+UserManagerCreds
+
+ServerV4_LoginCreds
+
+Flujo mental:
+
+Cliente:
+    writeUTF(user)
+    writeUTF(pass)
+
+Servidor:
+    readUTF()
+    readUTF()
+    validar
+    writeBoolean(ok)
+    si !ok -> writeInt(codigoError)
+
+Código clave:
+
+int err = manager.login(user, pass);
+boolean ok = (err == 0);
+out.writeBoolean(ok);
+if(!ok) out.writeInt(err);
+
+📌 Esto es exactamente lo que suele caer en examen tipo DAM.
+
+🟣 D) Bucle de comandos (la parte central)
+
+Lo encuentras en:
+
+TODOS los ServerV2, V3, V4
+
+Estructura universal:
+
+while(true) {
+    String cmd = in.readUTF();
+
+    switch(cmd) {
+        case "info":
+            out.writeUTF("...");
+            break;
+
+        case "salir":
+            out.writeUTF("bye");
+            break;
+
+        default:
+            out.writeUTF("comando desconocido");
+    }
+
+    out.flush();
+}
+
+📌 Esto es el corazón del ejercicio.
+
+🟠 E) Enviar distintos tipos de datos
+
+Lo encuentras explicado en la sección D del kit.
+
+Regla fundamental:
+
+⚠️ El orden de lectura debe ser EXACTAMENTE igual al orden de escritura.
+
+Ejemplo:
+
+Cliente:
+
+out.writeUTF("GET");
+out.writeUTF("TORNILLOS");
+out.writeInt(20);
+
+Servidor:
+
+String cmd = in.readUTF();
+String material = in.readUTF();
+int cantidad = in.readInt();
+
+📌 Si cambias el orden → bloqueo total.
+
+🔴 F) Shutdown del servidor
+
+Lo encuentras en:
+
+ServerV3 (limit)
+
+ServerV4 (si quisieras añadirlo)
+
+Estructura típica:
+
+serverSocket.close();
+
+Cuando cierras el ServerSocket, el accept() lanza excepción → el servidor principal termina.
+
+📌 Esto es lo que el profesor espera cuando pide "shutdown".
+
+🟤 G) Estado compartido (lo más importante para nota alta)
+
+Lo encuentras en:
+
+ConnectionManagerLimit
+
+UserManagerCreds
+
+Regla de oro:
+
+Si una variable es compartida por varios hilos → synchronized
+
+Ejemplo:
+
+public synchronized int login(...) {
+    ...
+}
+
+📌 Esto demuestra que sabes concurrencia.
+
+📚 3️⃣ Cómo construir el ejercicio en examen (paso a paso)
+Paso 1 — Escribes el servidor base
+ServerSocket
+while(true)
+    accept()
+    new Thread(...)
+Paso 2 — Escribes el handler
+streams
+login
+while(true)
+    read
+    switch
+    write
+Paso 3 — Escribes el cliente
+Socket
+streams
+login handshake
+while(true)
+    write
+    read
+🎯 4️⃣ Qué versión usar según el tipo de ejercicio
+Si el enunciado dice…	Usa…
+“Servidor echo”	ServerV2
+“Máximo N clientes”	ServerV3
+“Usuario y contraseña”	ServerV4
+“Usuario ya conectado no puede entrar”	ServerV4
+“Servidor se apaga con comando”	ServerV3 + close()
+“Enviar enteros o booleanos”	DataInput/Output
+🧨 5️⃣ Los errores típicos que debes evitar
+
+❌ No hacer flush()
+
+❌ Leer en distinto orden que escribes
+
+❌ No usar synchronized en variables compartidas
+
+❌ No cerrar socket en finally
+
+❌ Bloquear el servidor por no usar hilo por cliente
