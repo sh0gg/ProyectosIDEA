@@ -1,0 +1,20 @@
+CREATE DATABASE IF NOT EXISTS instituto CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci;
+USE instituto;
+
+DROP TABLE IF EXISTS alumnos;
+DROP TABLE IF EXISTS cursos;
+
+CREATE TABLE cursos (
+  idCurso INT AUTO_INCREMENT PRIMARY KEY,
+  nombreCurso VARCHAR(50) NOT NULL UNIQUE,
+  aforoMax INT NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE alumnos (
+  idAlumno INT AUTO_INCREMENT PRIMARY KEY,
+  idCurso INT NOT NULL,
+  nombreAlumno VARCHAR(80) NOT NULL,
+  CONSTRAINT fk_alumnos_cursos
+    FOREIGN KEY (idCurso) REFERENCES cursos(idCurso)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
