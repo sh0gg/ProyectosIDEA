@@ -48,16 +48,14 @@ public class RestInsertarProvinciaClientes {
                 System.out.println("Inserción correcta.");
                 System.out.println("Respuesta del servidor: " + respuestaJson);
 
-                 JSONObject obj = new JSONObject(respuestaJson);
-                 int codProvincia = obj.getInt("id");
+                JSONObject obj = new JSONObject(respuestaJson);
+                int codProvincia = obj.getInt("id");
 
                 System.out.println("Añadir cliente.");
                 System.out.println("Nombre: ");
                 String nombre = sc.nextLine();
                 System.out.println("VIP?: ");
                 int vip = sc.nextInt();
-
-
 
 
             } else {

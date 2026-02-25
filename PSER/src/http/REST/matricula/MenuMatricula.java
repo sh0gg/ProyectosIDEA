@@ -17,6 +17,7 @@ public class MenuMatricula {
             System.out.println("2) Mostrar alumnos de un curso (por nombre)");
             System.out.println("3) Añadir N alumnos a un curso si caben");
             System.out.println("4) Eliminar curso (y alumnos)");
+            System.out.println("6) Ver historial");
             System.out.println("5) Salir");
             System.out.print("Opción: ");
 
@@ -29,6 +30,7 @@ public class MenuMatricula {
                     case 3 -> insertarNAlumnosSiCaben(api);
                     case 4 -> eliminarCurso(api);
                     case 5 -> { System.out.println("Fin."); return; }
+                    case 6 -> verHistorial(api);
                     default -> System.out.println("Opción inválida.");
                 }
             } catch (Exception e) {
@@ -173,4 +175,16 @@ public class MenuMatricula {
         if (rd.status == 204) System.out.println("Curso eliminado (y alumnos en cascada).");
         else System.out.println("No se pudo eliminar (" + rd.status + "): " + rd.body);
     }
+
+    static void verHistorial(ApiClient api) throws Exception {
+    ApiClient.Response r = api.get("/historial");
+
+    if (r.status != 200) {
+        System.out.println("Error: " + r.body);
+        return;
+    }
+
+    System.out.println("=== HISTORIAL ===");
+    System.out.println(r.body);
+}
 }

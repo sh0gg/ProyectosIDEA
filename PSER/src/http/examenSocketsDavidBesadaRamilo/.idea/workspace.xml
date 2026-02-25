@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="676dd71f-1d35-4e5a-a671-5bf59cb5b29a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../examenRESTDBR/APIClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../examenRESTDBR/MenuReservas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../REST/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../REST/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../REST/RestInsertarProvinciaClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../REST/RestInsertarProvinciaClientes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../REST/matricula/ApiClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../REST/matricula/ApiClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../REST/matricula/MenuMatricula.java" beforeDir="false" afterPath="$PROJECT_DIR$/../REST/matricula/MenuMatricula.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../REST/matricula/matriculainstituto.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../REST/matricula/matriculainstituto.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../REST/matricula/rest.php" beforeDir="false" afterPath="$PROJECT_DIR$/../REST/matricula/rest.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="3AAB2PyiuV1IJkmtAsMZcJAMEjm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "settings.editor.selected.configurable": "preferences.externalDependencies",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="676dd71f-1d35-4e5a-a671-5bf59cb5b29a" name="Changes" comment="" />
+      <created>1772025287111</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772025287111</updated>
+      <workItem from="1772025288903" duration="5000" />
+    </task>
+    <servers />
+  </component>
+</project>
