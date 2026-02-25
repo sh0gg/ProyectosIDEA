@@ -5,10 +5,11 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 public class ApiClient {
-    private final String base; // ej: "http://localhost/cursos/rest.php"
+
+    private final String base;
 
     public ApiClient(String base) {
-        this.base = base.endsWith("/") ? base.substring(0, base.length()-1) : base;
+        this.base = base;
     }
 
     private HttpURLConnection open(String path, String method) throws IOException {
@@ -21,49 +22,48 @@ public class ApiClient {
 
     public Response get(String path) throws IOException {
         HttpURLConnection con = open(path, "GET");
-        return readResponse(con);
+        return read(con);
+    }
+
+    public Response post(String path, String body) throws IOException {
+        HttpURLConnection con = open(path, "POST");
+        con.setDoOutput(true);
+        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        try (OutputStream os = con.getOutputStream()) {
+            os.write(body.getBytes(StandardCharsets.UTF_8));
+        }
+        return read(con);
     }
 
     public Response delete(String path) throws IOException {
         HttpURLConnection con = open(path, "DELETE");
-        return readResponse(con);
+        return read(con);
     }
 
-    public Response postForm(String path, String formUrlEncoded) throws IOException {
-        HttpURLConnection con = open(path, "POST");
-        con.setDoOutput(true);
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        try (OutputStream os = con.getOutputStream()) {
-            os.write(formUrlEncoded.getBytes(StandardCharsets.UTF_8));
+    private Response read(HttpURLConnection con) throws IOException {
+        int code = con.getResponseCode();
+        InputStream is = (code >= 200 && code < 400) ? con.getInputStream() : con.getErrorStream();
+
+        String body = "";
+        if (is != null) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = br.readLine()) != null) sb.append(line);
+            body = sb.toString();
         }
-        return readResponse(con);
+        return new Response(code, body);
     }
 
     public static class Response {
         public final int status;
         public final String body;
-        public Response(int status, String body) { this.status = status; this.body = body; }
-    }
-
-    private Response readResponse(HttpURLConnection con) throws IOException {
-        int code = con.getResponseCode();
-        InputStream is = (code >= 200 && code < 400) ? con.getInputStream() : con.getErrorStream();
-        String body = "";
-
-        if (is != null) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) sb.append(line);
-                body = sb.toString();
-            }
-        }
-        con.disconnect();
-        return new Response(code, body);
+        public Response(int s, String b) { status=s; body=b; }
     }
 
     public static String enc(String s) {
         try { return URLEncoder.encode(s, "UTF-8"); }
-        catch (Exception e) { return s; }
+        catch(Exception e) { return s; }
     }
 }
