@@ -1,0 +1,2 @@
+los archivos php irian en htdocs/reservas/reservas.php y db_config.php
+los java ya van dentro de un zip con su mismo nombre de paquete

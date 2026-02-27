@@ -3,6 +3,10 @@
   <component name="CompilerConfiguration">
     <excludeFromCompile>
       <file url="file://$PROJECT_DIR$/src/hilos/clase2025_10_01/sol/Principal.java" />
+      <file url="file://$PROJECT_DIR$/src/http/REST/matricula/ApiClient.java" />
+      <file url="file://$PROJECT_DIR$/src/http/REST/RestApi.java" />
+      <file url="file://$PROJECT_DIR$/src/http/REST/matricula/MenuMatricula.java" />
+      <file url="file://$PROJECT_DIR$/src/http/REST/Menu.java" />
     </excludeFromCompile>
   </component>
 </project>

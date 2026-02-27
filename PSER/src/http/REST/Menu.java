@@ -23,7 +23,6 @@ public class Menu {
                     case 4: actualizarClientePUT(); break;           // PUT
                     case 5: cambiarVipPATCH(); break;                // PATCH
                     case 6: borrarCliente(); break;                  // DELETE
-
                     case 7: listarProvincias(); break;               // GET
                     case 8: crearProvincia(); break;                 // POST
                     case 9: clientesPorProvincia(); break;           // GET /provincias/{id}/clientes
